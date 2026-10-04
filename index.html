@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#ECEEE5">
+<title>國際公法條文卷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ECEEE5; --card:#F7F7F1; --line:#D2D6C5; --ink:#1F2622; --muted:#5E6B63;
+  --jade:#2E5E4E; --jade-soft:#DCE6DF; --seal:#A3402F; --seal-soft:#F1DED8; --amber:#8C6D1F;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU","MingLiU",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --paper:#171C19; --card:#202722; --line:#344039; --ink:#E4E8E1; --muted:#9AA79F;
+    --jade:#7FB49D; --jade-soft:#28372F; --seal:#E08A77; --seal-soft:#3A2722; --amber:#D2B260; }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:16px;line-height:1.65;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+#app{max-width:560px;margin:0 auto;padding:14px 16px 56px}
+
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.icon-btn{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:16px;flex:none}
+.brand{flex:1;min-width:0}
+.brand b{font-family:var(--serif);font-size:18px;letter-spacing:1px;display:block;line-height:1.2}
+.brand span{font-size:11.5px;color:var(--muted)}
+.jumprow{display:flex;gap:6px;margin-bottom:12px}
+.jumprow input{flex:1;min-width:0;padding:8px 11px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px}
+.jumprow button{padding:0 14px;border-radius:9px;background:var(--jade);color:var(--paper);font-size:14px}
+.jump-msg{font-size:12.5px;color:var(--seal);margin:-6px 0 10px}
+.back-btn{font-size:13px;color:var(--jade);margin-bottom:10px;display:inline-block}
+
+/* 條文頁：法典式版心 */
+.art-head{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:end;border-left:4px solid var(--jade);padding:4px 0 4px 12px;margin-bottom:10px}
+.art-no{font-family:var(--serif);font-weight:700;font-size:40px;line-height:1;color:var(--jade);grid-row:span 2}
+.art-treaty{font-size:12.5px;color:var(--muted)}
+.art-heading{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.3}
+.art-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}
+.tier{font-size:11.5px;padding:2px 8px;border-radius:4px;background:var(--jade-soft);color:var(--jade);font-weight:700}
+.mark-btn{font-size:12.5px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+.mark-btn.on{border-color:var(--jade);color:var(--jade);font-weight:700}
+.mark-btn.star.on{border-color:var(--amber);color:var(--amber)}
+.nav-pn{margin-left:auto;display:flex;gap:6px}
+.nav-pn button{font-size:12.5px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+.nav-pn button[disabled]{opacity:.35}
+
+.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tabs button{flex:1;padding:9px 0;font-size:14px;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--ink);font-weight:700;border-color:var(--jade)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.seg button{padding:4px 12px;font-size:12.5px;color:var(--muted)}
+.seg button.on{background:var(--jade);color:var(--paper)}
+.quizbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.quiz-toggle{font-size:12.5px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);margin-bottom:12px}
+.quiz-toggle.on{background:var(--seal);border-color:var(--seal);color:#fff}
+
+.para{display:grid;grid-template-columns:28px 1fr;gap:0 8px;margin-bottom:14px}
+.para .pn{font-family:var(--serif);font-weight:700;color:var(--jade);text-align:right;padding-top:1px}
+.para .zh{font-family:var(--serif);font-size:16.5px;line-height:1.9;white-space:pre-line}
+.para .en{font-size:14px;line-height:1.6;color:var(--muted);white-space:pre-line;margin-top:4px}
+.para.en-only .en{color:var(--ink);font-size:15px;margin-top:0}
+.cloze{display:inline-block;min-width:3em;border-bottom:2px solid var(--seal);color:transparent;padding:0 2px;font-family:inherit}
+.cloze.shown{color:var(--seal);font-weight:700}
+.src-note{font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;margin-top:6px}
+
+.sec{margin:18px 0 8px;font-size:13px;font-weight:700;color:var(--jade);display:flex;align-items:center;gap:6px}
+.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+.prose{font-size:15.5px;line-height:1.8}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.el{margin-bottom:10px;font-size:14.5px}
+.el .req{padding-left:0;margin:0;list-style:none}
+.el .req li{padding-left:16px;position:relative}
+.el .req li::before{content:"□";position:absolute;left:0;color:var(--jade);font-size:12px;top:2px}
+.el .eff{margin-top:4px;padding-left:16px;position:relative;font-weight:500}
+.el .eff::before{content:"⇒";position:absolute;left:0;color:var(--seal)}
+.trap{font-size:14.5px;padding:8px 10px 8px 12px;border-left:3px solid var(--seal);background:var(--seal-soft);border-radius:0 8px 8px 0;margin-bottom:8px}
+.custom-status{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:4px;border:1px solid var(--jade);color:var(--jade);margin-right:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--jade-soft);color:var(--jade)}
+.chip.pending{background:transparent;border:1px dashed var(--line);color:var(--muted);cursor:default}
+.case-ref{margin-bottom:10px}
+.case-ref .jumplink{font-weight:700}
+.jumplink{color:var(--jade);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;cursor:pointer}
+.jumplink.pending{color:var(--muted);text-decoration-style:dashed;cursor:default}
+.term{border-bottom:1px dotted var(--amber);cursor:pointer}
+.news{font-size:14.5px;margin-bottom:8px}
+.news small,.muted{color:var(--muted);font-size:12px}
+
+.q{margin-bottom:12px}
+.q .qhead{font-size:12px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.q .stem{font-size:15px;margin:4px 0 6px}
+.q ol{margin:0;padding-left:0;list-style:none;font-size:14px}
+.q li{padding:3px 0 3px 22px;position:relative}
+.q li .lbl{position:absolute;left:0;color:var(--muted)}
+.q li.ok{color:var(--jade);font-weight:700}
+.q .qnote{font-size:13.5px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.flag{font-size:12.5px;color:var(--seal);margin-top:4px}
+.reveal-btn{width:100%;padding:12px;border-radius:10px;border:1px dashed var(--seal);color:var(--seal);font-size:14px;margin-bottom:10px}
+.log{font-size:13px;margin-bottom:4px}
+.log b{font-weight:500;color:var(--jade)}
+.log .t-更正,.log .t-待查{color:var(--seal)}
+
+/* 卡片頁 */
+.card-title{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.35;margin:4px 0 2px}
+.card-sub{font-size:13px;color:var(--muted);margin-bottom:12px}
+.kind{font-size:11.5px;padding:2px 8px;border-radius:4px;background:var(--seal-soft);color:var(--seal);font-weight:700}
+.list{margin:0;padding-left:20px;font-size:15px;line-height:1.75}
+.list li{margin-bottom:6px}
+table.cmp{border-collapse:collapse;font-size:13.5px;min-width:520px}
+table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 8px;vertical-align:top;text-align:left}
+table.cmp th{background:var(--jade-soft);color:var(--jade)}
+table.cmp td:first-child{font-weight:700;white-space:nowrap}
+.scroll-x{overflow-x:auto;margin-bottom:12px}
+
+.row-link{display:block;width:100%;text-align:left;padding:11px 4px;border-bottom:1px solid var(--line)}
+.row-link .t{font-size:15px}
+.row-link .s{font-size:12.5px;color:var(--muted)}
+.home-hero{padding:6px 0 14px}
+.home-hero h1{font-family:var(--serif);font-size:26px;margin:0 0 4px;letter-spacing:1px}
+.home-hero p{margin:0;color:var(--muted);font-size:14px}
+.stat{display:flex;gap:18px;margin:14px 0;font-size:13px;color:var(--muted)}
+.stat b{display:block;font-family:var(--serif);font-size:24px;color:var(--ink)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.filters button{font-size:12.5px;padding:4px 11px;border-radius:999px;border:1px solid var(--line)}
+.filters button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.opt-btn{display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card);margin-bottom:8px;font-size:14.5px}
+.opt-btn.right{border-color:var(--jade);background:var(--jade-soft);font-weight:700}
+.opt-btn.wrong{border-color:var(--seal);background:var(--seal-soft)}
+.primary{padding:10px 16px;border-radius:9px;background:var(--jade);color:var(--paper);font-size:14px}
+textarea.export{width:100%;height:220px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);padding:8px}
+
+/* 抽屜與覆蓋層 */
+.drawer-mask{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:40}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:min(86vw,360px);background:var(--paper);z-index:50;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 14px) 14px calc(env(safe-area-inset-bottom,0px) + 30px);border-right:1px solid var(--line)}
+.drawer h2{font-family:var(--serif);font-size:17px;margin:4px 0 10px}
+.acc-head{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;padding:9px 2px;border-bottom:1px solid var(--line);font-weight:700;font-size:14.5px}
+.acc-head .cnt{font-size:12px;color:var(--muted);font-weight:400}
+.acc-body{display:none;padding:2px 0 6px 8px}
+.acc-body.open{display:block}
+.acc-sub{font-size:12.5px;color:var(--muted);padding:8px 0 2px}
+.d-row{display:flex;gap:6px;align-items:baseline;width:100%;text-align:left;padding:6px 2px;font-size:14px}
+.d-row .no{font-family:var(--serif);font-weight:700;color:var(--jade);min-width:44px}
+.d-row .mk{margin-left:auto;font-size:11px;color:var(--muted)}
+.d-row.cur{background:var(--jade-soft);border-radius:6px}
+.d-link{display:block;width:100%;text-align:left;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+.overlay{position:fixed;inset:0;background:var(--paper);z-index:60;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 0}
+.overlay .bar{display:flex;gap:8px;margin-bottom:10px}
+.overlay .bar input{flex:1;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.overlay .results{flex:1;overflow-y:auto;padding-bottom:30px}
+.sr{display:block;width:100%;text-align:left;padding:10px 4px;border-bottom:1px solid var(--line)}
+.sr .ty{font-size:11px;color:var(--amber);font-weight:700}
+.sr .tt{font-size:15px}
+.sr .sn{font-size:12.5px;color:var(--muted)}
+.pop{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);transform:translateX(-50%);width:min(92vw,520px);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;z-index:70;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.pop h3{margin:0 0 4px;font-family:var(--serif);font-size:17px}
+.pop .r{font-size:13px;margin-bottom:2px}
+@media (prefers-reduced-motion: no-preference){ .drawer{animation:slidein .18s ease-out} @keyframes slidein{from{transform:translateX(-24px);opacity:.6}to{transform:none;opacity:1}} }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="layer"></div>
+<script>
+// ===== 條約概要卡 =====
+var TREATIES = [
+  {
+    id: "icj", short: "規約", topic: "國際法院與爭端解決", aliases: ["規約", "國際法院規約", "icj", "statute"],
+    titleZh: "國際法院規約", titleEn: "Statute of the International Court of Justice",
+    adopted: "1945年6月26日（舊金山，與聯合國憲章同時簽署）", inForce: "1945年10月24日",
+    parties: "聯合國全體193個會員國為當然當事國（憲章第93條第1項）。瑞士、列支敦斯登、聖馬利諾、日本、諾魯等國曾在加入聯合國前，依憲章第93條第2項先成為規約當事國。",
+    rocStatus: "中華民國為1945年原始簽署國。1971年聯大第2758號決議後，我國不再是聯合國會員國，因而也不再是規約當事國，目前無法在國際法院提起或參與訴訟。我國籍法官徐謨（1946–1956，任內辭世）、顧維鈞（1957–1967，1964–1967任副院長）曾任國際法院法官。",
+    zhSource: { type: "authentic", label: "官方作準本（1945年中文本）", note: "國際法院官網公布之中文本為1945年舊式排印本。本App以官網中文本逐字對照正體轉錄本校正；規約自通過後從未修正。" },
+    srcUrl: "https://www.icj-cij.org/statute",
+    structure: "共70條，分五章；規約是聯合國憲章不可分割的一部分（憲章第92條）。",
+    parts: [
+      { title: "（不分章）", from: 1, to: 1 },
+      { title: "第一章 法院之組織", from: 2, to: 33 },
+      { title: "第二章 法院之管轄", from: 34, to: 38 },
+      { title: "第三章 程序", from: 39, to: 64 },
+      { title: "第四章 諮詢意見", from: 65, to: 68 },
+      { title: "第五章 修正", from: 69, to: 70 }
+    ],
+    verified: "2026-10-02"
+  },
+  {
+    id: "unc", short: "憲章", topic: "國際組織與聯合國", aliases: ["憲章", "聯合國憲章", "unc", "charter", "un"],
+    titleZh: "聯合國憲章", titleEn: "Charter of the United Nations",
+    adopted: "1945年6月26日（舊金山）", inForce: "1945年10月24日",
+    parties: "193個會員國（最近一個入會者為2011年的南蘇丹）。",
+    rocStatus: "中華民國為創始會員國，並列名第23條為安理會常任理事國。1971年10月25日聯大第2758號決議由中華人民共和國取代我國代表權，我國自此不在聯合國體系內。憲章第23條、第110條條文至今仍寫「中華民國」，因憲章修正須經第108條程序，該文字從未修改。",
+    zhSource: { type: "authentic", label: "官方作準本（1945年中文本）", note: "中文為憲章五種同一作準文字之一（第111條）。1963、1965、1971年修正第23、27、61、109條；修正條文之中文文本來源待逐條確認（第1A批未收錄這些條文）。" },
+    srcUrl: "https://www.icj-cij.org/charter-of-the-united-nations",
+    structure: "序言加111條，分十九章。修正：第23、27、61條（1965年生效）、第109條（1968年生效）、第61條再修正（1973年生效）。",
+    parts: [
+      { title: "第一章 宗旨及原則", from: 1, to: 2 },
+      { title: "第二章 會員", from: 3, to: 6 },
+      { title: "第三章 機關", from: 7, to: 8 },
+      { title: "第四章 大會", from: 9, to: 22 },
+      { title: "第五章 安全理事會", from: 23, to: 32 },
+      { title: "第六章 爭端之和平解決", from: 33, to: 38 },
+      { title: "第七章 對於和平之威脅、和平之破壞及侵略行為之應付辦法", from: 39, to: 51 },
+      { title: "第八章 區域辦法", from: 52, to: 54 },
+      { title: "第九章 國際經濟及社會合作", from: 55, to: 60 },
+      { title: "第十章 經濟及社會理事會", from: 61, to: 72 },
+      { title: "第十一章 關於非自治領土之宣言", from: 73, to: 74 },
+      { title: "第十二章 國際託管制度", from: 75, to: 85 },
+      { title: "第十三章 託管理事會", from: 86, to: 91 },
+      { title: "第十四章 國際法院", from: 92, to: 96 },
+      { title: "第十五章 秘書處", from: 97, to: 101 },
+      { title: "第十六章 雜項條款", from: 102, to: 105 },
+      { title: "第十七章 過渡安全辦法", from: 106, to: 107 },
+      { title: "第十八章 修正", from: 108, to: 109 },
+      { title: "第十九章 批准及簽字", from: 110, to: 111 }
+    ],
+    verified: "2026-10-02"
+  }
+];
+// ===== 條文：國際法院規約（第1A批） =====
+var ARTICLES = [];
+var LOG_1A = { date: "2026-10-02", type: "新增", text: "第1A批新增本條。" };
+
+ARTICLES.push({
+  treaty: "icj", no: "2", heading: "法官資格", tier: "A",
+  paras: [
+    { n: "", en: "The Court shall be composed of a body of independent judges, elected regardless of their nationality from among persons of high moral character, who possess the qualifications required in their respective countries for appointment to the highest judicial offices, or are jurisconsults of recognized competence in international law.",
+      zh: "法院以獨立法官若干人組織之。此項法官應不論國籍，就品格高尚並在各本國具有最高司法職位之任命資格或公認為國際法之法學家中選舉之。" }
+  ],
+  keys: ["獨立法官", "不論國籍", "公認為國際法之法學家"],
+  plain: "國際法院法官是「獨立」的法官，不是本國政府的代表。選任時不看國籍，只看兩種資格之一：在本國具備擔任最高司法職位的資格，或是公認的國際法學家。兩者擇一即可，所以不一定要當過法官。",
+  elements: [
+    { req: ["品格高尚", "具本國最高司法職位任命資格，或為公認之國際法學家（二擇一）"], effect: "得被選為國際法院法官；當選後以個人身分獨立行使職權，不代表本國" }
+  ],
+  traps: [
+    "陷阱：「法官代表其本國政府」是錯的；第2條強調獨立，且選任「不論國籍」（gl109a_1選項A即在考本條原文）。",
+    "陷阱：資格是「最高司法職位任命資格」或「國際法學家」二擇一，不是兩者兼備。"
+  ],
+  custom: { status: "不適用", note: "法院組織規定，屬條約（規約）義務，無習慣法地位問題。", cases: [] },
+  related: ["icj-3", "icj-31", "icj-10"],
+  cases: [],
+  roc: "我國籍法官徐謨（1946–1956，任內辭世）、顧維鈞（1957–1967）均以個人身分當選。顧維鈞是在1957年1月由大會與安理會補選，接替徐謨遺缺（規約第14、15條）。",
+  essay: "論及國際法院的司法獨立時可寫：「依《國際法院規約》第2條，法院由『獨立法官』組成，法官不論國籍選任，不代表其本國；此一設計輔以第16條至第18條之兼職禁止與免職限制，確保法院之中立性。」",
+  exam: [
+    { qid: "gl109a_1", note: "選項A幾乎照錄本條（敘述正確），本題錯誤選項是D（訴訟當事國限於國家，見第34條）。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "3", heading: "法官人數與國籍", tier: "A",
+  paras: [
+    { n: "1", en: "The Court shall consist of fifteen Members, no two of whom may be nationals of the same State.",
+      zh: "法院以法官十五人組織之，其中不得有二人為同一國家之國民。" },
+    { n: "2", en: "A person who for the purposes of membership in the Court could be regarded as a national of more than one State shall be deemed to be a national of the one in which he ordinarily exercises civil and political rights.",
+      zh: "就充任法院法官而言，一人而可視為一個國家以上之國民者，應認為屬於其通常行使公民及政治權利之國家或會員國之國民。" }
+  ],
+  keys: ["十五", "不得有二人為同一國家之國民", "通常行使公民及政治權利"],
+  plain: "法院固定由15名法官組成，同一國籍最多1人。雙重國籍者，以他「通常行使公民及政治權利」的國家為準，這是一種有效國籍的判斷方式。注意：第3條限制的是常任法官，專案法官（第31條）另計，所以審理個案時可能出現同國籍的兩人同時在席。",
+  elements: [
+    { req: ["法官名額已滿15人"], effect: "法院組成完整" },
+    { req: ["候選人與現任法官同國籍"], effect: "不得同時在任（第10條第3項：同國籍二人同時得到絕對多數時，年長者當選）" },
+    { req: ["候選人具雙重國籍"], effect: "以其通常行使公民及政治權利之國家認定國籍" }
+  ],
+  traps: [
+    "陷阱：常任理事國在國際法院並沒有「保障名額」，規約條文沒有任何國籍配額；實務上的地域分配是選舉慣例。",
+    "陷阱：同國籍限制不及於專案法官，當事國可在已有本國籍常任法官時另行選派其他人（第31條）。"
+  ],
+  custom: { status: "不適用", note: "法院組織規定。", cases: [] },
+  related: ["icj-2", "icj-10", "icj-13", "icj-31"],
+  cases: [],
+  roc: "",
+  essay: "說明國際法院組成時：「法院由法官15人組成，不得有二人為同一國國民（規約第3條第1項），任期9年得連選（第13條），由大會及安理會分別以絕對多數選出（第10條）。」三個數字（15、9、絕對多數）常一起考。",
+  exam: [
+    { qid: "gl110a_12", note: "選項A（15名、不得有2人同國籍）敘述正確；本題錯誤選項是D（非會員國可以成為規約當事國，見憲章第93條第2項）。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "10", heading: "選舉的多數決", tier: "A",
+  paras: [
+    { n: "1", en: "Those candidates who obtain an absolute majority of votes in the General Assembly and in the Security Council shall be considered as elected.",
+      zh: "候選人在大會及在安全理事會得絕對多數票者應認為當選。" },
+    { n: "2", en: "Any vote of the Security Council, whether for the election of judges or for the appointment of members of the conference envisaged in Article 12, shall be taken without any distinction between permanent and non-permanent members of the Security Council.",
+      zh: "安全理事會之投票，或為法官之選舉或為第十二條所稱聯席會議人員之指派，應不論安全理事會常任理事國及非常任理事國之區別。" },
+    { n: "3", en: "In the event of more than one national of the same state obtaining an absolute majority of the votes both of the General Assembly and of the Security Council, the eldest of these only shall be considered as elected.",
+      zh: "如同一國家之國民得大會及安全理事會之絕對多數票者不止一人時，其年事最高者應認為當選。" }
+  ],
+  keys: ["絕對多數", "不論安全理事會常任理事國及非常任理事國之區別", "年事最高者"],
+  plain: "法官選舉是大會和安理會「分別、同時」投票（第8條），候選人必須在兩邊都拿到絕對多數才算當選。安理會投法官票時不分常任或非常任理事國，也就是沒有否決權。若同國籍兩人都過關，只有年紀最大的當選。",
+  elements: [
+    { req: ["在大會得絕對多數票", "在安理會得絕對多數票（不適用否決權）"], effect: "當選國際法院法官" },
+    { req: ["同國籍候選人二人以上均達雙重絕對多數"], effect: "僅年事最高者當選" }
+  ],
+  traps: [
+    "陷阱：常任理事國在法官選舉中「沒有否決權」（第2項）。題目若寫「須經常任理事國同意」即為錯誤。",
+    "陷阱：須「大會及安理會」兩邊都得絕對多數，不是兩邊合計，也不是只要大會通過（gl109a_1選項B）。",
+    "絕對多數指全體選舉人過半數；依實務，大會為全體會員國過半數，安理會為8票。此數字為實務做法，條文本身只寫「絕對多數」。"
+  ],
+  custom: { status: "不適用", note: "選舉程序規定。", cases: [] },
+  related: ["icj-3", "icj-13", "unc-27"],
+  cases: [],
+  roc: "",
+  essay: "可與憲章第27條第3項比較：一般安理會實質事項須常任理事國同意票，但法官選舉依規約第10條第2項排除此一區別，顯示法院組成刻意降低大國政治影響。",
+  exam: [
+    { qid: "gl109a_1", note: "選項B（大會及安理會均得絕對多數者當選）敘述正確。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "新增", text: "收錄清單原未列本條；依gl109a_1命中補入第1A批。" }]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "13", heading: "任期與連選", tier: "A",
+  paras: [
+    { n: "1", en: "The members of the Court shall be elected for nine years and may be re-elected; provided, however, that of the judges elected at the first election, the terms of five judges shall expire at the end of three years and the terms of five more judges shall expire at the end of six years.",
+      zh: "法官任期九年，並得連選，但第一次選舉選出之法官中，五人任期應為三年，另五人為六年。" },
+    { n: "2", en: "The judges whose terms are to expire at the end of the above-mentioned initial periods of three and six years shall be chosen by lot to be drawn by the Secretary-General immediately after the first election has been completed.",
+      zh: "上述初期法官，任期孰為三年孰為六年，應於第一次選舉完畢後立由秘書長以抽籤方法決定之。" },
+    { n: "3", en: "The members of the Court shall continue to discharge their duties until their places have been filled. Though replaced, they shall finish any cases which they may have begun.",
+      zh: "法官在其後任接替前，應繼續行使其職務，雖經接替，仍應結束其已開始辦理之案件。" },
+    { n: "4", en: "In the case of the resignation of a member of the Court, the resignation shall be addressed to the President of the Court for transmission to the Secretary-General. This last notification makes the place vacant.",
+      zh: "法官辭職時應將辭職書致送法院院長轉知秘書長。轉知後，該法官之一席即行出缺。" }
+  ],
+  keys: ["九年", "並得連選", "抽籤"],
+  plain: "法官任期9年、可以連任。第一屆15人中，5人3年、5人6年、5人9年，用抽籤決定，目的是讓之後每3年只改選三分之一（5席），維持法院的延續性。任期屆滿但後任還沒到，要繼續做；已經開始審的案子，換人了也要審完。",
+  elements: [
+    { req: ["當選法官"], effect: "任期9年，得連選連任" },
+    { req: ["任期屆滿", "已開始辦理之案件尚未結束"], effect: "仍應將該案件審理完畢" },
+    { req: ["辭職書經院長轉知秘書長"], effect: "席次即行出缺，依第14條補選" }
+  ],
+  traps: [
+    "陷阱：「得連選」——國際法院法官可以連任，題目寫「不得連任」即錯（gl110a_12選項B即考本條）。",
+    "陷阱：每3年改選5席（三分之一），不是全體同時改選。",
+    "補選法官只做完前任剩餘任期（第15條），不是重新起算9年。"
+  ],
+  custom: { status: "不適用", note: "法院組織規定。", cases: [] },
+  related: ["icj-3", "icj-10"],
+  cases: [],
+  roc: "徐謨1956年6月28日在任內辭世，顧維鈞於1957年補選接任，任至1967年；依第15條，補選者應任職至前任任期屆滿為止。",
+  essay: "",
+  exam: [
+    { qid: "gl110a_12", note: "選項B（除第一次選出的10人外，法官任期9年並得連選連任）敘述正確。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "31", heading: "專案法官", tier: "A",
+  paras: [
+    { n: "1", en: "Judges of the nationality of each of the parties shall retain their right to sit in the case before the Court.",
+      zh: "屬於訴訟當事國國籍之法官，於法院受理該訴訟案件時，保有其參與之權。" },
+    { n: "2", en: "If the Court includes upon the Bench a judge of the nationality of one of the parties, any other party may choose a person to sit as judge. Such person shall be chosen preferably from among those persons who have been nominated as candidates as provided in Articles 4 and 5.",
+      zh: "法院受理案件，如法官中有屬於一造當事國之國籍者，任何他造當事國得選派一人為法官，參與該案。此項人員尤以就第四條及第五條規定所提之候選人中選充為宜。" },
+    { n: "3", en: "If the Court includes upon the Bench no judge of the nationality of the parties, each of these parties may proceed to choose a judge as provided in paragraph 2 of this Article.",
+      zh: "法院受理案件，如當事國均無本國國籍法官時，各當事國均得依本條第二項之規定選派法官一人。" },
+    { n: "4", en: "The provisions of this Article shall apply to the case of Articles 26 and 29. In such cases, the President shall request one or, if necessary, two of the members of the Court forming the chamber to give place to the members of the Court of the nationality of the parties concerned, and, failing such, or if they are unable to be present, to the judges specially chosen by the parties.",
+      zh: "本條之規定於第二十六條及第二十九條之情形適用之。在此種情形下，院長應請分庭法官一人，或於必要時二人，讓與屬於關係當事國國籍之法官，如無各當事國國籍之法官或各該法官不能出席時，應讓與各當事國特別選派之法官。" },
+    { n: "5", en: "Should there be several parties in the same interest, they shall, for the purpose of the preceding provisions, be reckoned as one party only. Any doubt upon this point shall be settled by the decision of the Court.",
+      zh: "如數當事國具有同樣利害關係時，在上列各規定適用範圍內，祇應作為一當事國。關於此點，如有疑義，由法院裁決之。" },
+    { n: "6", en: "Judges chosen as laid down in paragraphs 2, 3, and 4 of this Article shall fulfill the conditions required by Articles 2, 17 (paragraph 2), 20, and 24 of the present Statute. They shall take part in the decision on terms of complete equality with their colleagues.",
+      zh: "依本條第二項、第三項及第四項規定所選派之法官，應適合本規約第二條、第十七條第二項、第二十條、及第二十四條規定之條件。各該法官參與案件之裁判時，與其同事立於完全平等地位。" }
+  ],
+  keys: ["保有其參與之權", "選派一人為法官", "完全平等地位"],
+  plain: "國際法院不要求法官「迴避」自己國家的案件；本國籍法官照樣可以審。為了公平，對造如果沒有本國籍法官，可以臨時選派一人進來審這一案，稱為{{專案法官}}。專案法官不必是自己國民，投票權和常任法官完全相同。立場相同的數個當事國只能合選一人。",
+  elements: [
+    { req: ["常任法官中有一造當事國之國民", "他造無本國籍法官"], effect: "他造得選派專案法官一人" },
+    { req: ["常任法官中均無雙方當事國國民"], effect: "雙方各得選派專案法官一人" },
+    { req: ["數當事國具同樣利害關係"], effect: "視為一當事國，只能合選一人" }
+  ],
+  traps: [
+    "陷阱：國際法院沒有「國籍迴避」制度，當事國籍法官「保有」參與權（第1項），題目寫「應迴避」即錯。",
+    "陷阱：專案法官不必具有選派國國籍，條文只說選派「一人」，實務上常選外國籍的國際法學者。",
+    "陷阱：專案法官與常任法官「完全平等」，有表決權，不是只能列席或提供意見。"
+  ],
+  custom: { status: "不適用", note: "訴訟程序規定。", cases: [] },
+  related: ["icj-2", "icj-3"],
+  cases: [],
+  roc: "",
+  essay: "申論題問國際法院如何兼顧「國家同意」與「公正」時，可提專案法官：「規約第31條讓無本國籍法官之當事國選派專案法官，使各當事國觀點均得在評議中呈現，提高國家接受管轄的意願。」",
+  exam: [],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "備註", text: "官方選擇題無直接命中，屬申論常用條文，依收錄清單保留。" }]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "34", heading: "訴訟當事國限於國家", tier: "A",
+  paras: [
+    { n: "1", en: "Only states may be parties in cases before the Court.",
+      zh: "在法院得為訴訟當事國者，限於國家。" },
+    { n: "2", en: "The Court, subject to and in conformity with its Rules, may request of public international organizations information relevant to cases before it, and shall receive such information presented by such organizations on their own initiative.",
+      zh: "法院得依其規則，請求公共國際團體供給關於正在審理案件之情報。該項團體自動供給之情報，法院應接受之。" },
+    { n: "3", en: "Whenever the construction of the constituent instrument of a public international organization or of an international convention adopted thereunder is in question in a case before the Court, the Registrar shall so notify the public international organization concerned and shall communicate to it copies of all the written proceedings.",
+      zh: "法院於某一案件遇有公共國際團體之組織約章、或依該項約章所締結之國際協約發生解釋問題時，書記官長應通知有關公共國際團體並向其遞送所有書面程序之文件副本。" }
+  ],
+  keys: ["限於國家", "公共國際團體", "情報"],
+  plain: "國際法院的「訴訟」只有國家能當原告或被告。個人、公司、非政府組織、國際組織都不行。國際組織雖然不能當事人，但可以提供資料；若案件涉及某國際組織章程的解釋，書記官長要通知該組織。國際組織想得到法院的法律見解，要走「諮詢意見」程序（第65條、憲章第96條）。",
+  elements: [
+    { req: ["主體為國家"], effect: "得為國際法院訴訟當事國（但仍須另有管轄基礎，見第35、36條）" },
+    { req: ["主體為個人、法人或國際組織"], effect: "不得為訴訟當事方；個人權益只能由國籍國以外交保護方式提起" }
+  ],
+  traps: [
+    "陷阱：「國際組織」不能成為國際法院訴訟主體（gl112a_12），但部分國際組織可請求諮詢意見——訴訟與諮詢要分清楚。",
+    "陷阱：「個人得以締約國違約為由向國際法院起訴」錯誤（SG010選項B）。個人只能透過國籍國的外交保護間接主張。",
+    "陷阱：「限於國家與聯合國附屬機構」錯誤（gl109a_1選項D）；聯合國機構也不能當訴訟當事方。",
+    "「國家」能當事人，不等於法院對它有管轄權；當事國資格（第34條）與管轄權（第36條）是兩個不同問題。"
+  ],
+  custom: { status: "不適用", note: "法院管轄規定。", cases: [] },
+  related: ["icj-35", "icj-36", "icj-65", "unc-93", "unc-96"],
+  cases: [
+    { id: "lagrand", point: "德國以國家身分起訴，同時主張其國民（拉格朗兄弟）依領事關係公約享有的個人權利受侵害——個人權利仍須由國家提出。" }
+  ],
+  roc: "我國因非聯合國會員國亦非規約當事國，在國際法院無訴訟能力；涉及我國的爭端（如南海）無法直接在國際法院處理。",
+  essay: "題目若問個人或國際組織能否在國際法院主張權利：「依規約第34條第1項，訴訟當事國限於國家，個人須仰賴國籍國行使外交保護；國際組織則僅能依憲章第96條透過經授權機關請求諮詢意見，所得意見不具拘束力。」",
+  exam: [
+    { qid: "gl109a_1", note: "正解D：「限於國家與聯合國附屬機構」是錯誤敘述。" },
+    { qid: "gl110a_12", note: "選項C（訴訟當事國限於國家）敘述正確。" },
+    { qid: "gl112a_12", note: "正解：國家。易混選項：國際組織。" },
+    { qid: "SG010", note: "正解B：個人不得向國際法院起訴。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "35", heading: "法院對誰開放", tier: "A",
+  paras: [
+    { n: "1", en: "The Court shall be open to the states parties to the present Statute.",
+      zh: "法院受理本規約各當事國之訴訟。" },
+    { n: "2", en: "The conditions under which the Court shall be open to other states shall, subject to the special provisions contained in treaties in force, be laid down by the Security Council, but in no case shall such conditions place the parties in a position of inequality before the Court.",
+      zh: "法院受理其他各國訴訟之條件，除現行條約另有特別規定外，由安全理事會定之，但無論如何，此項條件不得使當事國在法院處於不平等地位。" },
+    { n: "3", en: "When a state which is not a Member of the United Nations is a party to a case, the Court shall fix the amount which that party is to contribute towards the expenses of the Court. This provision shall not apply if such state is bearing a share of the expenses of the Court.",
+      zh: "非聯合國會員國為案件之當事國時，其應擔負法院費用之數目由法院定之。如該國業已分擔法院經費之一部，本項規定不適用之。" }
+  ],
+  keys: ["本規約各當事國", "由安全理事會定之", "不平等地位"],
+  plain: "誰能「使用」法院分三層：規約當事國當然可以（第1項）；不是規約當事國的國家，也可以依安理會訂的條件使用法院（第2項，安理會1946年第9號決議即規定此條件，主要是事先聲明接受法院管轄並承諾遵守判決）；非聯合國會員國打官司要分擔費用（第3項）。",
+  elements: [
+    { req: ["國家為規約當事國"], effect: "法院對其開放" },
+    { req: ["國家非規約當事國", "符合安理會所定條件（或現行條約之特別規定）"], effect: "法院亦對其開放，且條件不得使其處於不平等地位" }
+  ],
+  traps: [
+    "陷阱：三個層次不要混淆——聯合國會員國（當然為規約當事國，憲章第93條第1項）、非會員國而為規約當事國（憲章第93條第2項）、非規約當事國而可使用法院（本條第2項）。",
+    "陷阱：「非聯合國會員國無法成為國際法院規約當事國」錯誤（gl110a_12正解D）。"
+  ],
+  custom: { status: "不適用", note: "法院管轄規定。", cases: [] },
+  related: ["icj-34", "unc-93"],
+  cases: [],
+  roc: "理論上，非規約當事國可依第35條第2項及安理會所定條件使用法院；但我國能否被認定為此處的「國家」並為聯合國體系接受，涉及高度政治問題，迄今未有實踐。",
+  essay: "",
+  exam: [
+    { qid: "gl110a_12", note: "正解D為錯誤敘述：非會員國可依憲章第93條第2項成為規約當事國；本條第2項更讓非規約當事國也能使用法院。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "36", heading: "訴訟管轄權", tier: "A",
+  paras: [
+    { n: "1", en: "The jurisdiction of the Court comprises all cases which the parties refer to it and all matters specially provided for in the Charter of the United Nations or in treaties and conventions in force.",
+      zh: "法院之管轄包括各當事國提交之一切案件，及聯合國憲章或現行條約及協約中所特定之一切事件。" },
+    { n: "2", en: "The states parties to the present Statute may at any time declare that they recognize as compulsory ipso facto and without special agreement, in relation to any other state accepting the same obligation, the jurisdiction of the Court in all legal disputes concerning:\n(a) the interpretation of a treaty;\n(b) any question of international law;\n(c) the existence of any fact which, if established, would constitute a breach of an international obligation;\n(d) the nature or extent of the reparation to be made for the breach of an international obligation.",
+      zh: "本規約各當事國得隨時聲明關於具有下列性質之一切法律爭端，對於接受同樣義務之任何其他國家，承認法院之管轄為當然而具有強制性，不須另訂特別協定：\n（子）條約之解釋。\n（丑）國際法之任何問題。\n（寅）任何事實之存在，如經確定即屬違反國際義務者。\n（卯）因違反國際義務而應予賠償之性質及其範圍。" },
+    { n: "3", en: "The declarations referred to above may be made unconditionally or on condition of reciprocity on the part of several or certain states, or for a certain time.",
+      zh: "上述聲明，得無條件為之，或以數個或特定之國家間彼此拘束為條件，或以一定之期間為條件。" },
+    { n: "4", en: "Such declarations shall be deposited with the Secretary-General of the United Nations, who shall transmit copies thereof to the parties to the Statute and to the Registrar of the Court.",
+      zh: "此項聲明，應交存聯合國秘書長並由其將副本分送本規約各當事國及法院書記官長。" },
+    { n: "5", en: "Declarations made under Article 36 of the Statute of the Permanent Court of International Justice and which are still in force shall be deemed, as between the parties to the present Statute, to be acceptances of the compulsory jurisdiction of the International Court of Justice for the period which they still have to run and in accordance with their terms.",
+      zh: "曾依常設國際法院規約第三十六條所為之聲明而現仍有效者，就本規約當事國間而言，在該項聲明期間尚未屆滿前並依其條款，應認為對於國際法院強制管轄之接受。" },
+    { n: "6", en: "In the event of a dispute as to whether the Court has jurisdiction, the matter shall be settled by the decision of the Court.",
+      zh: "關於法院有無管轄權之爭端，由法院裁決之。" }
+  ],
+  keys: ["當然而具有強制性", "接受同樣義務", "由法院裁決之"],
+  plain: "國際法院沒有當然的強制管轄權，一切建立在國家同意上。同意的方式有：①爭端發生後雙方訂特別協定把案子交給法院（第1項前段）；②事先在條約中約定爭端交法院（第1項後段，稱「協約管轄」）；③依第2項發表{{任擇條款}}聲明，對同樣作此聲明的國家，事先概括接受管轄；④一方起訴後另一方以行為表示接受（應訴管轄，實務發展而來）。聲明可以附條件、附期限、以互惠為條件（第3項），所以「強制」管轄其實是「自願接受的強制」。法院有沒有管轄權，由法院自己決定（第6項，稱「管轄權的管轄權」）。",
+  elements: [
+    { req: ["雙方當事國以特別協定提交"], effect: "法院取得管轄權（合意管轄）" },
+    { req: ["現行條約或協約設有爭端提交國際法院之條款", "爭端屬該條約範圍"], effect: "法院取得管轄權（協約管轄）" },
+    { req: ["雙方均依第2項發表聲明", "爭端屬雙方聲明重疊範圍（互惠）", "屬第2項所列法律爭端"], effect: "一方得單方起訴（任擇強制管轄）" },
+    { req: ["當事國就管轄權有爭執"], effect: "由法院裁決（第6項）" }
+  ],
+  traps: [
+    "陷阱：任擇條款聲明「得附條件」——無條件、互惠、期限都可以（第3項）。「不得附帶任何條件」錯誤（SG019正解）。",
+    "陷阱：管轄以「互惠」為範圍：雙方聲明只在重疊範圍內有效，被告可援引原告聲明中的保留。",
+    "陷阱：「國際法院對爭端利益相關第三方無管轄權，不影響其訴訟管轄權之行使」——這個敘述大致正確，但要小心「貨幣黃金原則」：若判決必須先認定未到庭第三國的法律責任，法院會拒絕行使管轄。",
+    "陷阱：第2項聲明只對「接受同樣義務」的國家有效；未發表聲明的國家不能用別人的聲明把它拉進法院。"
+  ],
+  custom: { status: "不適用", note: "管轄規定，以國家同意為基礎；「國際爭端解決須經同意」本身為一般接受之原則。", cases: [] },
+  related: ["icj-34", "icj-35", "icj-53", "unc-33", "unc-36", "unc-95"],
+  cases: [
+    { id: "nicaragua", point: "1984年管轄權判決認定尼加拉瓜1929年對常設國際法院的聲明依第36條第5項仍有效；1986年實體判決則因美國聲明中的「多邊條約保留」不能適用憲章，改適用內容相同的習慣法。" },
+    { id: "corfu", point: "1948年先決反對判決：阿爾巴尼亞事後去函表示接受法院審理，法院據此認定有管轄權，是應訴管轄的經典例子。" },
+    { id: "lagrand", point: "以《領事關係公約》任擇議定書的爭端條款為管轄基礎（協約管轄）。" }
+  ],
+  roc: "",
+  essay: "申論常考「國際法院管轄權的基礎」：先寫「國家同意原則」，再依序列出特別協定、協約管轄（第36條第1項）、任擇條款聲明（第2項，附保留與互惠，第3項）、應訴管轄，最後提第6項「管轄權的管轄權」與第53條缺席時法院仍須確認管轄。",
+  exam: [
+    { qid: "SG019", note: "正解D為錯誤敘述：聲明可以附條件（第3項）。選項B（事後以特別協議接受管轄）、選項C（隨時聲明承認強制管轄）都正確。" },
+    { qid: "SG010", note: "選項D（爭端當事國皆同意接受管轄時法院得受理）敘述正確，即本條第1項。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "38", heading: "國際法院適用的法源", tier: "A",
+  paras: [
+    { n: "1", en: "The Court, whose function is to decide in accordance with international law such disputes as are submitted to it, shall apply:\n(a) international conventions, whether general or particular, establishing rules expressly recognized by the contesting states;\n(b) international custom, as evidence of a general practice accepted as law;\n(c) the general principles of law recognized by civilized nations;\n(d) subject to the provisions of Article 59, judicial decisions and the teachings of the most highly qualified publicists of the various nations, as subsidiary means for the determination of rules of law.",
+      zh: "法院對於陳述各項爭端，應依國際法裁判之，裁判時應適用：\n（子）不論普通或特別國際協約，確立訴訟當事國明白承認之條規者。\n（丑）國際習慣，作為通例之證明而經接受為法律者。\n（寅）一般法律原則為文明各國所承認者。\n（卯）在第五十九條規定之下，司法判例及各國權威最高之公法學家學說，作為確定法律原則之補助資料者。" },
+    { n: "2", en: "This provision shall not prejudice the power of the Court to decide a case ex aequo et bono, if the parties agree thereto.",
+      zh: "前項規定不妨礙法院經當事國同意本「公允及善良」原則裁判案件之權。" }
+  ],
+  keys: ["國際習慣", "作為通例之證明而經接受為法律者", "一般法律原則", "補助資料", "公允及善良"],
+  plain: "這是國際法「法源」最常被引用的條文。主要法源三個：條約（子）、國際習慣（丑）、一般法律原則（寅）。司法判例和權威學說只是「補助資料」（卯），用來幫助確認法律是什麼，本身不創造法律；而且判例受第59條限制，只拘束該案當事國。條文沒有排出位階，實務上通常先看條約，因為條約較具體（特別法優先），但這是適用順序，不是效力高低。第2項另外允許：雙方同意時，法院可以不依實定法，而依{{公允及善良}}裁判；國際法院至今沒有依這一項判過案。",
+  elements: [
+    { req: ["條約", "對訴訟當事國有拘束力（明白承認）"], effect: "法院得直接適用（子）" },
+    { req: ["{{國家實踐}}（通例）", "{{法之確信}}（經接受為法律）"], effect: "構成國際習慣，法院得適用（丑）" },
+    { req: ["各國法律體系共通承認的原則（如誠信、禁反言、既判力）"], effect: "構成一般法律原則（寅）" },
+    { req: ["司法判例或權威學說"], effect: "僅作為確定法律原則之補助資料（卯），不是獨立法源" },
+    { req: ["當事國同意"], effect: "法院得依公允及善良裁判（第2項）" }
+  ],
+  traps: [
+    "陷阱：第38條「沒有」明定法源位階（gl110a_1選項A正確）；「條約應優先於習慣」是錯誤敘述（SG002正解B）。",
+    "陷阱：「公允及善良」不是一般法律原則的例子（gl110a_1正解D），它規定在第2項，且須當事國同意。",
+    "陷阱：「司法判例」包括國內法院判決，不限國際法院本身判決（gl113a_5正解C）。",
+    "陷阱：權威公法學家學說「有」列入第38條，但只是補助資料（gl112a_3正解C）；「國際組織決議」「軟法」「聯大決議」都「沒有」列入條文。",
+    "陷阱：國際習慣的形成不需全體聯合國會員國接受，也不需五常不否決（gl109a_7）；區域或雙邊習慣也可能存在（見庇護案；SG021正解A）。",
+    "陷阱：習慣與條約都是主要法源，習慣「效力高於」條約是錯的（gl109a_7選項D）。",
+    "陷阱：「一般法律原則」是指各國國內法共通的原則，不是「聯合國會員國承認的國際規則」（gl111a_1選項C）。"
+  ],
+  custom: { status: "部分", note: "本條是條約條文，但被普遍視為國際法法源的權威列舉，國際法院以外的國際法庭也常援引。條文未列入單方行為、國際組織決議、強行法，學說多認為法源範圍比本條更廣。", cases: ["north-sea", "asylum", "nicaragua"] },
+  related: ["icj-59", "icj-36", "unc-103"],
+  cases: [
+    { id: "north-sea", point: "說明國際習慣兩要件：實踐須廣泛且幾乎一致，並伴隨法之確信；等距線原則未形成習慣。" },
+    { id: "asylum", point: "承認區域習慣的可能，但主張者須證明「恆常且一致的慣例」。" },
+    { id: "nicaragua", point: "習慣法與條約可並存：即使條約因保留不能適用，內容相同的習慣法仍可適用。" }
+  ],
+  roc: "我國法院亦會援引國際習慣。依憲法第141條「尊重條約」及大法官解釋，條約經立法院審議後具國內法效力；習慣國際法在國內的效力則無明文，詳見概念卡「國際法與國內法關係」（後續批次）。",
+  essay: "申論標準開頭：「國際法之法源，一般以《國際法院規約》第38條第1項為權威列舉，包括國際條約、國際習慣、一般法律原則三項主要法源，以及司法判例與權威學說兩項確定法律原則之補助資料；該條並未規定法源間之位階，實務上以特別法優先、後法優先等原則處理衝突，但強行法例外居於優位。」",
+  exam: [
+    { qid: "gl109a_7", note: "正解B：習慣與條約都是主要法源。易混：「效力高於條約」（D）、「須所有聯合國會員接受」（A）。" },
+    { qid: "gl110a_1", note: "正解D為錯誤敘述：公允及善良不是一般法律原則的例子。" },
+    { qid: "gl111a_1", note: "正解D：在第59條規定下，判例及學說為補助資料。易混：「一般法律原則係聯合國會員國所承認之國際規則」（C）。" },
+    { qid: "gl112a_3", note: "正解C：包括權威公法學家學說。易混：軟法（B）、國際組織決議（D）。" },
+    { qid: "gl113a_5", note: "正解C：司法裁判也包括國內法院裁判。易混：「國際法院裁判拘束所有國家」（A，違反第59條）。" },
+    { qid: "SG002", note: "正解B為錯誤敘述：條文未規定條約優先於習慣。選項D「學說作為裁判法源」被視為正確（雖然性質是補助資料）。" },
+    { qid: "SG021", note: "正解A為錯誤敘述：習慣國際法可能僅存於兩國之間（雙邊習慣）。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A,
+    { date: "2026-10-02", type: "待查", text: "第1項開頭中文作「陳述各項爭端」或「陳訴各項爭端」，國際法院官網中文本為舊式排印掃描檔，辨識不清；暫依多數引用作「陳述」，待以原件影像確認。" },
+    { date: "2026-10-02", type: "更正", text: "正體轉錄本第2項作「本〞公允及善良」，依官網中文本更正為「本「公允及善良」原則」。" }
+  ]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "41", heading: "臨時措施", tier: "A",
+  paras: [
+    { n: "1", en: "The Court shall have the power to indicate, if it considers that circumstances so require, any provisional measures which ought to be taken to preserve the respective rights of either party.",
+      zh: "法院如認情形有必要時，有權指示當事國應行遵守以保全彼此權利之臨時辦法。" },
+    { n: "2", en: "Pending the final decision, notice of the measures suggested shall forthwith be given to the parties and to the Security Council.",
+      zh: "在終局判決前，應將此項指示辦法立即通知各當事國及安全理事會。" }
+  ],
+  keys: ["臨時辦法", "保全彼此權利", "安全理事會"],
+  plain: "判決前，若情況緊急、可能發生無法回復的損害，法院可以下令雙方先採取或停止某些行為，保全雙方權利，稱為{{臨時措施}}（作準中文本稱「臨時辦法」）。條文用「指示」（indicate），過去爭論這是否有拘束力；2001年拉格朗案法院首次明確認定：臨時措施命令「有拘束力」。實務要件包括：初步看來有管轄權、所主張的權利具合理可能性、有無法彌補損害的急迫風險。",
+  elements: [
+    { req: ["法院初步看來（prima facie）有管轄權", "所欲保全之權利具合理可能性（plausible）且與請求措施相關", "有發生無法彌補損害之急迫風險"], effect: "法院得指示臨時措施；該命令對當事國有拘束力（拉格朗案）" },
+    { req: ["法院已指示臨時措施"], effect: "應立即通知當事國與安理會（第2項）" }
+  ],
+  traps: [
+    "陷阱：條文用「指示」（indicate），但拉格朗案已確認臨時措施「具拘束力」，不是單純建議。",
+    "陷阱：發布臨時措施只需「初步」管轄權，不代表法院最後一定有管轄權。",
+    "臨時措施的要件（初步管轄、權利合理可能、急迫性）是判例發展出來的，條文本身只寫「情形有必要時」。"
+  ],
+  custom: { status: "不適用", note: "程序規定；拘束力來自法院對規約的解釋（拉格朗案）。", cases: ["lagrand"] },
+  related: ["icj-36", "icj-60", "unc-94", "unc-40"],
+  cases: [
+    { id: "lagrand", point: "法院首次認定依第41條發布的臨時措施命令有拘束力，美國未遵守構成違反義務。" }
+  ],
+  roc: "",
+  essay: "論國際法院的實效時可寫：「拉格朗案後，臨時措施命令具拘束力，使法院得在判決前防止不可回復之損害；惟法院本身無執行機制，須依憲章第94條第2項求助於安理會。」",
+  exam: [],
+  news: [
+    { text: "南非控告以色列違反《防止及懲治殘害人群罪公約》案，國際法院於2024年1月26日發布臨時措施命令，此後應南非請求多次增修。", checked: "2026-10-02" }
+  ],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "備註", text: "官方選擇題無直接命中，屬申論常用條文，依收錄清單保留。" }]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "53", heading: "缺席判決", tier: "A",
+  paras: [
+    { n: "1", en: "Whenever one of the parties does not appear before the Court, or fails to defend its case, the other party may call upon the Court to decide in favour of its claim.",
+      zh: "當事國一造不到法院或不辯護其主張時，他造得請求法院對自己主張為有利之裁判。" },
+    { n: "2", en: "The Court must, before doing so, satisfy itself, not only that it has jurisdiction in accordance with Articles 36 and 37, but also that the claim is well founded in fact and law.",
+      zh: "法院於允准前項請求前，應查明不特依第三十六條及第三十七條法院對本案有管轄權，且請求人之主張在事實及法律上均有根據。" }
+  ],
+  keys: ["不到法院或不辯護其主張", "有管轄權", "在事實及法律上均有根據"],
+  plain: "被告不出庭或不答辯，原告可以請法院直接判它勝訴。但法院不會「自動」判原告贏，必須先確認兩件事：自己有管轄權，而且原告的主張在事實和法律上都站得住腳。被告不出庭不影響判決的拘束力。",
+  elements: [
+    { req: ["一造不到庭或不辯護", "他造請求法院為有利裁判", "法院查明有管轄權（第36、37條）", "法院查明請求在事實及法律上有根據"], effect: "法院得為有利於到庭一造之判決；判決仍依第59、60條拘束雙方" }
+  ],
+  traps: [
+    "陷阱：缺席不等於自動敗訴；法院仍須查明「管轄權」及「主張有據」兩件事。",
+    "陷阱：被告缺席，判決仍有拘束力且為終局（第60條）。尼加拉瓜案美國在管轄權判決後即不出庭，法院照樣作成實體判決。"
+  ],
+  custom: { status: "不適用", note: "訴訟程序規定。", cases: [] },
+  related: ["icj-36", "icj-59", "icj-60"],
+  cases: [
+    { id: "nicaragua", point: "美國在1984年管轄權判決後退出程序，法院依本條仍作成1986年實體判決。" }
+  ],
+  roc: "",
+  essay: "",
+  exam: [
+    { qid: "gl109a_1", note: "選項C（一造不到法院時他造得請求有利裁判）敘述正確。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "新增", text: "收錄清單原未列本條；依gl109a_1命中補入第1A批。" }]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "59", heading: "判決只拘束當事國與本案", tier: "A",
+  paras: [
+    { n: "", en: "The decision of the Court has no binding force except between the parties and in respect of that particular case.",
+      zh: "法院之裁判除對於當事國及本案外，無拘束力。" }
+  ],
+  keys: ["當事國及本案", "無拘束力"],
+  plain: "國際法院的判決，只對該案的當事國、就該案的事項有拘束力。國際法院沒有英美法那種「先例拘束原則」，其他國家不受判決拘束，法院本身也不受自己過去判決拘束。不過實務上法院非常重視前案，很少偏離，判決的說服力極高。",
+  elements: [
+    { req: ["國際法院判決"], effect: "拘束當事國，限於本案爭點" },
+    { req: ["非當事國或其他案件"], effect: "不受該判決拘束（但判決可作為第38條第1項（卯）之補助資料）" }
+  ],
+  traps: [
+    "陷阱：國際法院判決「不」拘束所有國家（gl113a_5選項A錯誤）。",
+    "陷阱：國際法院不採先例拘束原則，但判例是第38條第1項（卯）的補助資料，兩條要一起記（gl111a_1正解D）。",
+    "陷阱：依第63條第2項參加訴訟的國家，受判決中「條約解釋」的拘束，是第59條的例外延伸。"
+  ],
+  custom: { status: "不適用", note: "訴訟規定。", cases: [] },
+  related: ["icj-38", "icj-60", "icj-63", "unc-94"],
+  cases: [],
+  roc: "",
+  essay: "「依規約第59條，國際法院判決僅於當事國間及就該案有拘束力，國際法院並無先例拘束原則；惟依第38條第1項（卯），判決仍得作為確定法律原則之補助資料，實務上法院亦高度尊重自身判例，以維持法律之一致性。」",
+  exam: [
+    { qid: "gl111a_1", note: "正解D直接引用「在第59條規定下」的判例與學說。" },
+    { qid: "SG002", note: "選項C（判決除對當事國及本案外無拘束力）敘述正確。" },
+    { qid: "gl113a_5", note: "選項A（判決具拘束所有國家之普遍效力）錯誤，違反本條。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "60", heading: "判決確定與解釋", tier: "A",
+  paras: [
+    { n: "", en: "The judgment is final and without appeal. In the event of dispute as to the meaning or scope of the judgment, the Court shall construe it upon the request of any party.",
+      zh: "法院之判決係屬確定，不得上訴。判詞之意義或範圍發生爭端時，經任何當事國之請求後，法院應予解釋。" }
+  ],
+  keys: ["係屬確定", "不得上訴", "應予解釋"],
+  plain: "國際法院一審終結，判決一宣告就確定，沒有上訴制度。但有兩條救濟管道：當事國對判決的意思或範圍有爭議，可請法院「解釋」（本條後段）；發現足以影響判決的新事實，可請求「覆核」（第61條，須在發現後6個月內、判決後10年內）。",
+  elements: [
+    { req: ["法院作成判決"], effect: "確定，不得上訴" },
+    { req: ["當事國對判決之意義或範圍有爭端", "任一當事國提出請求"], effect: "法院應予解釋" }
+  ],
+  traps: [
+    "陷阱：國際法院判決「不得上訴」，沒有上級法院；但「解釋」（第60條）和「覆核」（第61條）不是上訴。",
+    "判決確定後若一方不履行，救濟是憲章第94條第2項（向安理會申訴），不是向法院上訴。"
+  ],
+  custom: { status: "不適用", note: "訴訟規定；既判力（res judicata）同時是一般法律原則。", cases: [] },
+  related: ["icj-59", "unc-94", "icj-53"],
+  cases: [],
+  roc: "",
+  essay: "",
+  exam: [],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "更正", text: "正體轉錄本作「系屬確定」，依官網中文本更正為「係屬確定」。" }]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "62", heading: "第三國參加（法律利益）", tier: "A",
+  paras: [
+    { n: "1", en: "Should a state consider that it has an interest of a legal nature which may be affected by the decision in the case, it may submit a request to the Court to be permitted to intervene.",
+      zh: "某一國家如認為某案件之判決可影響屬於該國具有法律性質之利益時，得向法院聲請參加。" },
+    { n: "2", en: "It shall be for the Court to decide upon this request.",
+      zh: "此項聲請應由法院裁決之。" }
+  ],
+  keys: ["具有法律性質之利益", "聲請參加", "由法院裁決之"],
+  plain: "非當事國如果認為判決會影響自己「法律性質的利益」（不只是政治或經濟上的關心），可以聲請參加訴訟。是否准許由法院決定，不是由當事國同意決定，所以即使當事國反對，法院仍可准許。實務上法院區分兩種參加：以「非當事方」身分參加（只表達意見，不受判決拘束），和以「當事方」身分參加（須另有管轄基礎）。",
+  elements: [
+    { req: ["第三國具有可能受判決影響之法律性質利益", "向法院聲請"], effect: "由法院裁決是否准許參加（第2項）" }
+  ],
+  traps: [
+    "陷阱：准否參加由「法院」裁決，當事國反對時法院仍可允許（SG049選項B正確）。",
+    "陷阱：第62條與第63條不同：第62條須證明法律利益、由法院裁量；第63條是多邊條約締約國的「權利」，參加後受條約解釋拘束。",
+    "以非當事方身分依第62條參加者，原則上不受判決拘束（與第63條第2項不同），這點容易混淆。"
+  ],
+  custom: { status: "不適用", note: "訴訟程序規定。", cases: [] },
+  related: ["icj-63", "icj-59"],
+  cases: [],
+  roc: "",
+  essay: "",
+  exam: [
+    { qid: "SG049", note: "選項A（具法律性質利益者得聲請參加）、選項B（當事國反對法院仍得允許）都正確；正解D的錯誤在第63條部分。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "63", heading: "第三國參加（公約解釋）", tier: "A",
+  paras: [
+    { n: "1", en: "Whenever the construction of a convention to which states other than those concerned in the case are parties is in question, the Registrar shall notify all such states forthwith.",
+      zh: "凡協約發生解釋問題，而訴訟當事國以外尚有其他國家為該協約之簽字國者，應立由書記官長通知各該國家。" },
+    { n: "2", en: "Every state so notified has the right to intervene in the proceedings; but if it uses this right, the construction given by the judgment will be equally binding upon it.",
+      zh: "受前項通知之國家有參加程序之權；但如該國行使此項權利時，判決中之解釋對該國具有同樣拘束力。" }
+  ],
+  keys: ["書記官長", "有參加程序之權", "同樣拘束力"],
+  plain: "案件涉及多邊條約的解釋時，書記官長「有義務」通知其他締約國。被通知的國家有「權利」參加，不用經法院裁量；但代價是：一旦參加，判決對該條約的解釋同樣拘束它。這是第59條「判決只拘束當事國」的延伸例外。",
+  elements: [
+    { req: ["案件涉及多邊條約之解釋", "當事國以外另有其他締約國"], effect: "書記官長應通知各該國（第1項）" },
+    { req: ["受通知國行使參加權"], effect: "判決中之條約解釋對其具同樣拘束力（第2項）" }
+  ],
+  traps: [
+    "陷阱：依第63條參加的國家「受」判決中條約解釋的拘束；SG049正解D（「判決對參加訴訟之第三國不生拘束力」）即為錯誤。",
+    "陷阱：通知是書記官長的「義務」（SG049選項C正確）。",
+    "陷阱：中文作準本寫「簽字國」，英文是 parties（締約國）；以英文本理解為「締約國」較精確。"
+  ],
+  custom: { status: "不適用", note: "訴訟程序規定。", cases: [] },
+  related: ["icj-62", "icj-59", "icj-34"],
+  cases: [],
+  roc: "",
+  essay: "",
+  exam: [
+    { qid: "SG049", note: "正解D為錯誤敘述：依本條第2項，參加國受判決中解釋之拘束。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "更正", text: "正體轉錄本第2項漏「有」字（「國家參加程序之權」），依官網中文本補正為「國家有參加程序之權」。" }]
+});
+
+ARTICLES.push({
+  treaty: "icj", no: "65", heading: "諮詢意見", tier: "A",
+  paras: [
+    { n: "1", en: "The Court may give an advisory opinion on any legal question at the request of whatever body may be authorized by or in accordance with the Charter of the United Nations to make such a request.",
+      zh: "法院對於任何法律問題如經任何團體由聯合國憲章授權而請求或依照聯合國憲章而請求時，得發表諮詢意見。" },
+    { n: "2", en: "Questions upon which the advisory opinion of the Court is asked shall be laid before the Court by means of a written request containing an exact statement of the question upon which an opinion is required, and accompanied by all documents likely to throw light upon the question.",
+      zh: "凡向法院請求諮詢意見之問題，應以聲請書送交法院。此項聲請書對於諮詢意見之問題，應有確切之敘述，並應附送足以釋明該問題之一切文件。" }
+  ],
+  keys: ["諮詢意見", "聯合國憲章授權", "法律問題"],
+  plain: "{{諮詢意見}}是國際法院的第二種功能：應「經授權的機關」請求，就法律問題提出意見。誰能請求由憲章第96條決定：大會、安理會隨時可以；其他聯合國機關與專門機構須經大會授權，且只能問工作範圍內的問題。國家「不能」請求諮詢意見。條文用「得」，法院有裁量權可以拒絕，但實務上幾乎不拒絕。諮詢意見原則上沒有拘束力，但法律權威很高。",
+  elements: [
+    { req: ["請求者為憲章授權之機關（憲章第96條）", "問題為法律問題", "以書面聲請並確切敘述問題"], effect: "法院「得」發表諮詢意見（有裁量權，但除非有「強烈理由」否則不拒絕）" },
+    { req: ["諮詢意見作成"], effect: "原則上不具拘束力；但特定條約可約定其具拘束力" }
+  ],
+  traps: [
+    "陷阱：「國家」不能請求諮詢意見。科索沃諮詢意見是「聯大」以第63/3號決議請求，塞爾維亞只是推動提案（gl111a_5選項A錯誤）。",
+    "陷阱：安理會「有權」請求諮詢意見（SG010選項A正確），依據是憲章第96條第1項。",
+    "陷阱：諮詢意見原則上無拘束力，與訴訟判決不同（見比較表）。",
+    "問題涉及政治性，不妨礙其為「法律問題」；法院多次以此駁回「問題具政治性」的抗辯。"
+  ],
+  custom: { status: "不適用", note: "法院職權規定。", cases: ["kosovo"] },
+  related: ["unc-96", "icj-34", "unc-92"],
+  cases: [
+    { id: "kosovo", point: "聯大請求；法院認為宣布獨立的行為未違反國際法，並強調問題範圍限於宣言本身。" }
+  ],
+  roc: "",
+  essay: "「依規約第65條第1項及憲章第96條，大會及安理會得就任何法律問題請求諮詢意見，其他機關及專門機構經大會授權得就工作範圍內之法律問題請求；國家無請求權。諮詢意見原則上不具拘束力，但因其權威性，常實質影響國際法發展（如查哥斯、氣候變遷諮詢意見）。」",
+  exam: [
+    { qid: "gl111a_5", note: "正解B：法院認為科索沃宣布獨立未違反國際法。易混：A（塞爾維亞提出請求）、C（自決權適用於殖民地以外——法院未處理）、D（承認溯及效力——法院未處理）。" },
+    { qid: "SG010", note: "選項A（安理會有權請求諮詢意見）敘述正確。" }
+  ],
+  news: [
+    { text: "國際法院應聯大第77/276號決議請求，於2025年7月23日一致通過「國家在氣候變遷方面之義務」諮詢意見。", checked: "2026-10-02" }
+  ],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+// ===== 條文：聯合國憲章（第1A批） =====
+ARTICLES.push({
+  treaty: "unc", no: "1", heading: "聯合國宗旨", tier: "A",
+  paras: [
+    { n: "", en: "The Purposes of the United Nations are:", zh: "聯合國之宗旨為：" },
+    { n: "1", en: "To maintain international peace and security, and to that end: to take effective collective measures for the prevention and removal of threats to the peace, and for the suppression of acts of aggression or other breaches of the peace, and to bring about by peaceful means, and in conformity with the principles of justice and international law, adjustment or settlement of international disputes or situations which might lead to a breach of the peace;",
+      zh: "維持國際和平及安全；並為此目的：採取有效集體辦法，以防止且消除對於和平之威脅，制止侵略行為或其他和平之破壞；並以和平方法且依正義及國際法之原則，調整或解決足以破壞和平之國際爭端或情勢。" },
+    { n: "2", en: "To develop friendly relations among nations based on respect for the principle of equal rights and self-determination of peoples, and to take other appropriate measures to strengthen universal peace;",
+      zh: "發展國際間以尊重人民平等權利及自決原則為根據之友好關係，並採取其他適當辦法，以增強普遍和平。" },
+    { n: "3", en: "To achieve international co-operation in solving international problems of an economic, social, cultural, or humanitarian character, and in promoting and encouraging respect for human rights and for fundamental freedoms for all without distinction as to race, sex, language, or religion; and",
+      zh: "促成國際合作，以解決國際間屬於經濟、社會、文化及人類福利性質之國際問題，且不分種族、性別、語言或宗教，增進並激勵對於全體人類之人權及基本自由之尊重。" },
+    { n: "4", en: "To be a centre for harmonizing the actions of nations in the attainment of these common ends.",
+      zh: "構成一協調各國行動之中心，以達成上述共同目的。" }
+  ],
+  keys: ["維持國際和平及安全", "自決原則", "人權及基本自由", "協調各國行動之中心"],
+  plain: "聯合國有四個宗旨：①維持國際和平與安全（集體安全加上和平解決爭端）；②以平等權利與人民自決為基礎發展友好關係；③透過國際合作解決經濟、社會、文化、人道問題並促進人權；④作為協調各國行動的中心。憲章是第一個把「人權」與「人民自決」寫進普遍性國際組織宗旨的條約。宗旨的排序反映優先性：維持和平居首。",
+  elements: [
+    { req: ["聯合國或其機關之行動"], effect: "須以本條宗旨為目的並在宗旨範圍內行使（第2條、第24條第2項）；特定經費諮詢意見中，法院以「是否為實現宗旨」推定行動並未逾越權限" }
+  ],
+  traps: [
+    "陷阱：「促進國際貿易並減少障礙」不是憲章第1條宗旨（gl112a_10正解D）；那是WTO／GATT的目標。",
+    "陷阱：第1條第3項確實規定促進人權（gl114a_6正解B），但憲章本身沒有列出具體人權清單；具體權利在《世界人權宣言》及兩公約。",
+    "陷阱：「國際人權憲章」通常指《世界人權宣言》加上兩公約及其議定書，不是只有兩公約（gl114a_6選項C錯誤）。",
+    "自決原則在憲章第1條第2項是「原則」的用語，之後才在兩公約共同第1條成為「權利」，並經法院確認為具對世性質。"
+  ],
+  custom: { status: "部分", note: "本條是宗旨規定，本身不直接課予義務；但其中的人民自決已確立為習慣國際法並具對世性質（東帝汶案1995年、隔離牆諮詢意見2004年、查哥斯諮詢意見2019年；相關判例卡於後續批次收錄）。", cases: [] },
+  related: ["unc-2", "unc-55", "unc-73", "unc-24"],
+  cases: [
+    { id: "kosovo", point: "法院未處理自決權在殖民地以外是否賦予分離權的問題，只認定宣言本身未違反國際法。" }
+  ],
+  roc: "中華民國以創始會員國身分參與起草憲章。我國現雖非會員國，但政府立場仍尊重憲章宗旨與原則，憲法第141條明定外交應「尊重條約及聯合國憲章」。",
+  essay: "申論題涉及自決權時：「人民自決首見於憲章第1條第2項及第55條，經1960年《給予殖民地國家和人民獨立宣言》、1966年兩公約共同第1條及1970年《友好關係宣言》發展為法律權利，國際法院並確認其具對世性質。」",
+  exam: [
+    { qid: "gl112a_10", note: "正解D：促進國際貿易不是聯合國宗旨。其餘三選項分別對應第1項、第2項、第4項。" },
+    { qid: "gl114a_6", note: "正解B：第1條規定聯合國目的在達成國際合作、促進人權。易混：「經社文公約沒提到自決權」（A錯，兩公約共同第1條都有）。" },
+    { qid: "SG014", note: "正解C為錯誤敘述：自決權不限殖民地與非自治領土人民。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A,
+    { date: "2026-10-02", type: "更正", text: "正體轉錄本第1項作「維持國際和平及安全並；並為此目的」，依聯合國中文本刪去衍字「並」；第3項轉錄本漏「人」字（「全體人類之權」），更正為「人權」。" },
+    { date: "2026-10-02", type: "備註", text: "第3項開頭，聯合國中文本作「促成國際合作」，正體轉錄本作「促進國際合作」；本App採聯合國中文本。" }
+  ]
+});
+
+ARTICLES.push({
+  treaty: "unc", no: "2", heading: "聯合國原則", tier: "A", topic: "使用武力與國際人道法",
+  paras: [
+    { n: "", en: "The Organization and its Members, in pursuit of the Purposes stated in Article 1, shall act in accordance with the following Principles.",
+      zh: "為求實現第一條所述各宗旨起見，本組織及其會員國應遵行下列原則：" },
+    { n: "1", en: "The Organization is based on the principle of the sovereign equality of all its Members.",
+      zh: "本組織係基於各會員國主權平等之原則。" },
+    { n: "2", en: "All Members, in order to ensure to all of them the rights and benefits resulting from membership, shall fulfil in good faith the obligations assumed by them in accordance with the present Charter.",
+      zh: "各會員國應一秉善意，履行其依本憲章所擔負之義務，以保證全體會員國由加入本組織而發生之權益。" },
+    { n: "3", en: "All Members shall settle their international disputes by peaceful means in such a manner that international peace and security, and justice, are not endangered.",
+      zh: "各會員國應以和平方法解決其國際爭端，俾免危及國際和平、安全及正義。" },
+    { n: "4", en: "All Members shall refrain in their international relations from the threat or use of force against the territorial integrity or political independence of any state, or in any other manner inconsistent with the Purposes of the United Nations.",
+      zh: "各會員國在其國際關係上不得使用威脅或武力，或以與聯合國宗旨不符之任何其他方法，侵害任何會員國或國家之領土完整或政治獨立。" },
+    { n: "5", en: "All Members shall give the United Nations every assistance in any action it takes in accordance with the present Charter, and shall refrain from giving assistance to any state against which the United Nations is taking preventive or enforcement action.",
+      zh: "各會員國對於聯合國依本憲章規定而採取之行動，應盡力予以協助，聯合國對於任何國家正在採取防止或執行行動時，各會員國對該國不得給予協助。" },
+    { n: "6", en: "The Organization shall ensure that states which are not Members of the United Nations act in accordance with these Principles so far as may be necessary for the maintenance of international peace and security.",
+      zh: "本組織在維持國際和平及安全之必要範圍內，應保證非聯合國會員國遵行上述原則。" },
+    { n: "7", en: "Nothing contained in the present Charter shall authorize the United Nations to intervene in matters which are essentially within the domestic jurisdiction of any state or shall require the Members to submit such matters to settlement under the present Charter; but this principle shall not prejudice the application of enforcement measures under Chapter VII.",
+      zh: "本憲章不得認為授權聯合國干涉在本質上屬於任何國家國內管轄之事件，且並不要求會員國將該項事件依本憲章提請解決；但此項原則不妨礙第七章內執行辦法之適用。" }
+  ],
+  keys: ["主權平等", "一秉善意", "和平方法", "不得使用威脅或武力", "國內管轄之事件", "第七章內執行辦法"],
+  plain: "七項原則：①主權平等；②善意履行憲章義務；③和平解決爭端；④禁止使用武力或以武力威脅；⑤協助聯合國行動、不協助被制裁國；⑥確保非會員國也遵守這些原則（以維持和平所必要者為限）；⑦聯合國不干涉各國內政，但安理會依第七章採取的執行辦法不受此限。第4項是全部憲章最核心的條文：禁止的是「武力威脅或使用」，不只是「戰爭」；例外只有兩個——第51條自衛，以及安理會依第七章授權。",
+  elements: [
+    { req: ["會員國在國際關係上", "使用武力或以武力威脅", "侵害他國領土完整、政治獨立，或以其他與聯合國宗旨不符的方式"], effect: "違反第2條第4項（例外：第51條自衛、安理會依第七章授權）" },
+    { req: ["事件本質上屬於一國國內管轄"], effect: "聯合國不得干涉、會員國不須提交解決（第7項）" },
+    { req: ["安理會依第七章採取執行辦法"], effect: "不受第7項國內管轄限制" }
+  ],
+  traps: [
+    "陷阱：「設立國際託管制度」不是第2條原則，而是第十二章第75條的制度（gl113a_13正解C）；選項A（保證非會員國遵行原則）是第6項，敘述正確。",
+    "陷阱：第七章執行辦法「得」適用於國內管轄事件（gl114a_4選項B正確），這是第7項但書。",
+    "陷阱：憲章「並不要求」會員國把所有爭端提交國際法院（gl114a_4正解D錯誤）；第2條第3項只要求和平解決，方法自選（第33條）。",
+    "陷阱：會員國遭受攻擊時，採取軍事行動的是「安理會」（第42條），不是大會（gl114a_18正解C錯誤）。",
+    "陷阱：第2條第4項禁止的是「武力」（force），不限於宣戰的戰爭；「威脅」使用武力同樣禁止。",
+    "陷阱：國際法院已確認「和平解決爭端」具習慣法地位（尼加拉瓜案），「尚未確認」的敘述錯誤（gl111a_11正解C）。"
+  ],
+  custom: { status: "習慣法", note: "第4項禁止武力、第7項所對應的不干涉原則、第3項和平解決爭端，均經尼加拉瓜案確認為習慣國際法。禁止侵略性武力普遍被認為屬強行法；尼加拉瓜案引述國際法委員會此一見解，但法院本身未正式宣告第2條第4項整體為強行法。", cases: ["nicaragua", "corfu"] },
+  related: ["unc-1", "unc-51", "unc-33", "unc-39", "unc-42", "unc-103"],
+  cases: [
+    { id: "nicaragua", point: "禁止武力與不干涉原則為習慣法；支援叛軍武器與後勤可能構成使用武力或干涉，但不一定構成「武力攻擊」。" },
+    { id: "corfu", point: "英國以「自助」為由在阿爾巴尼亞領海掃雷，法院認定侵犯其主權，不得以干涉權為正當化理由。" }
+  ],
+  roc: "我國雖非會員國，第6項顯示憲章原則也適用於非會員國。兩岸關係中，中國以武力威脅台灣是否受第2條第4項規範，涉及台灣國際地位與「國際關係」要件，是申論可能的延伸題（相關概念卡於後續批次收錄）。",
+  essay: "使用武力題的標準結構：「（一）原則：憲章第2條第4項禁止使用武力及武力威脅，並經尼加拉瓜案確認為習慣國際法；（二）例外：1.第51條自衛（要件：武力攻擊、必要性、比例性、向安理會報告）；2.安理會依第39、42條授權；（三）爭議：人道干涉、保護責任、預防性自衛，均未獲普遍接受。」",
+  exam: [
+    { qid: "gl113a_13", note: "正解C：設立託管制度不是第2條原則。" },
+    { qid: "gl114a_4", note: "正解D為錯誤敘述：憲章不要求所有爭端提交國際法院。" },
+    { qid: "gl114a_18", note: "正解C為錯誤敘述：軍事行動由安理會而非大會決定。" },
+    { qid: "gl111a_11", note: "正解C為錯誤敘述：國際法院已確認和平解決爭端具習慣法地位。" }
+  ],
+  news: [
+    { text: "2022年2月24日俄羅斯全面入侵烏克蘭；同年3月2日聯大第ES-11/1號決議譴責侵略並要求俄軍撤出，是常見的第2條第4項時事題素材。", checked: "2026-10-02" }
+  ],
+  verified: "2026-10-02",
+  changelog: [LOG_1A]
+});
+
+ARTICLES.push({
+  treaty: "unc", no: "4", heading: "會員資格與入會程序", tier: "A",
+  paras: [
+    { n: "1", en: "Membership in the United Nations is open to all other peace-loving states which accept the obligations contained in the present Charter and, in the judgment of the Organization, are able and willing to carry out these obligations.",
+      zh: "凡其他愛好和平之國家，接受本憲章所載之義務，經本組織認為確能並願意履行該項義務者，得為聯合國會員國。" },
+    { n: "2", en: "The admission of any such state to membership in the United Nations will be effected by a decision of the General Assembly upon the recommendation of the Security Council.",
+      zh: "准許上述國家為聯合國會員國，將由大會經安全理事會之推薦以決議行之。" }
+  ],
+  keys: ["愛好和平之國家", "確能並願意履行", "由大會經安全理事會之推薦以決議行之"],
+  plain: "入會實質要件五個：是「國家」、愛好和平、接受憲章義務、有能力履行、有意願履行。程序：先由安理會「推薦」（屬實質事項，常任理事國有否決權），再由大會以三分之二多數「決議」（第18條第2項，新會員入會屬重要問題）。兩步缺一不可：沒有安理會推薦，大會不能自己准許入會。",
+  elements: [
+    { req: ["國家", "愛好和平", "接受憲章義務", "經本組織認為能夠履行", "經本組織認為願意履行"], effect: "具備入會資格（第1項）；國際法院認為這些條件是窮盡列舉" },
+    { req: ["安理會推薦（實質事項，須9票含常任理事國同意）", "大會三分之二多數決議（第18條第2項）"], effect: "准許入會（第2項）" }
+  ],
+  traps: [
+    "陷阱：入會由「大會經安全理事會之推薦以決議行之」（gl114a_15正解C）；不是「安理會三分之二」或「大會二分之一」。",
+    "陷阱：大會不能在安理會沒有推薦時自行准許入會（1950年「大會准許入會權限」諮詢意見）。",
+    "陷阱：第1項條件是「窮盡列舉」，會員國投票時不得附加條文以外的條件（1948年「入會條件」諮詢意見）。",
+    "陷阱：入會是安理會「推薦」＋大會「決議」；停權（第5條）與除名（第6條）也是同樣兩步，但用語是安理會「建議」。"
+  ],
+  custom: { status: "不適用", note: "組織法規定。", cases: [] },
+  related: ["unc-18", "unc-27", "unc-5", "unc-6", "unc-93"],
+  cases: [],
+  roc: "我國2007年曾以「台灣」名義申請入會，秘書處以聯大第2758號決議為由退件，未送安理會審議，是本條程序與國家資格的實務案例。",
+  essay: "",
+  exam: [
+    { qid: "gl114a_15", note: "正解C：由大會經安理會推薦以決議行之。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "更正", text: "國際法院官網英文本第1項漏「all」、第2項漏「United」，依聯合國正式英文本補正。" }]
+});
+
+ARTICLES.push({
+  treaty: "unc", no: "7", heading: "主要機關", tier: "A",
+  paras: [
+    { n: "1", en: "There are established as the principal organs of the United Nations: a General Assembly, a Security Council, an Economic and Social Council, a Trusteeship Council, an International Court of Justice, and a Secretariat.",
+      zh: "茲設聯合國之主要機關如下：大會、安全理事會、經濟及社會理事會、託管理事會、國際法院、及秘書處。" },
+    { n: "2", en: "Such subsidiary organs as may be found necessary may be established in accordance with the present Charter.",
+      zh: "聯合國得依本憲章設立認為必需之輔助機關。" }
+  ],
+  keys: ["大會、安全理事會、經濟及社會理事會、託管理事會、國際法院、及秘書處", "輔助機關"],
+  plain: "聯合國六個主要機關：大會、安理會、{{經濟及社會理事會}}、託管理事會、國際法院、秘書處。其他機關都是依第2項（或第22、29條）設立的輔助機關，例如人權理事會（大會的輔助機關）、前南斯拉夫及盧安達國際刑事法庭（安理會依第七章設立）。託管理事會在1994年最後一個託管領土帛琉獨立後已停止運作，但仍是憲章上的主要機關。",
+  elements: [
+    { req: ["機關列名於第7條第1項"], effect: "為聯合國主要機關" },
+    { req: ["依憲章設立且認為必需"], effect: "為輔助機關（第7條第2項；大會依第22條、安理會依第29條設立）" }
+  ],
+  traps: [
+    "陷阱：「國際刑事法院」不是聯合國機關（gl113a_14正解D），它是依1998年《羅馬規約》設立的獨立國際組織，與聯合國以關係協定連結。",
+    "陷阱：託管理事會已「停止運作」但「未廢除」，仍是主要機關之一（SG032選項B正確）。",
+    "陷阱：人權理事會是大會的「輔助機關」，不是主要機關；專門機構（如WHO、IMF）是透過第57、63條與聯合國「發生關係」的獨立組織，也不是聯合國機關。"
+  ],
+  custom: { status: "不適用", note: "組織法規定。", cases: [] },
+  related: ["unc-92", "unc-22", "unc-29"],
+  cases: [],
+  roc: "",
+  essay: "",
+  exam: [
+    { qid: "gl113a_14", note: "正解D：國際刑事法院不是聯合國主要機關。" },
+    { qid: "SG032", note: "選項B（託管理事會已停止運作）正確；本題正解D為「已無非自治領土」錯誤。" }
+  ],
+  news: [],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "備註", text: "作準中文本作「經濟及社會理事會」，部分轉錄本作「經濟暨社會理事會」；本App採作準本用語，台灣常用簡稱「經社理事會」列於用語對照表。" }]
+});
+
+ARTICLES.push({
+  treaty: "unc", no: "51", heading: "自衛權", tier: "A", topic: "使用武力與國際人道法",
+  paras: [
+    { n: "", en: "Nothing in the present Charter shall impair the inherent right of individual or collective self-defence if an armed attack occurs against a Member of the United Nations, until the Security Council has taken measures necessary to maintain international peace and security. Measures taken by Members in the exercise of this right of self-defence shall be immediately reported to the Security Council and shall not in any way affect the authority and responsibility of the Security Council under the present Charter to take at any time such action as it deems necessary in order to maintain or restore international peace and security.",
+      zh: "聯合國任何會員國受武力攻擊時，在安全理事會採取必要辦法，以維持國際和平及安全以前，本憲章不得認為禁止行使單獨或集體自衛之自然權利。會員國因行使此項自衛權而採取之辦法，應立向安全理事會報告，此項辦法於任何方面不得影響該會按照本憲章隨時採取其所認為必要行動之權責，以維持或恢復國際和平及安全。" }
+  ],
+  keys: ["受武力攻擊", "單獨或集體自衛之自然權利", "應立向安全理事會報告"],
+  plain: "自衛權是禁止武力（第2條第4項）的例外。條文說自衛是「自然權利」（{{自然權利}}，英文 inherent，今多譯為固有權利），表示它不是憲章創設的，憲章只是承認。要件：①遭受「武力攻擊」——不是任何使用武力都算，要達到一定「規模和效果」；②在安理會採取必要辦法以前；③立即向安理會報告。另外，習慣法要求必要性與比例性。集體自衛還須受害國宣布遭受攻擊並提出請求。",
+  elements: [
+    { req: ["遭受武力攻擊（達到一定規模和效果）", "安理會尚未採取必要辦法", "自衛措施具必要性與比例性（習慣法）"], effect: "得行使單獨自衛" },
+    { req: ["上列要件", "受害國宣布遭受武力攻擊", "受害國請求協助"], effect: "第三國得行使集體自衛（尼加拉瓜案）" },
+    { req: ["已採取自衛措施"], effect: "應立即向安理會報告；未報告雖不當然使自衛違法，但會削弱其主張" }
+  ],
+  traps: [
+    "陷阱：自衛權的習慣法地位「不是」起源於1986年尼加拉瓜案（gl110a_9正解C錯誤）；條文稱「自然權利」，表示它在憲章之前就存在，尼加拉瓜案只是確認。",
+    "陷阱：「武力攻擊」的認定要看攻擊的「規模和效果」（gl110a_9選項D正確）；邊境小衝突、單純提供武器給叛軍，不一定構成武力攻擊。",
+    "陷阱：集體自衛不能由第三國自行判斷；須受害國宣布受攻擊並請求（尼加拉瓜案）。",
+    "陷阱：條文寫「會員國受武力攻擊時」，但自衛權作為習慣法，非會員國同樣享有。",
+    "預防性自衛（攻擊尚未發生）是否合法有重大爭議，條文文義「受武力攻擊時」較支持限縮解釋。"
+  ],
+  custom: { status: "習慣法", note: "尼加拉瓜案確認自衛權同時存在於憲章與習慣法，必要性與比例性為習慣法要件，條文未明寫。", cases: ["nicaragua"] },
+  related: ["unc-2", "unc-39", "unc-42", "unc-24"],
+  cases: [
+    { id: "nicaragua", point: "以「規模和效果」區分武力攻擊與較輕微的使用武力；集體自衛須受害國宣布並請求；美國的集體自衛主張不成立。" }
+  ],
+  roc: "",
+  essay: "自衛權要件的寫法：「依憲章第51條及習慣國際法，自衛須符合：（一）遭受武力攻擊，且達一定規模與效果（尼加拉瓜案）；（二）必要性；（三）比例性；（四）立即向安理會報告；（五）安理會採取必要辦法後即應停止。集體自衛另須受害國宣告遭受攻擊並提出請求。」",
+  exam: [
+    { qid: "gl110a_9", note: "正解C為錯誤敘述：自衛權不是起源於尼加拉瓜案。選項A（個別或集體自衛之固有權利）、B（以武力攻擊為前提）、D（規模和效果）都正確。" }
+  ],
+  news: [
+    { text: "俄羅斯於2022年2月24日致安理會函中援引憲章第51條，作為對烏克蘭「特別軍事行動」的依據；多數國家與聯大第ES-11/1號決議不接受此一主張。", checked: "2026-10-02" }
+  ],
+  verified: "2026-10-02",
+  changelog: [LOG_1A, { date: "2026-10-02", type: "更正", text: "正體轉錄本作「武力政擊」「不得不影響」，依聯合國中文本更正為「武力攻擊」「不得影響」。" }]
+});
+// ===== 判例卡 =====
+var CASES = [
+  {
+    id: "kosovo", nameZh: "科索沃獨立宣言諮詢意見", nameEn: "Accordance with International Law of the Unilateral Declaration of Independence in respect of Kosovo",
+    court: "國際法院", year: "2010", date: "2010-07-22", kind: "諮詢",
+    parties: "聯合國大會請求（第63/3號決議，2008年10月8日；由塞爾維亞推動提案）",
+    facts: "科索沃自1999年起由聯合國科索沃臨時行政當局（UNMIK）依安理會第1244號決議管理。2008年2月17日，科索沃代表宣布脫離塞爾維亞獨立。塞爾維亞推動聯大請求國際法院就宣言是否符合國際法表示意見。",
+    issues: [
+      "法院是否有管轄權、是否應行使裁量拒絕發表意見？",
+      "單方面宣布獨立是否違反一般國際法？",
+      "是否違反安理會第1244號決議及UNMIK所訂之憲政架構？"
+    ],
+    holding: [
+      "一致認定有管轄權；以9比5決定接受請求。",
+      "以10比4認定2008年2月17日的獨立宣言未違反國際法。",
+      "一般國際法並無禁止宣布獨立的規定；領土完整原則適用於國家之間的關係。",
+      "第1244號決議並未禁止宣言，宣言作者並非以臨時自治機構身分行事。",
+      "法院刻意未處理：自決權在殖民地以外是否賦予分離權（救濟性分離）、他國承認科索沃的法律效果。"
+    ],
+    significance: "法院把問題限縮在「宣言本身」是否違法，所以本意見不能被引為「國際法承認分離權」的依據。考試常考請求主體（聯大，不是塞爾維亞）與法院沒有處理的議題。",
+    articles: ["icj-65", "unc-1", "unc-96"],
+    exam: ["gl111a_5"],
+    srcUrl: "https://www.icj-cij.org/node/101885",
+    verified: "2026-10-02"
+  },
+  {
+    id: "nicaragua", nameZh: "尼加拉瓜境內及針對尼加拉瓜之軍事及準軍事活動案（尼加拉瓜訴美國）", nameEn: "Military and Paramilitary Activities in and against Nicaragua (Nicaragua v. United States of America)",
+    court: "國際法院", year: "1986", date: "1986-06-27", kind: "訴訟",
+    parties: "尼加拉瓜（原告）訴美國（被告）",
+    facts: "美國支援尼加拉瓜反政府武裝（Contras），並在尼國港口布雷、攻擊港口與石油設施。尼加拉瓜1984年起訴；美國主張係應薩爾瓦多等國請求行使集體自衛。法院1984年11月26日判決有管轄權後，美國退出程序，法院依規約第53條續行審理。",
+    issues: [
+      "美國聲明中的「多邊條約保留」排除憲章適用後，法院能否適用習慣國際法？",
+      "美國行為是否違反禁止使用武力與不干涉原則？",
+      "「武力攻擊」如何認定？集體自衛的要件為何？"
+    ],
+    holding: [
+      "習慣國際法與條約並存，即使內容相同，習慣法仍獨立存在；法院據此適用習慣法。",
+      "禁止使用武力、不干涉原則、尊重主權均為習慣國際法；美國違反這些義務。",
+      "武力攻擊須依「規模和效果」判斷；提供武器、後勤支援叛軍可能構成使用武力或干涉，但不構成武力攻擊。",
+      "集體自衛須受害國宣布遭受武力攻擊並提出請求；美國主張不成立。",
+      "自衛須符合必要性與比例性；判決美國應停止違法行為並賠償。"
+    ],
+    significance: "國際法院關於使用武力、習慣法形成、集體自衛最重要的判決。另有「有效控制」歸責標準（屬國家責任，批次⑤收錄）。注意：自衛權的習慣法地位「不是」此案創設，而是確認。",
+    articles: ["unc-2", "unc-51", "icj-36", "icj-38", "icj-53"],
+    exam: ["gl110a_9"],
+    srcUrl: "https://www.icj-cij.org/node/103876",
+    verified: "2026-10-02"
+  },
+  {
+    id: "north-sea", nameZh: "北海大陸礁層案（德國／丹麥；德國／荷蘭）", nameEn: "North Sea Continental Shelf (Federal Republic of Germany/Denmark; Federal Republic of Germany/Netherlands)",
+    court: "國際法院", year: "1969", date: "1969-02-20", kind: "訴訟",
+    parties: "西德與丹麥、西德與荷蘭，以特別協定提交，兩案合併審理",
+    facts: "三國在北海的大陸礁層界線有爭議。丹麥與荷蘭主張適用1958年《大陸礁層公約》第6條的等距線原則；西德簽署但未批准該公約，若採等距線，凹入的海岸線會使其礁層被大幅壓縮。",
+    issues: [
+      "西德未批准公約，是否仍受第6條等距線原則拘束？",
+      "等距線原則是否已成為習慣國際法？"
+    ],
+    holding: [
+      "西德未批准公約，不受第6條條約義務拘束。",
+      "等距線原則不是大陸礁層概念的必然結果，也未成為習慣國際法。",
+      "習慣法形成須有國家實踐與法之確信；時間短不必然構成障礙，但實踐須「廣泛且幾乎一致」，並出於「法律上有義務」的信念。",
+      "界線應由當事國依公平原則協議劃定，使各方取得其陸地領土自然延伸部分。"
+    ],
+    significance: "說明習慣國際法兩要件最經典的判決，也說明條約如何「宣示、結晶化或促成」習慣法。第11–15條等條文的習慣法地位問題常以此案為論據。",
+    articles: ["icj-38"],
+    exam: ["SG021"],
+    srcUrl: "https://www.icj-cij.org/case/51",
+    verified: "2026-10-02"
+  },
+  {
+    id: "asylum", nameZh: "庇護案（哥倫比亞／秘魯）", nameEn: "Asylum (Colombia/Peru)",
+    court: "國際法院", year: "1950", date: "1950-11-20", kind: "訴訟",
+    parties: "哥倫比亞與秘魯",
+    facts: "秘魯1948年發生兵變失敗，秘魯政黨領袖阿亞．德拉托雷（Haya de la Torre）被控主導叛亂，於1949年1月3日進入哥倫比亞駐利馬大使館尋求庇護。哥倫比亞主張自己有權單方面認定其所犯為政治犯罪，並要求秘魯發給安全離境許可。",
+    issues: [
+      "庇護國能否單方面且有拘束力地認定犯罪性質？",
+      "拉丁美洲是否存在支持此一權利的區域習慣？"
+    ],
+    holding: [
+      "哥倫比亞無權單方面以拘束秘魯的方式認定犯罪性質。",
+      "主張區域或地方習慣者，須證明該規則符合相關國家間「恆常且一致的慣例」，且被接受為法律；哥倫比亞未能證明。",
+      "即使該習慣存在，秘魯拒絕批准規定此權利的1933、1939年蒙特維多公約，已表明反對，習慣也不能對其主張。",
+      "秘魯未要求庇護者離境，因此沒有發給安全離境許可的義務。"
+    ],
+    significance: "承認區域（地方）習慣的可能，並確立主張者的舉證責任。秘魯的態度也常被用來說明「持續反對者」的概念。",
+    articles: ["icj-38"],
+    exam: ["SG021"],
+    srcUrl: "https://www.icj-cij.org/node/100068",
+    verified: "2026-10-02"
+  },
+  {
+    id: "lagrand", nameZh: "拉格朗案（德國訴美國）", nameEn: "LaGrand (Germany v. United States of America)",
+    court: "國際法院", year: "2001", date: "2001-06-27", kind: "訴訟",
+    parties: "德國（原告）訴美國（被告）",
+    facts: "德國籍的卡爾與華特．拉格朗兄弟1982年在美國亞利桑那州被捕，被判死刑，當局未依《維也納領事關係公約》第36條告知他們可聯繫德國領事。1999年3月3日法院發布臨時措施，要求美國在終局判決前採取一切措施避免執行華特．拉格朗死刑，但華特仍於同日被處決。",
+    issues: [
+      "依規約第41條發布的臨時措施命令是否有拘束力？",
+      "領事關係公約第36條第1項是否賦予個人權利？",
+      "美國的「程序失權」規則是否違反第36條第2項？"
+    ],
+    holding: [
+      "法院首次認定臨時措施命令具拘束力；美國未遵守，構成違反義務（13比2）。",
+      "第36條第1項賦予被拘禁外國人個人權利，可由其國籍國在法院主張（14比1）。",
+      "美國適用程序失權規則，使法院無法審查違反公約的影響，違反第36條第2項。",
+      "美國應以其選擇的方法，對未來類似案件的有罪判決與刑罰進行審查與重新考量。"
+    ],
+    significance: "規約第41條的關鍵判例；也是領事關係公約第36條三部曲（拉格朗、阿韋納、賈達夫）的第一案，批次④會擴充領事部分。",
+    articles: ["icj-41", "icj-34", "icj-36"],
+    exam: [],
+    srcUrl: "https://www.icj-cij.org/node/101478",
+    verified: "2026-10-02"
+  },
+  {
+    id: "corfu", nameZh: "科孚海峽案（英國訴阿爾巴尼亞）", nameEn: "Corfu Channel (United Kingdom of Great Britain and Northern Ireland v. Albania)",
+    court: "國際法院", year: "1949", date: "1949-04-09", kind: "訴訟",
+    parties: "英國（原告）訴阿爾巴尼亞（被告）",
+    facts: "1946年10月22日，兩艘英國驅逐艦通過科孚海峽北段（阿爾巴尼亞領海）時觸雷，造成重大傷亡。英國先向安理會提出，安理會1947年4月9日決議建議兩國將爭端提交國際法院。同年11月12、13日，英國未經同意在阿國領海進行掃雷（「零售行動」）。",
+    issues: [
+      "阿爾巴尼亞是否應為爆炸負責？",
+      "英艦10月22日通過是否侵犯阿國主權？",
+      "英國11月的掃雷行動是否侵犯阿國主權？"
+    ],
+    holding: [
+      "阿爾巴尼亞應負責（11比5）：它不可能不知道領海內有水雷，卻未通知各國，違反基於「基本人道考量」等原則的義務。",
+      "連接公海兩部分的國際海峽，各國軍艦平時享有無害通過權，沿海國不得禁止；10月22日的通過未侵犯主權（14比2）。",
+      "掃雷行動侵犯阿國主權（一致）；法院拒絕「自助」或干涉權的抗辯，宣告違法本身即構成適當的補償（滿足）。"
+    ],
+    significance: "國際法院第一個案件。重要性：國際海峽通過權（海洋法批次會再用）、國家不得明知而允許其領土被用來侵害他國權利、拒絕以武力自助。1948年先決反對判決亦是「應訴管轄」的例子。",
+    articles: ["unc-2", "icj-36"],
+    exam: [],
+    srcUrl: "https://www.icj-cij.org/node/103765",
+    verified: "2026-10-02"
+  }
+];
+
+// ===== 概念卡 =====
+var CONCEPTS = [
+  {
+    id: "custom", title: "習慣國際法",
+    definition: "依規約第38條第1項（丑），國際習慣是「作為通例之證明而經接受為法律者」。成立須具備兩要件：客觀的{{國家實踐}}（通例），以及主觀的{{法之確信}}（各國相信這樣做是法律上的義務）。",
+    points: [
+      "國家實踐：須廣泛且幾乎一致；不要求全體國家參與，但特別受影響國家的實踐較具份量（北海大陸礁層案）。",
+      "形成時間：時間短不必然構成障礙，關鍵是實踐的廣泛與一致（北海大陸礁層案）。",
+      "法之確信的證據：外交聲明、抗議、官方新聞稿、國內立法與判決、在國際組織的投票都可能作為證據（SG021選項C）。",
+      "區域或地方習慣：可以只存在於特定區域，甚至兩國之間；主張者須證明恆常一致的慣例（庇護案）。陷阱：「不能僅存於兩國之間」錯誤（SG021）。",
+      "{{持續反對者}}：一國在習慣形成期間即持續明確反對，該規則對其不生效力；但強行法不適用此例外。陷阱：持續反對不能「阻止」習慣對其他國家形成，只能使自己不受拘束——SG021選項B的寫法要小心辨識。",
+      "與條約的關係：條約可以宣示既有習慣、使形成中的習慣結晶化，或促成新習慣；即使條約不適用，內容相同的習慣仍可獨立適用（尼加拉瓜案）。",
+      "陷阱：習慣與條約同為主要法源，沒有效力高低；習慣的形成不需聯合國全體會員接受，也不需安理會常任理事國同意（gl109a_7）。"
+    ],
+    cases: ["north-sea", "asylum", "nicaragua"],
+    articles: ["icj-38", "icj-59"],
+    exam: ["SG021", "gl109a_7", "SG022"],
+    verified: "2026-10-02"
+  },
+  {
+    id: "peaceful-settlement", title: "和平解決國際爭端",
+    definition: "憲章第2條第3項要求會員國以和平方法解決國際爭端，第33條列出方法：談判、調查、調停、和解、{{公斷}}（仲裁）、司法解決、區域機關或辦法，以及當事國自行選擇的其他和平方法。前四種是外交方法，結論不具拘束力；仲裁與司法解決是法律方法，結果具拘束力。",
+    points: [
+      "義務的內容是「以和平方法」解決，不是「必須解決」，也不是「必須交付第三方」；當事國原則上可自由選擇方法（gl111a_11選項A、B正確）。",
+      "國際法院已確認和平解決爭端原則具習慣法地位（尼加拉瓜案）；陷阱：「尚未確認」錯誤（gl111a_11正解C）。",
+      "第三方強制程序仍以同意為基礎：國際法院管轄見規約第36條；但具強制性的機制已逐漸出現，如WTO爭端解決、海洋法公約第十五部分（gl111a_11選項D）。",
+      "安理會在第六章只能「建議」；爭端危及和平時才進入第七章的強制措施（第39條以下）。",
+      "陷阱：調停不以聯合國維和部隊見證為要件（gl109a_11正解B）；仲裁以當事國同意為前提（gl109a_11選項C）。",
+      "陷阱：憲章不要求所有爭端都提交國際法院（gl114a_4正解D）；第36條第3項只說法律爭端「原則上」應提交。"
+    ],
+    cases: ["corfu", "nicaragua"],
+    articles: ["unc-2", "icj-36"],
+    exam: ["gl111a_11", "gl109a_11", "gl114a_4"],
+    verified: "2026-10-02"
+  }
+];
+
+// ===== 比較表 =====
+var COMPARISONS = [
+  {
+    id: "icj-jurisdiction", title: "國際法院訴訟管轄與諮詢管轄",
+    columns: ["項目", "訴訟管轄", "諮詢管轄"],
+    rows: [
+      ["依據", "[[art|icj-34|規約第34–38條]]", "[[art|icj-65|規約第65–68條]]、憲章第96條"],
+      ["誰可提出", "僅國家（第34條第1項）", "大會、安理會；其他聯合國機關及專門機構須經大會授權，且限工作範圍內問題；國家不能請求"],
+      ["管轄基礎", "當事國同意：特別協定、條約條款、任擇條款聲明、應訴管轄（第36條）", "請求機關經憲章授權；不需相關國家同意，但法院在缺乏同意時會審慎考量是否行使裁量"],
+      ["法院有無裁量", "有管轄權即應裁判", "「得」發表意見，有裁量權；實務上除非有強烈理由，否則不拒絕"],
+      ["效力", "對當事國及本案有拘束力（第59條），確定不得上訴（第60條）", "原則上無拘束力；特定條約可約定其具拘束力"],
+      ["不履行時", "他造得向安理會申訴（憲章第94條第2項）", "無執行機制，靠政治與法律權威"],
+      ["本批相關判例", "[[case|nicaragua|尼加拉瓜案]]、[[case|lagrand|拉格朗案]]、[[case|corfu|科孚海峽案]]", "[[case|kosovo|科索沃諮詢意見]]"]
+    ],
+    verified: "2026-10-02"
+  }
+];
+
+// ===== 用語對照表 =====
+var GLOSSARY = {
+  "專案法官": { en: "judge ad hoc", tw: "專案法官", cn: "专案法官", def: "當事國在法院沒有本國籍常任法官時，為特定案件選派的法官，參與該案裁判且與常任法官地位平等（規約第31條）。" },
+  "任擇條款": { en: "optional clause", tw: "任擇條款（或稱選擇條款）", cn: "任择条款", def: "規約第36條第2項；國家可隨時聲明，對接受同樣義務的國家，事先概括接受國際法院的強制管轄。" },
+  "臨時措施": { en: "provisional measures", tw: "臨時措施（作準中文本稱「臨時辦法」）", cn: "临时措施", def: "法院在終局判決前，為保全當事國權利而指示的措施；拉格朗案確認具拘束力（規約第41條）。" },
+  "公允及善良": { en: "ex aequo et bono", tw: "公允及善良", cn: "公允及善良", def: "當事國同意時，法院可以不依實定國際法、而依公平正義裁判（規約第38條第2項）；不是一般法律原則。" },
+  "諮詢意見": { en: "advisory opinion", tw: "諮詢意見", cn: "咨询意见", def: "國際法院應經授權之聯合國機關請求，就法律問題提出的意見，原則上無拘束力（規約第65條、憲章第96條）。" },
+  "法之確信": { en: "opinio juris (sive necessitatis)", tw: "法之確信", cn: "法律确信", def: "國家相信某行為是法律上義務的主觀認知；習慣國際法的主觀要件。" },
+  "國家實踐": { en: "State practice", tw: "國家實踐", cn: "国家实践", def: "國家的作為或不作為，包括外交行為、立法、判決、聲明等；習慣國際法的客觀要件。" },
+  "持續反對者": { en: "persistent objector", tw: "持續反對者", cn: "一贯反对者", def: "在習慣規則形成期間即持續、明確表示反對的國家，該規則對其不生拘束力；不適用於強行法。" },
+  "公斷": { en: "arbitration", tw: "仲裁（作準本舊譯「公斷」）", cn: "仲裁", def: "由當事國合意選任的仲裁人依法律作成有拘束力裁決的爭端解決方法；常設仲裁法院在作準中文本稱「常設公斷法院」。" },
+  "當然當事國": { en: "ipso facto party", tw: "當然當事國", cn: "当然当事国", def: "不需另行加入程序即自動成為當事國；聯合國會員國為國際法院規約當然當事國（憲章第93條第1項）。" },
+  "書記官長": { en: "Registrar", tw: "書記官長", cn: "书记官长", def: "國際法院書記處首長，負責通知、文書送達等事務（規約第21、34、63條等）。" },
+  "經濟及社會理事會": { en: "Economic and Social Council (ECOSOC)", tw: "經濟及社會理事會（簡稱經社理事會）", cn: "经济及社会理事会（经社理事会）", def: "聯合國六大主要機關之一，現有54個理事國，負責經濟、社會、人權等合作事項（憲章第十章）。" },
+  "自然權利": { en: "inherent right", tw: "固有權利（作準本譯「自然權利」）", cn: "自然权利（固有权利）", def: "憲章第51條用語，表示自衛權先於憲章存在，憲章只是承認而非創設。" },
+  "協約": { en: "convention", tw: "公約（作準本舊譯「協約」）", cn: "公约", def: "多邊條約的常見名稱；規約第36、38、63條作準中文本使用「協約」。" },
+  "一般法律原則": { en: "general principles of law", tw: "一般法律原則", cn: "一般法律原则", def: "各國國內法律體系共通承認的原則，如誠信、禁反言、既判力，為規約第38條第1項（寅）的法源。" },
+  "強行法": { en: "jus cogens (peremptory norm)", tw: "強行法（強制規律）", cn: "强行法（强制性规范）", def: "國際社會全體接受、不得以協議違反的規範，如禁止侵略、禁止殘害人群；條約與之牴觸者無效（條約法公約第53條，批次②收錄）。" },
+  "對世義務": { en: "obligations erga omnes", tw: "對世義務", cn: "对一切的义务", def: "國家對整個國際社會負有的義務，所有國家對其履行均有法律利益（巴塞隆納電力公司案，後續批次收錄）。" }
+};
+// ===== 官方考古題（由國際公法題庫.json 自動抽出，勿手改） =====
+var EXAMS = [{"id": "gl109a_1", "src": "109年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "聯合國國際法院（International Court of Justice）為重要的國際爭端解決機構，下列對於國際法院規約（Statute of the International Court of Justice）之敘述，何者錯誤？", "options": ["國際法院以獨立法官若干人組織之，法官應不論國籍，就品格高尚並在各國具有最高司法職位之任命資格或公認為國際法之法學家中選舉之", "國際法院之法官候選人在聯合國大會及在安全理事會得絕對多數票者應認為當選", "當事國一造不到法院或不辯護其主張時，他造得請求國際法院對自己主張為有利之裁判", "在國際法院得為訴訟當事國者，限於國家與聯合國附屬機構"], "answer": 3, "explanation": "同108年題，國際法院規約第34條規定訴訟當事國限於國家。"}, {"id": "gl109a_2", "src": "109年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "世界貿易組織（WTO）為重要的國際經貿組織，下列敘述何者錯誤？", "options": ["在二次世界大戰後的布列頓森林會議中，各國決議成立世界貿易組織，並將其總部設於瑞士日內瓦", "世界貿易組織強調會員間之平等，故沒有任何會員有否決權，一會員一票、票票等值", "世界貿易組織爭端解決小組及上訴機構透過法律解釋的方式處理WTO會員間之貿易爭端", "我國為世界貿易組織之正式會員，入會名稱為「臺澎金馬個別關稅領域」，並享有出席會議及各項完整權利"], "answer": 0, "explanation": "WTO係1995年由烏拉圭回合談判成立，布列頓森林會議（1944年）僅催生IMF與世界銀行，原擬成立的國際貿易組織（ITO）並未實現，本選項敘述錯誤。"}, {"id": "gl109a_3", "src": "109年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "我國於民國104年7月1日公布「條約締結法」，關於本法之內容，下列敘述何者錯誤？", "options": ["主辦機關於條約草案內容獲致協議前，得就談判之方針、原則及可能爭議事項，適時向立法院說明並向立法院相關委員會報告", "條約內容涉及國家機密、國家安全或外交考量者，行政院於條約案送立法院審議時，應標明機密等級，立法院應以秘密會議為之", "未具有條約或公約名稱，但已有批准、接受、贊同或加入條款之條約，得視同條約案，主辦機關得於簽署後三十日內報請行政院備查，並於條約生效後，主辦機關應報請行政院轉呈總統公布，並送立法院查照", "雙邊條約經立法院決議修正者，應退回主辦機關與締約對方重新談判；條約案未獲立法院審議通過者，主辦機關應即通知締約對方"], "answer": 2, "explanation": "條約締結法規定屬「條約案」者應送立法院審議並經總統公布，並非「報請行政院備查」即可，本選項將協定案之簡易程序誤用於條約案，敘述錯誤。"}, {"id": "gl109a_4", "src": "109年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依據聯合國海洋法公約之規範，下列名詞之解釋何者錯誤？", "options": ["「區域」係指國家管轄範圍以外的海床和洋底及其底土", "「海洋環境污染」係指人類直接或間接把物質或能量引入海洋環境，以致造成或可能造成損害生物資源和海洋生物、危害人類健康、妨礙包括捕魚和海洋的其他正當用途在內的各種海洋活動、損壞海水使用質量和減損環境優美等有害影響", "「締約國」係指同意受「聯合國海洋法公約」拘束而該公約對其生效的國家，但不包括未簽署該公約者", "「傾倒」係指從船隻、平台、或其他人造海上結構故意處置廢物或其他物質的行為，但不包括陸上設施與飛行器"], "answer": 3, "explanation": "答案為D。依聯合國海洋法公約第1條，「傾倒」是指從船隻、飛機、平臺或其他人造海上結構故意處置廢物或其他物質的行為，飛機明文包括在內，所以「不包括飛行器」的敘述錯誤。A「區域」、B「海洋環境污染」的定義與公約相符，C的核心定義（同意受公約拘束且公約對其生效的國家）也正確。"}, {"id": "gl109a_5", "src": "109年外交特考", "kind": "外交特考", "topic": "外交與領事關係", "stem": "國際法上對於「豁免」之規定，下列何者錯誤？", "options": ["外交豁免通常會透過國際公約或雙邊條約的方式規定，絕對豁免的情況已不多見", "國家豁免之意義源於一個國家的司法機構不得審判其他國家", "外交代表除在特殊情況外，基本上免納一切對人或對物課徵之國家、區域、或地方性捐稅", "外交使館並非享有刑事司法豁免，接受國基於國家安全理由得進入外國使館處搜索與扣押不法物證"], "answer": 3, "explanation": "使館館舍不可侵犯，接受國不得以任何理由（含國家安全）逕自進入搜索扣押，本選項敘述錯誤。"}, {"id": "gl109a_6", "src": "109年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "世界衛生組織（WHO）是國際間重要的公共衛生與傳染疾病防疫專業機構，關於該組織之敘述何者正確？", "options": ["我國雖非世界衛生組織之成員國，但每年皆以觀察員身分參與世界衛生大會（WHA），參與各項討論與決議", "世界衛生組織的總部位於聯合國總部大樓內，地點在美國的紐約市", "在嚴重特殊傳染性肺炎（COVID-19）的流行下，美國因不滿世界衛生組織之權力運作，而另外成立新的機構，名為「國際衛生組織」（International Health Organization），與之抗衡", "世界衛生組織的最高決策機構為會員國大會，而秘書處僅為常設的執行單位"], "answer": 3, "explanation": "WHO最高決策機構為世界衛生大會（WHA），秘書處為常設執行機關，本選項敘述正確；WHO總部位於瑞士日內瓦（非紐約），故B錯誤；美國並未另立「國際衛生組織」，C錯誤；我國自2017年起已未能以觀察員身分參與WHA，A之敘述已與現況不符。"}, {"id": "gl109a_7", "src": "109年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "國際習慣（Customary International Law）依國際法院規約第38條規定，係「作為通例之證明而經接受為法律者」，下列敘述何者正確？", "options": ["國際習慣之形成必須要有在地域上之普遍適用，亦即所有的聯合國成員都接受成為法律之約束者，始可適用", "國際習慣與條約都是國際法院規約第38條規範之國際法主要淵源，可作為國際法院法官審理案件之依據", "國際習慣之適用，必須經五個聯合國常任理事國在不提出否決權之情況下方得成為規則並適用之", "國際習慣最具有歷史淵源，其效力高於條約與一般法律原則"], "answer": 1, "explanation": "國際法院規約第38條明定條約與國際習慣皆為法院裁判所應適用之國際法淵源，本選項敘述正確。"}, {"id": "gl109a_8", "src": "109年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "關於「1969年維也納條約法公約」（The Vienna Convention on the Law of Treaties）第2條之規定，下列敘述何者錯誤？", "options": ["本條約稱「締約國」者，係指同意承受條約拘束，且該條約已於其境內生效之國家", "本條約稱「保留」者，謂一國於簽署、批准、接受、贊同或加入條約時所作之片面聲明，不論措辭或名稱為何，其目的在排除或更改條約中若干規定對該國適用時之法律效果", "本條約稱「批准、接受、贊同及加入」者，各依本義指一國據以在國際上確定其同意承受條約拘束之國際行為", "本條約稱「第三國」者，謂非條約當事國之國家"], "answer": 0, "explanation": "「締約國」僅指同意受條約拘束之國家，不以條約已生效為要件；條約對其生效者為「當事國」，本選項混淆二者定義，敘述錯誤。"}, {"id": "gl109a_9", "src": "109年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "就聯合國海洋法公約之規範，「領海」係一個國家得行使排他的專屬主權，下列對於領海的敘述，何者錯誤？", "options": ["每一國家有權確定其領海的寬度，直至從按照本公約確定的基線量起不超過二十四海里的界限為止", "領海的外部界限是一條其每一點同基線最近點的距離等於領海寬度的線", "在海岸線極為曲折的地方，或者如果緊接海岸有一系列島嶼，測算領海寬度的基線的劃定可採用連接各適當點的直線基線法", "在位於環礁上的島嶼或有岸礁環列的島嶼的情形下，測算領海寬度的基線是沿海國官方承認的海圖上以適當標記顯示的礁石的向海低潮線"], "answer": 0, "explanation": "領海寬度上限為12浬，非24浬，本選項敘述錯誤。"}, {"id": "gl109a_10", "src": "109年外交特考", "kind": "外交特考", "topic": "外交與領事關係", "stem": "國家對外關係之代表通常具有外交特權與豁免，下列對於外交代表之敘述何者正確？", "options": ["一國的外交部長與外交官才是國家對外關係之正式代表，國家元首在外交出訪時始得代表國家", "外交部之聲明通常會具有國內法院在涉外事實問題上之法律認定效果", "外交代表之特權與豁免係給予其「個人」而非其「職務」，故外交代表卸任後仍享有前述權利", "「維也納外交關係公約」係聯合國關於外交特權與豁免之重要條約，但目前僅有少數國家締約並未正式生效"], "answer": 1, "explanation": "外交部就涉外事實所為聲明，實務上常具國內法院認定涉外事實之效果，本選項敘述正確；其餘選項均有明顯錯誤。"}, {"id": "gl109a_11", "src": "109年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "和平解決國際爭端係聯合國憲章中的重要原則，對於國際間之爭議，請問下列敘述何者錯誤？", "options": ["兩國間透過談判、斡旋、諮商等方式所締結的和平條約皆應以善意原則履行之", "在國際調停的案件中，必須是由聯合國維和部隊之見證下，始得簽署雙方的停火協定", "國際仲裁方式有非常多樣的型態，但就其性質皆為當事國不違反意願之狀況下進行之", "「使用武力」係違反聯合國憲章，安全理事會基於憲章第七章之規定，得對破壞國際和平進行必要之決議"], "answer": 1, "explanation": "調停並不以聯合國維和部隊見證為必要條件，本選項敘述錯誤。"}, {"id": "gl109a_12", "src": "109年外交特考", "kind": "外交特考", "topic": "國家、承認與繼承", "stem": "依據蒙特維多國家權利義務公約之規定，下列何種情況並非條約中所述喪失國家特徵的原因？", "options": ["海平面上升後完全失去領土的小島", "因不同種族同化後所形成的非單一民族結構", "被推翻而流亡境外無法實施有效控制的政府", "因戰爭或武裝衝突而被完全滅絕之種族"], "answer": 1, "explanation": "種族同化形成之多元民族結構不影響蒙特維多公約所定國家四要件之存續。"}, {"id": "gl109a_13", "src": "109年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "關於世界貿易組織（WTO）爭端解決之運作，下列何者敘述錯誤？", "options": ["世界貿易組織之爭端解決為二審級制度，於爭端解決小組敗訴之會員，得將案件提起至上訴機構，但二審即為最終審理", "近年來因美國杯葛上訴機構法官之提名，使得世界貿易組織之秘書處以多數決方式通過上訴法官之人選提名案", "我國自2002年加入世界貿易組織後，運用爭端解決機制處理貿易糾紛，並多次以第三方身分參與多起案件", "世界貿易組織之爭端解決機制為專屬且排他之性質，敗訴會員不得再將同一案件提交不同的國際法庭審理"], "answer": 1, "explanation": "上訴機構法官提名須經DSB共識決通過，並非以多數決方式通過，本選項敘述錯誤。"}, {"id": "gl109a_14", "src": "109年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "我國自從退出聯合國後，由於喪失正式會員國資格，相繼於許多國際組織中退出，以下幾個國際組織之參與，何者受到上述事件的影響？", "options": ["世界貿易組織", "亞洲開發銀行", "國際復興開發銀行", "亞太經濟合作會議"], "answer": 2, "explanation": "我國原為國際復興開發銀行（世界銀行）創始會員國，退出聯合國後於1980年會籍遭中國大陸取代，受影響最直接；WTO、APEC之參與與聯合國會籍無涉。"}, {"id": "gl110a_1", "src": "110年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "《國際法院規約》第38條規定國際法的淵源，下列敘述何者錯誤？", "options": ["第38條並未明示法源之間的位階", "司法判決可作為確定法律之資料", "習慣係作為通例之證明而經接受為法律者", "公允及善良原則係該條所稱「一般法律原則」之重要例子"], "answer": 3, "explanation": "公允及善良原則（ex aequo et bono）規定於國際法院規約第38條第2項，須經當事國同意始得適用，並非同條第1項所稱「一般法律原則」之例子，本選項敘述錯誤。"}, {"id": "gl110a_2", "src": "110年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "依維也納條約法公約，關於條約之終止，下列敘述何者正確？", "options": ["條約中若無條款規定終止問題，原則上條約無限期有效", "當事國一方違反雙邊條約時，他方即可終止條約", "締約之一方，不得因實施條約所必不可少之標的物永久消失或毀壞以致履行不能為由，終止條約", "二國斷絕外交或領事關係，所有條約當然終止"], "answer": 0, "explanation": "依公約第56條，未規定終止條款之條約原則上不得片面終止（除非另有意思或依條約性質可推知），故條約原則上持續有效，本選項敘述正確；B須經公約第60條要件（重大違反）始得終止；C為「履行不能」得作為終止事由（第61條）；D斷交並不當然使條約失效（第63條）。"}, {"id": "gl110a_3", "src": "110年外交特考", "kind": "外交特考", "topic": "國家、承認與繼承", "stem": "參考瑞士中立化之實踐，下列敘述何者正確？", "options": ["一國得單方面宣告中立化而成為中立化國家", "有關大國訂定條約對一國中立化地位給予集體保證", "須經由聯合國大會通過，一國才能取得中立化地位", "一個中立國有不參加任何國際組織的義務"], "answer": 1, "explanation": "瑞士之永久中立地位係1815年維也納會議由列強簽署條約集體承認保證，中立化非單方宣告即可成立，亦非由聯合國大會決議產生，本選項敘述正確。"}, {"id": "gl110a_4", "src": "110年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "國際法中的「先占」概念已成為領土取得的重要要件。下列敘述何者錯誤？", "options": ["國際法中之「先占」概念來自國內私法之「時效取得」概念", "國家發現無主地後，仍需有效控制始能取得領土主權", "實際上持續並和平展現國家功能係先占的重要要件之一", "「發現」給予國家期待權可以在合理期間內完成先占"], "answer": 0, "explanation": "「先占」（occupation）概念係源自羅馬法上對無主物之「先占取得」（occupatio），而非「時效取得」（prescriptio），本選項敘述錯誤。"}, {"id": "gl110a_5", "src": "110年外交特考", "kind": "外交特考", "topic": "國際人權與刑事法", "stem": "1951年「難民地位公約」所列符合難民資格的畏懼受迫害之因素，不包括下列何者？", "options": ["國籍", "戰爭", "屬於某一社會團體", "具有某種政治見解"], "answer": 1, "explanation": "1951年難民地位公約第1條列舉之迫害原因為種族、宗教、國籍、屬於特定社會團體、政治意見五項，並不包括「戰爭」本身。"}, {"id": "gl110a_6", "src": "110年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依據聯合國海洋法公約，下列敘述何者正確？", "options": ["島嶼是四面環水並在高潮時高於水平面的自然形成的陸地區域，故人造島無法擁有領海", "若低潮高地全部與大陸或島嶼的距離超過領海的寬度，則該高地可以有其自己的領海", "所有國家的船舶均享有無害通過他國領海的權利，沿海國不得制定關於無害通過的法律或規章", "沿海國應在通過領海的外國船舶上行使刑事管轄權，以逮捕與在該船舶通過期間船上所犯任何罪行有關的任何人，或進行與該罪行有關的任何調查"], "answer": 0, "explanation": "依海洋法公約第121條，島嶼須為自然形成之陸地，人工島嶼不適用島嶼制度、不得擁有領海，本選項敘述正確；低潮高地距大陸或島嶼超過領海寬度者不得有自己的領海（B錯誤）；沿海國得依公約制定無害通過相關法律規章（C錯誤）；沿海國原則上不應在通過領海的外國船舶上行使刑事管轄權，僅得於例外情形行使，並非「應」行使（D錯誤）。"}, {"id": "gl110a_7", "src": "110年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "關於「國籍」，下列敘述何者錯誤？", "options": ["一國得對具有該國國籍之人民行使屬人管轄權", "各國國內法關於取得國籍之方式有相同之規定", "國民得請求其國家保護，並得依國際法規範享有與國籍相關的利益", "一國原則上得依其國內法規定決定何人為其國民"], "answer": 1, "explanation": "各國關於國籍取得之方式（屬人主義、屬地主義等）規定並不相同，本選項敘述錯誤。"}, {"id": "gl110a_8", "src": "110年外交特考", "kind": "外交特考", "topic": "國家豁免與國家責任", "stem": "依國家對國際不法行為的責任條款草案規定，一個國家犯了國際不法行為而需負國際責任時，下列何者通常不被視為國家解除責任的方式？", "options": ["恢復原狀", "補償", "抵償", "反措施"], "answer": 3, "explanation": "恢復原狀、補償、抵償（satisfaction）為國家責任條款草案所定之三種賠償（reparation）方式；反措施（countermeasures）係他國對不法行為國採取之對抗手段，並非不法行為國自身解除責任之方式。"}, {"id": "gl110a_9", "src": "110年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "有關《聯合國憲章》第51條自衛權之規定，下列敘述何者錯誤？", "options": ["第51條肯認一國有個別或集體自衛之固有權利", "行使自衛權之前提係一國受到「武力攻擊」", "自衛權之習慣法地位起源於1986年國際法院尼加拉瓜案判決", "「武力攻擊」之認定條件包含攻擊之「規模和效果」"], "answer": 2, "explanation": "自衛權作為習慣國際法之地位淵源已久（早於聯合國憲章），1986年尼加拉瓜案判決僅係國際法院確認並闡釋此習慣法地位，並非其起源，本選項敘述錯誤。"}, {"id": "gl110a_10", "src": "110年外交特考", "kind": "外交特考", "topic": "外交與領事關係", "stem": "依維也納外交關係公約第19條，如使館館長缺位或不能執行職務時，應由下列何者暫代使館館長？", "options": ["臨時代辦", "外交團團長", "代辦", "無任所大使"], "answer": 0, "explanation": "依公約第19條，使館館長缺位或不能執行職務時，由臨時代辦（chargé d'affaires ad interim）暫代館務。"}, {"id": "gl110a_11", "src": "110年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "依馬爾喀什設立世界貿易組織協定（Marrakesh Agreement Establishing the World Trade Organization）規定，世界貿易組織（World Trade Organization）原則上優先採取何種方式做決策？", "options": ["二分之一多數決", "共識決", "三分之二多數決", "四分之三多數決"], "answer": 1, "explanation": "WTO決策原則上採共識決（consensus），無人正式反對即視為通過，僅於無法達成共識時始依協定規定改採表決。"}, {"id": "gl110a_12", "src": "110年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "關於國際法院，下列敘述何者錯誤？", "options": ["國際法院的法官共15名，其中不得有2人為同一國家之國民", "除了第一次選出的法官中之10人外，國際法院的法官任期9年，並得連選連任", "在法院得為訴訟當事國者，限於國家", "非聯合國會員國無法成為國際法院規約的當事國"], "answer": 3, "explanation": "非聯合國會員國仍得依聯合國大會經安理會建議所定條件成為國際法院規約當事國（如瑞士於加入聯合國前即已為規約當事國），本選項敘述錯誤。"}, {"id": "gl110a_13", "src": "110年外交特考", "kind": "外交特考", "topic": "使用武力與國際人道法", "stem": "關於「國際人道法」，下列敘述何者正確？", "options": ["國際人道法並不規範武器之使用", "國際人道法並不保護戰俘", "武裝衝突中，各方必須隨時區分民用和軍事目標", "國際人道法僅由1949年四個日內瓦公約構成"], "answer": 2, "explanation": "區分原則（principle of distinction）為國際人道法核心原則之一，要求武裝衝突各方隨時區分軍事目標與民用目標；國際人道法亦規範武器使用（如禁止使用特定武器之公約）、保護戰俘（第三日內瓦公約），且尚包括海牙法、附加議定書等其他規範，A、B、D均錯誤。"}, {"id": "gl110a_14", "src": "110年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "為了遏阻全球暖化，聯合國氣候變化綱要公約（United Nations Framework Convention on Climate Change）下的巴黎協定（Paris Agreement）冀望將全球平均氣溫升幅控制在工業化前水平低於攝氏幾度的目標？", "options": ["1.5度", "2度", "2.5度", "3度"], "answer": 1, "explanation": "巴黎協定訂定目標為將全球升溫控制在工業化前水準以上低於攝氏2度，並努力追求限制在1.5度以內，主要門檻目標為2度。"}, {"id": "gl111a_1", "src": "111年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "一般認為國際法院規約第38條係國際法淵源最重要的依據，下列敘述何者正確？", "options": ["國際公約係由聯合國大會或安全理事會通過所建立之規則", "國際習慣係由文明國家所接受其為法律，而作為國家實踐之證據", "一般法律原則係指由聯合國會員國所承認之國際規則", "在國際法院規約第59條規定下，司法判例及各國權威最高之公法學家學說，作為確定法律原則之補助資料者"], "answer": 3, "explanation": "依規約第38條第1項(d)款並參照第59條，司法判例（含不具先例拘束力之特性）及最高公法學家學說係作為確定法律原則之「補助資料」，本選項敘述正確；A國際公約係由國家間締結而非聯合國機關「建立」；B、C選項對習慣及一般法律原則之定義亦有誤植。"}, {"id": "gl111a_2", "src": "111年外交特考", "kind": "外交特考", "topic": "國際法淵源與基本概念", "stem": "下列何者之規定，具有我國國內法律之效力？", "options": ["聯合國大會決議", "聯合國安全理事會制裁名單", "身心障礙者權利公約", "南海仲裁案仲裁判斷"], "answer": 2, "explanation": "身心障礙者權利公約經我國制定施行法（身心障礙者權利公約施行法）內國法化後，具有國內法律效力；聯合國大會決議、安理會制裁名單及南海仲裁判斷對我國均不當然具有國內法律效力。"}, {"id": "gl111a_3", "src": "111年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "依維也納條約法公約，關於「條約的解釋」，下列敘述何者正確？", "options": ["條約用語總是採用特殊的意義", "依照上下文解釋條約時，無須考慮條約的弁言", "條約用語應依條約目的與宗旨而善意解釋之", "依照上下文脈絡解釋條約時，無須考慮條約的附件"], "answer": 2, "explanation": "依公約第31條，條約應依其用語按上下文並參照條約之目的及宗旨所具有之通常意義，善意解釋之，本選項敘述正確；上下文依同條規定包括弁言及附件在內，B、D均錯誤；用語僅於當事國有此意思時始採特殊意義，A錯誤。"}, {"id": "gl111a_4", "src": "111年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "下列何者並未被列入聯合國非自治領土之名單？", "options": ["開曼群島", "東帝汶", "關島", "百慕達"], "answer": 1, "explanation": "東帝汶已於2002年獨立建國並成為聯合國會員國，已非「非自治領土」；開曼群島、關島、百慕達迄今仍列於聯合國非自治領土名單。"}, {"id": "gl111a_5", "src": "111年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "國際法院在2010年公布有關科索沃獨立宣言合法性的諮詢意見。關於這份諮詢意見，下列敘述何者正確？", "options": ["此諮詢意見係由塞爾維亞向國際法院提出請求而作成", "國際法院認為科索沃宣布獨立之行為未違反國際法", "國際法院認為人民自決權於殖民地人民範疇外亦適用", "國際法院認為其他國家承認科索沃為獨立國家有溯及至宣布獨立之日的效力"], "answer": 1, "explanation": "此諮詢意見係由聯合國大會（應塞爾維亞提案）請求作成，並非塞爾維亞直接向法院提出（A錯誤）；法院認定科索沃宣布獨立本身未違反一般國際法（B正確）；法院並未就自決權是否逾越殖民脈絡、亦未論及承認之溯及效力表示意見，C、D均非本諮詢意見內容。"}, {"id": "gl111a_6", "src": "111年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "被請求國經由引渡程序，將人犯解交請求國時，請求國僅能就引渡請求書中所載之犯罪為追訴或處罰，此原則稱為：", "options": ["互惠原則", "再引渡原則", "特定行為原則", "雙重犯罪原則"], "answer": 2, "explanation": "此即「特定原則」（rule of speciality），限制請求國僅得就引渡請求所載罪名追訴或處罰引渡人犯。"}, {"id": "gl111a_7", "src": "111年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "沿海國在專屬經濟海域有何種權利？", "options": ["沿海國對專屬經濟區擁有主權", "自然資源探勘、開發、養護和管理，但僅限於生物資源", "自然資源探勘、開發、養護和管理，但僅限於非生物資源", "利用風力生產能源"], "answer": 3, "explanation": "依海洋法公約第56條，沿海國於專屬經濟區享有主權權利（非主權本身，A錯誤），涵蓋生物與非生物資源之探勘開發（B、C均侷限錯誤），並包括利用海水、海流和風力生產能源等其他經濟性活動之管轄權，D正確。"}, {"id": "gl111a_8", "src": "111年外交特考", "kind": "外交特考", "topic": "外交與領事關係", "stem": "依維也納外交關係公約，若外交代表為接受國國民，下列敘述何者正確？", "options": ["外交代表無以證人身分作證之義務", "外交代表對接受國之刑事管轄均享有豁免", "外交代表原則上僅就其執行職務之公務行為，享有管轄之豁免及不得侵犯權", "外交代表不受任何方式之逮捕或拘禁"], "answer": 2, "explanation": "依公約第38條，具接受國國籍或於接受國有永久居留之外交代表，除接受國另予optional較大特權外，僅就其執行職務行為享有管轄之豁免及不受侵犯之權利，本選項敘述正確；其餘選項均係一般外交代表（非接受國國民時）之完整特權，不適用於本題情形。"}, {"id": "gl111a_9", "src": "111年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "1963年訂立的「航空器上所犯罪行及若干其他行為（東京）公約」第4條規定，如果在飛機上的罪行是對一個締約國國民或其永久居民所為者，該締約國可以行使管轄權。上述規定採取那一種管轄原則？", "options": ["保護管轄", "被害人（消極）國籍管轄", "國籍（積極）管轄", "領域管轄"], "answer": 1, "explanation": "依被害人國籍（消極國籍）作為管轄連繫因素，屬被害人國籍管轄原則。"}, {"id": "gl111a_10", "src": "111年外交特考", "kind": "外交特考", "topic": "國家豁免與國家責任", "stem": "關於「國家責任」，下列敘述何者錯誤？", "options": ["依據2001年《國家國際不法行為責任條款草案》第4條規定，任何國家機構所為之行為，皆應視為國際法上之國家行為，無論該機構之特徵以及其所執行之功能", "國家如對他國利益直接造成損害，應負擔國家責任", "國家可以該國法律或憲法規定而主張對於國際索償之抗辯", "2001年《國家國際不法行為責任條款草案》第11條規定，國家只有在認知並採取有關行為時，將其視為本國行為的情況下，才有國家責任之產生"], "answer": 2, "explanation": "依責任條款草案第3條，國家不得以其國內法規定作為未履行國際義務之正當化理由，本選項敘述錯誤。"}, {"id": "gl111a_11", "src": "111年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "關於和平解決國際爭端，下列敘述何者錯誤？", "options": ["國家並無必須解決爭端之國際法義務", "爭端解決程序之啟動原則上需要爭端國間之合意", "國際法院尚未確認和平解決國際爭端具有習慣國際法的地位", "具有強制性的爭端解決機構已經開始出現"], "answer": 2, "explanation": "和平解決國際爭端原則已普遍被承認具有習慣國際法地位（並見於聯合國憲章第2條第3項），本選項敘述錯誤。"}, {"id": "gl111a_12", "src": "111年外交特考", "kind": "外交特考", "topic": "國際人權與刑事法", "stem": "下列何者國際刑事法院或法庭尚未成立？", "options": ["前南斯拉夫國際刑事特別法庭", "緬甸國際刑事特別法庭", "盧安達國際刑事特別法庭", "國際刑事法院"], "answer": 1, "explanation": "國際間並無「緬甸國際刑事特別法庭」之設置（僅有獨立調查機制IIMM），前南斯拉夫特別法庭、盧安達特別法庭及常設之國際刑事法院均已成立。"}, {"id": "gl111a_13", "src": "111年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "下列何者為世界貿易組織轄下的複邊協定？", "options": ["原產地規則協定", "補貼暨平衡措施協定", "政府採購協定", "技術性貿易障礙協定"], "answer": 2, "explanation": "政府採購協定（GPA）為WTO複邊協定（僅部分會員締約適用），其餘三者均為WTO多邊協定（對所有會員均適用）。"}, {"id": "gl111a_14", "src": "111年外交特考", "kind": "外交特考", "topic": "國際人權與刑事法", "stem": "下列何者為公民與政治權利國際公約設立的條約機構？", "options": ["聯合國人權理事會（United Nations Human Rights Council）", "人權事務委員會（Human Rights Committee）", "聯合國人權事務高級專員辦事處（Office of the United Nations High Commissioner for Human Rights）", "聯合國秘書處（United Nations Secretariat）"], "answer": 1, "explanation": "人權事務委員會係依公民與政治權利國際公約第28條設立之條約機構，負責監督公約履行；人權理事會、高專辦、秘書處均為聯合國一般機關，非本公約所設之條約機構。"}, {"id": "gl112a_1", "src": "112年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "關於國際法與國內法的關係，有關條約在美國的地位，下列敘述何者錯誤？", "options": ["所有批准的條約都是美國的最高法律", "美國每一州法官都受到所有批准條約的拘束", "所有的條約都需經過四分之三以上的參議員同意", "美國每一州的憲法或法律都不能牴觸所有批准的條約"], "answer": 2, "explanation": "依美國憲法，條約須經參議院出席議員三分之二（非全體參議員四分之三）同意批准，本選項敘述錯誤。"}, {"id": "gl112a_2", "src": "112年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "依據1969年維也納條約法公約，下列何者為國際法據以確定一國同意受條約拘束之國際行為？", "options": ["議定", "批准", "保留", "認證文本"], "answer": 1, "explanation": "依公約第2條，批准（及接受、贊同、加入）為國家確定同意受條約拘束之國際行為；保留為片面聲明以排除或變更條約適用效果，非屬此列。"}, {"id": "gl112a_3", "src": "112年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "有關國際法院規約第38條明定國際法院得適用之國際法淵源，下列敘述何者正確？", "options": ["不包括司法裁判", "包括條約、國際習慣和軟法", "包括各國權威最高之公法學家學說", "包括一般法律原則及國際組織決議"], "answer": 2, "explanation": "第38條第1項(d)款明定司法判例及各國權威最高公法學家學說得作為確定法律原則之補助資料，本選項敘述正確；第38條並未列入「軟法」或「國際組織決議」為正式淵源，亦有包括司法裁判（僅作為補助資料而非主要淵源），A、B、D均有誤。"}, {"id": "gl112a_4", "src": "112年外交特考", "kind": "外交特考", "topic": "國際人權與刑事法", "stem": "關於人權保障制度，下列敘述何者正確？", "options": ["「歐洲保障人權與基本自由公約」仍未在歐洲生效", "「非洲人與人民權利憲章」已在非洲生效", "「亞洲人權憲章」已在亞洲生效", "「美洲人權公約」仍未在美洲生效"], "answer": 1, "explanation": "非洲人與人民權利憲章（Banjul Charter）已生效並廣為非洲國家批准；歐洲人權公約及美洲人權公約均早已生效（A、D錯誤）；目前尚無具拘束力之全亞洲區域性人權公約（「亞洲人權憲章」並非正式生效之公約），C錯誤。"}, {"id": "gl112a_5", "src": "112年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "下列取得領土之方式，何者指國家既有領土因自然力而延伸擴張？", "options": ["先占", "征服與兼併", "添附", "時效"], "answer": 2, "explanation": "添附（accretion）係指因自然力作用（如河流沖積、火山造陸）使既有領土延伸擴張之領土取得方式。"}, {"id": "gl112a_6", "src": "112年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依據聯合國海洋法公約規定，「區域」及其資源的法律性質為何？", "options": ["無主物", "海洋保護區", "人類共同繼承財產", "無主地"], "answer": 2, "explanation": "依海洋法公約第136條，「區域」及其資源為人類共同繼承財產（common heritage of mankind）。"}, {"id": "gl112a_7", "src": "112年外交特考", "kind": "外交特考", "topic": "國家豁免與國家責任", "stem": "當符合特定要件時，地主國可以徵收外國的投資。下列何者並非該等要件之一？", "options": ["為公共目的", "基於雙邊的條約", "符合非歧視的態度", "給予補償"], "answer": 1, "explanation": "國際法上合法徵收外資之要件通常為：基於公共目的、符合正當程序、非歧視、給予及時有效之補償，並不以「基於雙邊條約」為必要要件（徵收本身係地主國依國內法之主權行為）。"}, {"id": "gl112a_8", "src": "112年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "國家對於危害其安全或干擾其政府運作的罪行，即使行為地不在領域內，仍可對外國人行使管轄權，此為下列何種原則？", "options": ["領域", "國籍", "保護", "普遍"], "answer": 2, "explanation": "此即保護管轄原則（protective principle），基於保護國家安全或重大利益，對域外外國人所犯特定罪行主張管轄。"}, {"id": "gl112a_9", "src": "112年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "依聯合國外交特權及豁免公約第5條第18節之規定，聯合國人員應豁免於當地管轄及執行。下列敘述何者錯誤？", "options": ["關於其執行公務時以口頭或文字所發表之言論及行為所生之刑事訴訟，均受豁免，但不包括民事訴訟", "豁免聯合國所予薪給及津貼之稅務", "豁免國家公民服務之義務", "該國政府所予外交國類似等級官員所享受之同樣的外匯便利"], "answer": 0, "explanation": "依該公約第18節，聯合國人員就其執行公務時以口頭或文字發表言論及所為行為，應同時豁免刑事及民事之司法程序（並非僅限刑事訴訟而排除民事），本選項敘述錯誤。"}, {"id": "gl112a_10", "src": "112年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "下列何者並非聯合國憲章第1條所定之聯合國宗旨？", "options": ["維持國際和平及安全", "發展各國間的友好關係", "作為協調各國行動的中心", "促進國際貿易並減少障礙"], "answer": 3, "explanation": "聯合國憲章第1條所列宗旨為：維持國際和平及安全、發展各國間基於平等權利與自決原則之友好關係、促成國際合作解決國際問題並促進人權、作為協調各國行動之中心，並無「促進國際貿易並減少障礙」（此屬GATT/WTO宗旨）。"}, {"id": "gl112a_11", "src": "112年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "世界貿易組織為當代國際法下重要的國際經貿組織，下列敘述何者正確？", "options": ["「1994年建立世界貿易組織協定」強化了「1947年建立國際貿易組織協定」之程序與規則", "世界貿易組織爭端解決小組對於其內括協定具有管轄權", "世界貿易組織爭端解決之最終救濟方式包括回復原狀及金錢賠償", "世界貿易組織會員依據GATT第20條之一般例外條款得簽訂區域貿易協定"], "answer": 1, "explanation": "WTO爭端解決小組對於WTO協定（內括協定，covered agreements）所生之爭端具有管轄權，本選項敘述正確；1947年僅有GATT並無「建立國際貿易組織協定」正式生效（A有誤，且用語錯置）；WTO爭端解決之救濟原則為撤銷違反措施或提供補償，並非回復原狀或金錢賠償（C錯誤）；區域貿易協定之例外依據為GATT第24條而非第20條（D錯誤）。"}, {"id": "gl112a_12", "src": "112年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "下列何者得為國際法院訴訟主體？", "options": ["個人", "屬地", "國家", "國際組織"], "answer": 2, "explanation": "依國際法院規約第34條，僅國家得為訴訟當事國，個人、屬地及國際組織均不得為訴訟主體（國際組織僅得於一定條件下請求諮詢意見）。"}, {"id": "gl112a_13", "src": "112年外交特考", "kind": "外交特考", "topic": "使用武力與國際人道法", "stem": "依據1977年6月8日簽署之「1949年8月12日日內瓦四公約關於保護國際性武裝衝突受難者的附加議定書」（第一議定書），不分皂白的攻擊是被禁止的。下列何種情況構成不分皂白的攻擊？", "options": ["針對特定軍事目標之攻擊", "對某一城市實施地毯式轟炸", "攻擊使用的作戰方法或手段是針對特定軍事目標", "對原野上之坦克及步兵全面攻擊"], "answer": 1, "explanation": "對城市實施不分軍事與民用目標之地毯式轟炸，未區分軍事目標與平民及民用物體，構成第一議定書所禁止之「不分皂白的攻擊」。"}, {"id": "gl112a_14", "src": "112年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "國家負有確保在其管轄或控制範圍內的活動，不致損害其他國家或在國家管轄範圍以外地區之環境的責任。下列何者符合前述要求？", "options": ["善鄰原則", "預防原則", "污染者付費原則", "永續發展原則"], "answer": 0, "explanation": "此即國際環境法上之「善鄰原則」（good neighbourliness / no-harm principle），要求國家確保其管轄或控制範圍內活動不損害他國或國家管轄範圍外之環境。"}, {"id": "gl113a_1", "src": "113年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "依據維也納條約法公約，關於條約的解釋，下列敘述何者錯誤？", "options": ["條約應以善意解釋之", "條約應按其上下文並參考其目的及宗旨解釋所具有之特殊意義解釋", "就解釋條約而言，上下文應包括弁言及附件", "就解釋條約而言，上下文應包括全體當事國間因締結條約所訂與條約有關之任何協定"], "answer": 1, "explanation": "依公約第31條，條約用語原則上應依其「通常意義」解釋，僅於當事國有此意思時始依「特殊意義」解釋，本選項將通常意義誤植為特殊意義，敘述錯誤。"}, {"id": "gl113a_2", "src": "113年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "關於1969年維也納條約法公約規定，下列敘述何者錯誤？", "options": ["依維也納條約法公約第26條之規定，凡有效之條約對其各當事國有拘束力，必須由各該國善意履行", "依維也納條約法公約第27條規定，若有國內管轄原則之適用時，一當事國得援引其國內法規定為理由而不履行條約", "依維也納條約法公約第28條之規定，除條約表示不同意思，或另經確定外，關於條約對一當事國生效之日以前所發生之任何行為或事實或已不存在之任何情勢，條約之規定不對該當事國發生拘束力", "依維也納條約法公約第29條之規定，除條約表示不同意思，或另經確定外，條約對每一當事國之拘束力及於其全部領土"], "answer": 1, "explanation": "依公約第27條，當事國不得援引其國內法規定為理由而不履行條約，本選項敘述適與條文相反，錯誤。"}, {"id": "gl113a_3", "src": "113年外交特考", "kind": "外交特考", "topic": "國際法淵源與基本概念", "stem": "關於國際法主體，下列敘述何者正確？", "options": ["政府間國際組織已成為最重要的國際法主體", "非自治領土均非國際法主體", "個人一定不是國際法主體", "民族解放運動得為國際法主體"], "answer": 3, "explanation": "民族解放運動（national liberation movements）於特定條件下（如經聯合國承認代表性）得具有有限之國際法主體地位；國家仍為最重要之國際法主體（A錯誤）；非自治領土於特定脈絡下仍具一定國際法地位（B錯誤）；個人於國際人權法及國際刑事法領域已漸具有限之國際法主體性（C錯誤）。"}, {"id": "gl113a_4", "src": "113年外交特考", "kind": "外交特考", "topic": "國際人權與刑事法", "stem": "下列何者並非現存區域性人權條約所設之區域人權法院？", "options": ["歐洲人權法院（European Court of Human Rights）", "美洲人權法院（Inter-American Court of Human Rights）", "非洲人權和人民權利法院（African Court on Human and People's Rights）", "亞洲人權法院（Asian Court of Human Rights）"], "answer": 3, "explanation": "目前並無具拘束力之全亞洲區域性人權法院；歐洲、美洲、非洲均已設有區域人權法院。"}, {"id": "gl113a_5", "src": "113年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "依據國際法院規約第38條第1項規定，司法裁判為確定法律原則之補助資料。下列敘述何者正確？", "options": ["國際法院之裁判具有拘束所有國家之普遍效力", "國際法院規約第38條第1項規定之司法裁判係指國際爭端解決機制之裁決", "國際法院規約第38條第1項規定之司法裁判也包括國內法院裁判", "國際法院規約第38條第1項規定之司法裁判係指國際法院本身之判決"], "answer": 2, "explanation": "第38條第1項(d)款所稱「司法裁判」並未限於國際法院自身判決，亦包括其他國際法庭裁決及國內法院裁判，均得作為確定法律原則之補助資料，本選項敘述正確；國際法院裁判依規約第59條僅對訟爭當事國有拘束力，並無普遍效力（A錯誤）。"}, {"id": "gl113a_6", "src": "113年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依聯合國海洋法公約，有關船舶於不同海域所享有之不同程度之航行權，下列敘述何者正確？", "options": ["通過領海之過境通過權", "通過群島國專屬經濟區之群島海道通過權", "通過鄰接區之無害通過權", "通過專屬經濟區之航行自由"], "answer": 3, "explanation": "專屬經濟區內各國享有公海航行自由（第58條準用），本選項敘述正確；領海之航行權為「無害通過權」而非「過境通過權」（過境通過權適用於用於國際航行之海峽，A錯誤）；群島海道通過權適用於「群島水域」而非「專屬經濟區」（B錯誤）；鄰接區並無獨立之「無害通過權」概念，其性質仍屬領海以外海域（C錯誤）。"}, {"id": "gl113a_7", "src": "113年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依聯合國海洋法公約第27條規定：「沿海國不應在通過領海的外國船舶上行使刑事管轄權，以逮捕與在該船舶通過期間船上所犯任何罪行有關的任何人或進行與該罪行有關的任何調查」，下列何者並非該條明定之例外？", "options": ["倘若罪行的後果及於沿海國", "罪行屬於擾亂當地安寧或領海的良好秩序的性質", "倘若經沿岸國當地法院下令進行調查或審判", "倘若這些措施是取締違法販運麻醉藥品或精神調理物質所必要的"], "answer": 2, "explanation": "海洋法公約第27條所列例外為：罪行後果及於沿海國、擾亂當地安寧或領海良好秩序、經船長或船旗國外交代表或領事官員請求當地當局協助、取締違法販運麻醉藥品或精神調理物質所必要，並無「經當地法院下令」此一例外事由。"}, {"id": "gl113a_8", "src": "113年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依據聯合國海洋法公約，下列關於島嶼制度的敘述何者錯誤？", "options": ["島嶼指四面環水並在低潮時高於水面的自然形成的陸地區域", "島嶼可以有專屬經濟海域", "人工島嶼不具有島嶼的地位", "不能維持人類居住或其本身的經濟生活的岩礁，不應有專屬經濟海域"], "answer": 0, "explanation": "依公約第121條，島嶼係指四面環水並在「高潮時」（非低潮時）高於水面之自然形成陸地區域，本選項敘述錯誤。"}, {"id": "gl113a_9", "src": "113年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "國際法允許國家得用以決定其是否有管轄權之基本原則，不包括下列何者？", "options": ["共同管轄原則", "領域管轄原則", "保護管轄原則", "被害人國籍原則"], "answer": 0, "explanation": "國際法上決定管轄權之基本原則包括領域管轄、國籍（積極）管轄、保護管轄、被害人（消極）國籍管轄、普遍管轄等，並無「共同管轄原則」此一分類。"}, {"id": "gl113a_10", "src": "113年外交特考", "kind": "外交特考", "topic": "國家豁免與國家責任", "stem": "依「國家對國際不法行為的責任條款草案」規定，下列何者不是得免除國際不當行為責任的情況？", "options": ["自衛", "經授權行使政府權力的個人違背指示行事", "危急情況", "不可抗力"], "answer": 1, "explanation": "依責任條款草案第7條，經授權行使政府權力之機關或個人縱使逾越權限或違背指示行事，其行為仍歸責於國家，並不因此免除國家責任，本選項並非免責事由。"}, {"id": "gl113a_11", "src": "113年外交特考", "kind": "外交特考", "topic": "外交與領事關係", "stem": "下列何者並非維也納外交關係公約第1條(c)所指的「使館職員」？", "options": ["外交職員", "行政與技術職員", "私人僕役", "事務職員"], "answer": 2, "explanation": "依公約第1條，「使館職員」包括外交職員、行政與技術職員、事務職員，私人僕役（private servant）非屬使館職員，而係另受規範之人員類別。"}, {"id": "gl113a_12", "src": "113年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "下列國際組織之會議，何者採加權表決制？", "options": ["國際能源署", "國際貨幣基金組織", "聯合國教科文組織", "世界衛生組織"], "answer": 1, "explanation": "國際貨幣基金（IMF）採依會員國認繳份額計算之加權表決制（weighted voting），其餘多採一國一票制。"}, {"id": "gl113a_13", "src": "113年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "為求實現聯合國憲章第1條宗旨，其第2條規定聯合國及其會員國應遵行之原則，不包括下列何者？", "options": ["本組織在維持國際和平及安全之必要範圍內，應保證非聯合國會員國遵行聯合國憲章第2條所列之原則", "各會員國應以和平方法解決其國際爭端，俾免危及國際和平、安全、及正義", "各會員國應設立國際託管制度，以管理並監督憑此後個別協定而置於該制度下之領土", "各會員國應一秉善意，履行其依本憲章所擔負之義務，以保證全體會員國由加入本組織而發生之權益"], "answer": 2, "explanation": "國際託管制度規定於聯合國憲章第12章（第75條以下），並非第2條所列會員國應遵行之基本原則，本選項與第2條規範內容不符。"}, {"id": "gl113a_14", "src": "113年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "依據聯合國憲章，下列何者非聯合國的主要機關？", "options": ["託管理事會", "國際法院", "秘書處", "國際刑事法院"], "answer": 3, "explanation": "聯合國憲章第7條所定六大主要機關為大會、安全理事會、經濟暨社會理事會、託管理事會、國際法院及秘書處，國際刑事法院為依羅馬規約設立之獨立國際組織，並非聯合國主要機關。"}, {"id": "gl113a_15", "src": "113年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "關於1947及1994年關稅暨貿易總協定，下列敘述何者錯誤？", "options": ["最惠國待遇是1947及1994年關稅暨貿易總協定中最重要的原則之一", "國民待遇是1947及1994年關稅暨貿易總協定中最重要的原則之一", "1947及1994年關稅暨貿易總協定有規範一般例外及安全例外事項", "1947及1994年關稅暨貿易總協定都沒有規範爭端解決事項"], "answer": 3, "explanation": "GATT第22條、第23條即分別規定諮商與爭端解決（不滿意見之處理）事項，1947年與1994年GATT均有涉及爭端解決之規範，本選項敘述錯誤。"}, {"id": "gl113a_16", "src": "113年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "下列何者並非「第三方解決國際爭端」機制？", "options": ["世界貿易組織爭端解決", "國際海洋法法庭", "投資人與地主國間爭端解決", "國際人道干預委員會"], "answer": 3, "explanation": "並無所謂「國際人道干預委員會」此一具第三方爭端解決功能之常設機制，其餘三者均屬第三方（仲裁或司法）解決國際爭端之機制。"}, {"id": "gl113a_17", "src": "113年外交特考", "kind": "外交特考", "topic": "國際法淵源與基本概念", "stem": "下列何者係同時適用國內法和國際法的「國際化或混合」刑事法庭？", "options": ["遠東國際軍事法庭（東京法庭）", "國際刑事法院", "前南斯拉夫國際刑事法庭", "柬埔寨法院特別法庭"], "answer": 3, "explanation": "柬埔寨法院特別法庭（ECCC）係設於柬埔寨國內法院體系下、同時適用柬埔寨國內法與國際法之混合式（hybrid）法庭；東京法庭、前南國際刑事法庭及國際刑事法院均為純粹國際性法庭。"}, {"id": "gl113a_18", "src": "113年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "有關《核武器不擴散條約》（Treaty on the Non-Proliferation of Nuclear Weapons）和《禁止核武器條約》（Treaty on the Prohibition of Nuclear Weapons）之比較，下列敘述何者正確？", "options": ["前者締約國多數為有核國家，後者締約國多數為無核國家", "前者於1970年生效，後者尚未生效", "前者僅規範有核國，後者同時規範所有國家", "前者未禁止使用核武器，後者明文禁止使用核武器"], "answer": 3, "explanation": "不擴散條約（NPT）並未明文禁止使用核武器（僅規範不擴散與裁軍義務），禁止核武器條約（TPNW）則明文全面禁止研發、試驗、生產、擁有及使用核武器，本選項敘述正確；NPT締約國絕大多數為無核武國家（A方向相反）；NPT於1970年生效屬實，惟TPNW已於2021年生效（B後段錯誤）；NPT亦對無核國課予不擴散義務（C錯誤）。"}, {"id": "gl113a_19", "src": "113年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "聯合國氣候變化綱要公約下之巴黎協定（Paris Agreement）以將地球氣溫上升的幅度控制在攝氏2度內為目標。此長期氣溫目標係約以下列何者作為比較之基準年？", "options": ["1750年", "1900年", "1945年", "2000年"], "answer": 0, "explanation": "巴黎協定所稱「工業化前水準」一般以約1750年（工業革命開始前）作為比較基準。"}, {"id": "gl113a_20", "src": "113年外交特考", "kind": "外交特考", "topic": "國際人權與刑事法", "stem": "下列何者並非保護人權之區域性機制？", "options": ["非洲人權和人民權利法院（African Court on Human and People's Rights）", "阿拉伯人權和人民權利法院（Arab Court on Human and People's Rights）", "歐洲人權法院（European Court of Human Rights）", "美洲人權委員會（Inter-American Commission on Human Rights）"], "answer": 1, "explanation": "阿拉伯國家聯盟迄今並未成立具實際運作之「阿拉伯人權和人民權利法院」，其餘三者均為實際運作之區域性人權保障機制。"}, {"id": "gl114a_1", "src": "114年外交特考", "kind": "外交特考", "topic": "國際法淵源與基本概念", "stem": "關於「國際法」與「國內法」的關係，下列敘述何者錯誤？", "options": ["就理論上而言，國際法與國內法的關係通常指向「一元論」及「二元論」二種不同的方法取徑", "我國憲法第141條規定：「中華民國之外交，應……尊重條約及聯合國憲章，……」", "一國得以國內法律或國內立法程序疏漏等理由，作為違反國際法上義務之正當理由", "一國國內法院能否直接適用國際法，很大程度取決於各該國家的憲法、法律規定及法院裁判"], "answer": 2, "explanation": "依國際法一般原則（並見維也納條約法公約第27條之精神），國家不得以其國內法規定或立法疏漏作為未履行國際法義務之正當化理由，本選項敘述錯誤。"}, {"id": "gl114a_2", "src": "114年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "依據《維也納條約法公約》對於條約所作之定義，下列何者非為條約？", "options": ["京都議定書", "斯德哥爾摩人類環境宣言", "維也納外交關係公約", "馬關條約"], "answer": 1, "explanation": "1972年斯德哥爾摩人類環境宣言為不具法律拘束力之宣示性文件（軟法），並非國家間受國際法拘束之書面協定，非屬公約所稱之「條約」；其餘三者均為具拘束力之條約。"}, {"id": "gl114a_3", "src": "114年外交特考", "kind": "外交特考", "topic": "條約法", "stem": "Pacta tertiis nec nocent nec prosunt 一詞之意義為何？", "options": ["條約神聖原則", "需經國家同意方能使條約生效", "條約僅對締約國生效，不對第三國產生義務", "情勢發生重大且不可預見之變化"], "answer": 2, "explanation": "此一拉丁法諺意指「條約不損益第三者」，即條約原則上僅拘束締約當事國，非經其同意不對第三國創設權利義務。"}, {"id": "gl114a_4", "src": "114年外交特考", "kind": "外交特考", "topic": "使用武力與國際人道法", "stem": "關於「不干涉內政原則」，下列敘述何者錯誤？", "options": ["國際法基本規則要求，一國沒有權利侵害其他國家對國內事務的管轄", "依《聯合國憲章》第7章所為的執行措施，得適用於一國國內管轄事件", "依《聯合國憲章》規定，聯合國原則上不得干涉一國國內管轄事件", "依《聯合國憲章》要求，會員國須將所有爭端依憲章提交國際法院解決"], "answer": 3, "explanation": "聯合國憲章並未強制會員國將所有爭端提交國際法院解決，爭端解決方式尚包括談判、斡旋、調停、仲裁等多元途徑，本選項敘述錯誤。"}, {"id": "gl114a_5", "src": "114年外交特考", "kind": "外交特考", "topic": "國家、承認與繼承", "stem": "關於國際法上的「國家繼承」，下列敘述何者錯誤？", "options": ["1978年《關於國家在條約方面的繼承的維也納公約》，與《維也納外交關係公約》相比，前者之爭議性較大", "1978年《關於國家在條約方面的繼承的維也納公約》為國家繼承原則之法典化成果之一", "國際法委員會於1983年已通過《關於國家在財產、檔案及債務方面的繼承的維也納公約》，但該公約尚未生效", "國家繼承包括因交戰關係而占領等暫時性的改變"], "answer": 3, "explanation": "國家繼承係指因領土主權變更（如獨立、合併、分裂）所生條約、財產等權利義務之繼受問題，交戰占領僅屬暫時性軍事管理而非領土主權之終局變更，並不構成國家繼承之情形，本選項敘述錯誤。"}, {"id": "gl114a_6", "src": "114年外交特考", "kind": "外交特考", "topic": "國際人權與刑事法", "stem": "關於「人權」，下列敘述何者正確？", "options": ["《經濟社會文化權利國際公約》並沒有提到民族（人民）自決權", "《聯合國憲章》第1條規定，聯合國設立的目的是在達成國際合作，藉以促進和鼓勵對全體人類之人權與基本自由的尊重", "《國際人權憲章》是《公民與政治權利國際公約》及《經濟社會文化權利國際公約》二者之總稱", "人權事務屬於一國的國內管轄範圍，不適用國際法規範"], "answer": 1, "explanation": "聯合國憲章第1條第3項明定聯合國宗旨包括促進對人權與基本自由之尊重，本選項敘述正確；經社文公約第1條亦明文規定人民自決權（A錯誤）；「國際人權憲章」（International Bill of Human Rights）泛指世界人權宣言及兩公約合稱，不僅限於兩公約（C錯誤）；當代國際法已普遍認為人權事項不再純屬一國國內管轄範圍（D錯誤）。"}, {"id": "gl114a_7", "src": "114年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "下列區域何者並未受多邊公約之規範？", "options": ["國家管轄以外的海床和洋底及其底土", "南極", "地心", "蘇伊士運河"], "answer": 2, "explanation": "地心並非現行任何多邊公約所規範之特定法律地位區域；海洋法公約規範「區域」、南極條約規範南極、相關國際協定亦規範蘇伊士運河之通行地位。"}, {"id": "gl114a_8", "src": "114年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依據《聯合國海洋法公約》第39條，關於船舶與航空器「過境通行」之義務，下列敘述何者錯誤？", "options": ["船舶與航空器應毫不遲延地通過或飛越海峽", "船舶與航空器不得對海峽沿岸國的主權、領土完整或政治獨立進行任何武力威脅或使用武力", "船舶與航空器除因不可抗力或遇難而有必要外，不得從事其繼續不停和迅速過境的通常方式所附帶發生的活動以外的任何活動", "船舶與航空器得進行任何研究或測量活動"], "answer": 3, "explanation": "依公約第40條，過境通行時外國船舶（含海洋科學研究和水文測量船）非經海峽沿岸國事前准許，不得進行任何研究或測量活動，本選項敘述錯誤。"}, {"id": "gl114a_9", "src": "114年外交特考", "kind": "外交特考", "topic": "海洋法", "stem": "依據《聯合國海洋法公約》，關於群島水域，下列敘述何者錯誤？", "options": ["群島國應尊重其他國家所鋪設的通過其水域而不靠岸的現有海底電纜", "群島國應承認直接相鄰國在群島水域範圍內某些區域的傳統捕魚權", "原則上所有國家的船舶均享有通過群島水域的無害通過權", "航空器不享有群島水域空中通行權"], "answer": 3, "explanation": "依公約規定，群島水域內劃定群島海道者，所有國家之船舶及航空器均享有「群島海道通過權」，航空器並非完全不享有空中通行權，本選項敘述錯誤。"}, {"id": "gl114a_10", "src": "114年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "有關世界貿易組織之爭端解決機構，下列敘述何者正確？", "options": ["世界貿易組織爭端解決機構是國際貿易法領域中成立的第一個爭端解決機制", "《世界貿易組織協定》係爭端解決機構適用之唯一法源", "爭端解決機構就《世界貿易組織協定》之爭端，享有強制和專屬的管轄權", "爭端解決機構已獲得世界貿易組織會員之信任，向其上訴機構提出上訴的比率相當低"], "answer": 2, "explanation": "依爭端解決規則與程序瞭解書（DSU），DSB對WTO內括協定爭端享有強制且專屬之管轄權，會員不得逕自訴諸其他論壇，本選項敘述正確；GATT時期即已存在爭端解決機制，並非首創（A錯誤）；DSU本身及其他內括協定亦為適用法源，非僅WTO協定（B用語不精確）；實務上上訴比率相當高而非偏低（D錯誤）。"}, {"id": "gl114a_11", "src": "114年外交特考", "kind": "外交特考", "topic": "領土與管轄權", "stem": "下列何者並非一國法院經常用以決定跨境電信詐騙犯罪案件管轄權之依據？", "options": ["領域管轄", "普遍管轄", "行為人國籍管轄", "被害者國籍管轄"], "answer": 1, "explanation": "普遍管轄原則通常適用於海盜、種族滅絕、戰爭罪等國際核心罪行，跨境電信詐騙案件管轄權主要依領域、行為人國籍及被害人國籍等連繫因素決定，較少援引普遍管轄。"}, {"id": "gl114a_12", "src": "114年外交特考", "kind": "外交特考", "topic": "國家豁免與國家責任", "stem": "依2001年《國家對國際不法行為的責任條款草案》，關於「一國國際不法行為之要素」，下列敘述何者錯誤？", "options": ["是由一個不法的作為或不作為造成", "存在一個違反義務的作為或不作為", "不法的作為或不作為是可歸責於某一個國家", "國際不法行為之認定應依國際法及國內法共同為之"], "answer": 3, "explanation": "依責任條款草案第3條，一國行為是否構成國際不法行為，應依國際法認定，不受該行為依國內法是否合法之影響，本選項敘述錯誤。"}, {"id": "gl114a_13", "src": "114年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "隨著國際環境法法律原則之發展，下列敘述何者錯誤？", "options": ["國家負有一般義務確保其管轄範圍內之活動尊重他國環境，已為1996年國際法院「威脅使用或使用核武器合法性」諮詢意見所確認", "污染者付費原則已被1972年《聯合國人類環境會議宣言》確認為一般法律原則", "要求進行環境影響評估已為2010年國際法院「烏拉圭河紙漿廠」判決所確認", "永續發展概念已被運用於一般經貿協定中"], "answer": 1, "explanation": "污染者付費原則係於1992年里約環境與發展宣言（而非1972年斯德哥爾摩人類環境會議宣言）中受到明確確認及闡述，本選項敘述錯誤。"}, {"id": "gl114a_14", "src": "114年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "依據《聯合國憲章》第7章，有關聯合國安全理事會，下列敘述何者錯誤？", "options": ["在「人道干預」之情形下，不需事前經安全理事會之決議，聯合國秘書長得逕自要求會員國採取緊急軍事措施", "安全理事會應斷定任何和平之威脅、和平之破壞、或侵略行為之是否存在，並應作成建議或採取適當之辦法，以維持或恢復國際和平及安全", "安全理事會得採取必要之空海陸軍行動，以維持或恢復國際和平及安全", "安全理事會得決定採取武力以外之辦法，以維持國際和平與安全，並得要求聯合國會員採取該相關措施"], "answer": 0, "explanation": "依憲章第7章，採取軍事措施之權限專屬於安全理事會（第39條、第42條），秘書長並無逕自要求會員國採取緊急軍事措施之職權，本選項敘述錯誤。"}, {"id": "gl114a_15", "src": "114年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "依《聯合國憲章》第4條，關於申請成為聯合國會員國的程序，下列敘述何者正確？", "options": ["經大會會員國二分之一之出席與同意行之", "經安全理事會理事國三分之二之出席與同意", "由大會經安全理事會之推薦以決議行之", "經安全理事會理事國二分之一之出席與同意"], "answer": 2, "explanation": "依憲章第4條，新會員入會須先經安全理事會推薦，再由大會決議通過，本選項敘述正確。"}, {"id": "gl114a_16", "src": "114年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "世界貿易組織之規範體系不包括下列何協定？", "options": ["與貿易有關之貨幣互換協定", "服務貿易總協定", "與貿易有關之智慧財產權協定", "技術性貿易障礙協定"], "answer": 0, "explanation": "WTO並無所謂「與貿易有關之貨幣互換協定」，服務貿易總協定（GATS）、與貿易有關智慧財產權協定（TRIPS）及技術性貿易障礙協定（TBT）均為WTO協定體系之一部分。"}, {"id": "gl114a_17", "src": "114年外交特考", "kind": "外交特考", "topic": "國際法院與爭端解決", "stem": "菲律賓於2013年1月提出有關南海爭議的爭端解決，是向下列何者提出？", "options": ["常設仲裁法院", "國際法院", "國際海洋法法庭", "《聯合國海洋法公約》附件七仲裁庭"], "answer": 3, "explanation": "菲律賓依聯合國海洋法公約附件七提起強制仲裁程序，仲裁庭由常設仲裁法院（PCA）提供秘書處服務，惟程序依據為附件七仲裁機制，而非向PCA本身或ICJ、ITLOS提出。"}, {"id": "gl114a_18", "src": "114年外交特考", "kind": "外交特考", "topic": "國際組織與聯合國", "stem": "《聯合國憲章》第2條規定多項原則，下列敘述何者錯誤？", "options": ["各會員國應以和平方法解決其國際爭端，俾免危及國際和平、安全及正義", "各會員國在其國際關係上不得使用威脅或武力，或以與聯合國宗旨不符之任何其他方法，侵害任何會員國或國家之領土完整或政治獨立", "當任何會員遭受軍事攻擊時，聯合國大會得採取必要之空海陸軍行動，以維持或恢復該國之和平及安全", "本憲章不得認為授權聯合國干涉在本質上屬於任何國家國內管轄之事件，且並不要求會員國將該項事件依本憲章提請解決；但此項原則不妨礙第7章內執行辦法之適用"], "answer": 2, "explanation": "採取必要之空海陸軍行動以維持或恢復國際和平及安全之權限，依憲章第42條係屬安全理事會，而非聯合國大會，本選項敘述錯誤。"}, {"id": "gl114a_19", "src": "114年外交特考", "kind": "外交特考", "topic": "使用武力與國際人道法", "stem": "1949年四個日內瓦公約的共同第3條，確立在非國際性武裝衝突的情形下，衝突之各方對不實際參與戰鬥人員應給予之人道待遇。下列何者非共同第3條具體提及之內容？", "options": ["禁止劫持作為人質", "禁止強迫遷移", "禁止未經公正審判而判處刑罰", "公正的人道團體得向衝突各方提供服務的權利"], "answer": 1, "explanation": "日內瓦四公約共同第3條明文禁止：對生命與人身施加暴力（含殺害、酷刑）、劫持人質、侵害人格尊嚴、未經正常組成法庭公正審判而科刑或執行死刑，並規定公正人道團體得提供服務，惟並未具體提及「禁止強迫遷移」。"}, {"id": "gl114a_20", "src": "114年外交特考", "kind": "外交特考", "topic": "國際環境與經濟法", "stem": "關於與國際環境保護相關的公約規範，下列敘述何者錯誤？", "options": ["《控制危險廢物越境轉移及其處置巴塞爾公約》（Basel Convention on the Control of Transboundary Movements of Hazardous Wastes and Their Disposal）完全禁止廢棄物跨國移轉", "《防止海洋油污染國際公約》（International Convention for the Prevention of Pollution of the Sea by Oil）限制有害物質的排放", "依據《生物多樣性公約》（Convention on Biological Diversity），可否取得遺傳資源的決定權屬於國家政府", "《巴黎協定》採國家自主貢獻方式，減量降低溫室氣體的排放"], "answer": 0, "explanation": "巴塞爾公約旨在管制（非完全禁止）危險廢物之越境轉移，要求事前告知同意程序等管制機制，並未全面禁止跨國移轉，本選項敘述錯誤。"}, {"id": "SG001", "src": "111年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "關於引渡之國際法規則，下列敘述何者錯誤？", "options": ["不論本國人或外國人均可被引渡，但國際法允許各國立法規定拒絕引渡本國人", "政治犯原則上不引渡，但對政治犯之認定，受引渡請求國有片面與終局決定權", "甲國派遣特工至乙國領土內將人犯綁架秘送回甲國，甲國法院對該人犯即無權審理", "除有雙邊條約外，國家之間並無引渡罪犯之義務，惟亦有可能透過多邊條約規定締約國間有引渡義務者，如1948年之危害種族罪公約"], "answer": 2, "explanation": "各國司法實務普遍認為，即使人犯係經非法綁架方式解送回國（違反國際法上之地域主權原則），法院對該人犯仍得依「不問方式取得管轄」（male captus, bene detentus）原則行使審判權，並非「無權審理」，此為本題錯誤選項。"}, {"id": "SG002", "src": "111年律師一試", "kind": "律師一試", "topic": "國際法院與爭端解決", "stem": "國際法院規約第38條規範國際法院審判時得適用之法源，下列敘述何者錯誤？", "options": ["國際法院得適用對爭端國有拘束力之條約", "在法源順位上，條約應優先於習慣國際法適用", "國際法院之判決除對於當事國及本案外，並無拘束力", "國際法院亦得引用各國最高權威之公法學說，作為裁判法源"], "answer": 1, "explanation": "國際法院規約第38條所列法源（條約、習慣國際法、一般法律原則等）並未明定其相互間存在絕對之優先適用順位，條約與習慣國際法之適用取決於具體個案情形，並非條約「應優先於」習慣國際法適用，此為本題錯誤選項。"}, {"id": "SG003", "src": "111年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "國際法院在1962年柏威夏古寺案（Cambodia v. Thailand）判決中，認為泰國不得再主張系爭古寺附近領土主權之理由為何？", "options": ["領土不在國家繼承涵蓋之範圍", "已依條約割讓該領土", "已依禁反言原則喪失該領土", "對該領土之占領不符合時效取得要件"], "answer": 2, "explanation": "國際法院於柏威夏古寺案認為，泰國過去長期默認地圖劃界結果並未提出異議，其後又反覆主張相反立場，已構成「禁反言」（estoppel），故不得再爭執該領土主權之歸屬。"}, {"id": "SG004", "src": "111年律師一試", "kind": "律師一試", "topic": "條約法", "stem": "關於條約締結法之國際書面協定，下列敘述何者錯誤？", "options": ["定有批准、接受、贊同或加入條款者，為條約", "未定有批准、接受、贊同或加入條款者，無須經立法院審議通過", "內容涉及國防、外交等國家重要事項者，為條約", "雖不涉及國內法律之變更，但內容對締約各方均具拘束力者，仍為協定"], "answer": 1, "explanation": "依條約締結法規定，縱使國際書面協定未定有批准等條款而屬「協定」性質，惟若其內容具有法律上效力、涉及國家重要事項或人民權利義務者，仍應送立法院審議，並非「無須」經立法院審議通過，此為本題錯誤選項。"}, {"id": "SG005", "src": "111年律師一試", "kind": "律師一試", "topic": "條約法", "stem": "關於條約之批准，下列敘述何者錯誤？", "options": ["批准表示國家願意承受條約拘束之同意", "條約是否要批准，完全由締約國自行決定，國家並無批准條約之義務", "批准是締約國表達同意受條約拘束之唯一方式", "設有生效要件之多邊條約，仍須待該條約生效要件滿足後，始對批准國生拘束力"], "answer": 2, "explanation": "國家表達同意受條約拘束之方式多元，除批准外，尚包括簽署、接受、贊同或加入等方式，並非「唯一」以批准為之，此為本題錯誤選項。"}, {"id": "SG006", "src": "111年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "關於國家「中立化（neutralization）」之敘述，下列敘述何者正確？", "options": ["一國須經過聯合國大會決議同意，其「中立化」之宣告始生拘束力", "「中立化」之國家不得任意宣告終止中立地位", "「中立化」之國家應避免提供交戰國軍事基地，或以其領土作為軍事目的使用", "「中立化」之國家不得對交戰國之違反人類犯罪發表譴責聲明"], "answer": 2, "explanation": "中立化國家（如永久中立國瑞士）之核心義務，即在於避免捲入軍事同盟或衝突，包括不得提供交戰國軍事基地或以其領土供軍事目的使用；中立化通常透過條約而非聯合國大會決議形成，中立國仍得就違反人道之國際罪行表達譴責，中立地位之終止亦非絕對禁止。"}, {"id": "SG007", "src": "111年律師一試", "kind": "律師一試", "topic": "國際組織與聯合國", "stem": "關於聯合國之經費，下列敘述何者正確？", "options": ["踰越聯合國憲章規定權限之行為，即使符合憲章之目的，其支出仍不屬聯合國之經費", "聯合國憲章並未規定所屬各機關行為有效性之認定基準，各機關得自行認定其支出經費之合法性", "若支出經費與聯合國之經常性支出根本不同，即不得被認定為聯合國之經費", "由於聯合國是政治性組織，支出經費限於符合政治性目的者，始屬合法"], "answer": 2, "explanation": "依國際法院1962年關於聯合國若干經費之諮詢意見，凡是為達成聯合國憲章所定宗旨目的而生之支出，縱使性質上與經常性支出有別（如維和行動特別支出），仍得認定為聯合國之合法經費；反之，若支出與聯合國經常性支出根本不同性質而又逾越憲章目的，則非屬聯合國經費。"}, {"id": "SG008", "src": "111年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "關於國家繼承，下列敘述何者錯誤？", "options": ["國家繼承是指因國家之解消、分裂、兼併、割讓等原因永久一部或全部消滅，對其權利義務加以繼受之程序", "國家繼承可能因繼受國之選擇而造成不完全繼承", "即使是無關主權功能之財產如元首之受贈物，仍當然屬於國家繼承之標的", "國家檔案屬於與主權功能有關之財產，當然屬於國家繼承之標的"], "answer": 2, "explanation": "與國家主權功能無關之財產（如元首個人受贈物等私人性質財產），並非當然屬於國家繼承之標的，僅與主權公務功能相關之財產（如國家檔案）始屬國家繼承之典型標的，此為本題錯誤選項。"}, {"id": "SG009", "src": "111年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "關於國際法對引渡所建立之原則，下列敘述何者正確？", "options": ["種族滅絕罪嫌重大者，得視為政治犯而拒絕引渡", "引渡後有遭受酷刑之具體風險者，應拒絕引渡", "非法劫持航空器者，應視其政治動機判斷是否引渡", "被引渡人受追訴之罪名，不限於引渡請求書所載之罪"], "answer": 1, "explanation": "國際人權法及引渡實務普遍肯認「不驅逐原則」之延伸適用，若引渡後該人有遭受酷刑之具體風險，應拒絕引渡；種族滅絕、劫機等重大國際犯罪通常不得以政治犯為由拒絕引渡，且依「特定性原則」，被引渡人受追訴之罪名原則上應限於引渡請求書所載之罪。"}, {"id": "SG010", "src": "111年律師一試", "kind": "律師一試", "topic": "國際法院與爭端解決", "stem": "關於國際法院得受理之案件，下列敘述何者錯誤？", "options": ["安全理事會有權向國際法院提出諮詢意見案", "個人亦得以規約締約國違反條約為由，向國際法院提起訴訟", "提起訴訟之國家，必須對爭端在法律上有權利或利益", "爭端當事國皆同意接受管轄時，國際法院得受理該訴訟"], "answer": 1, "explanation": "國際法院訴訟程序之當事人僅限於「國家」，個人並無資格逕以規約締約國違反條約為由向國際法院提起訴訟，此為本題錯誤選項。"}, {"id": "SG011", "src": "112年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "有關國際法上永久中立國，下列敘述何者正確？", "options": ["國家得自行宣告為永久中立國而無須獲得他國承認", "永久中立國必須承諾不參加軍事同盟", "在遭受他國攻擊時，永久中立國不得使用武力加以自衛", "永久中立國得提供其領土給他國作為軍事上的使用"], "answer": 1, "explanation": "永久中立國之核心義務即承諾不參加軍事同盟或捲入他國間之戰爭；其地位通常須經他國承認或條約確認方具國際法效力，中立國遭受攻擊時仍得行使自衛權，亦不得提供領土供他國軍事使用。"}, {"id": "SG012", "src": "112年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "有關國際法上政府承認，下列敘述何者正確？", "options": ["一國得以他國新政府應繼承舊政府之條約義務，作為加以承認之條件", "國家有義務不得承認藉由武裝革命所成立之新政府", "不被承認的政府，在事實上無法行使國家之權能", "撤銷對他國政府之承認，即等同於撤銷對其國家之承認"], "answer": 0, "explanation": "國家於承認他國新政府時，得將該新政府承諾繼受舊政府條約義務作為承認之條件之一；國際法上並未絕對禁止承認經武裝革命成立之新政府，未受承認之政府在事實上仍可能有效統治並行使國家權能，政府承認與國家承認性質不同，撤銷政府承認並不當然等同撤銷國家承認。"}, {"id": "SG013", "src": "112年律師一試", "kind": "律師一試", "topic": "國際組織與聯合國", "stem": "有關國際組織之地位與權能，下列敘述何者正確？", "options": ["聯合國之總部位置，由聯合國秘書處選定", "依1949年國際法院之諮詢意見，聯合國對雇員所受職務上損害，有獨立求償之權能", "國際組織違反國際法，會員國當然應負擔連帶責任", "國際組織之權能，僅以章程所明定者為限"], "answer": 1, "explanation": "依國際法院1949年關於聯合國雇員受害求償案諮詢意見，聯合國具有獨立之國際法律人格，得就其雇員因執行職務所受損害向責任國提出求償；聯合國總部位置係經會員國協議決定，國際組織違反國際法未必當然使會員國負連帶責任，其權能亦不限於章程明文規定者（尚包含達成宗旨所需之隱含權能）。"}, {"id": "SG014", "src": "112年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "有關國際法上人民自決權，下列敘述何者錯誤？", "options": ["人民自決權屬於國際法所明文承認之人權", "人民自決權在規範性質上屬於國際強行法", "人民自決權僅得由殖民地和非自治領土之人民行使", "國家有義務避免採取干涉或限制人民自決權行使之行為"], "answer": 2, "explanation": "人民自決權之行使主體並不僅限於殖民地或非自治領土人民，亦得適用於遭外國占領或其他特殊情況下之人民，並非「僅得」由殖民地及非自治領土人民行使，此為本題錯誤選項。"}, {"id": "SG015", "src": "112年律師一試", "kind": "律師一試", "topic": "國際人權與刑事法", "stem": "關於國際法對個人權利之保障，下列敘述何者錯誤？", "options": ["依1951年難民地位公約，除因國家安全或公共秩序理由外，締約國不得驅逐合法在其領土內之難民", "公民與政治權利國際公約與經濟社會文化權利國際公約，為保障個人權利之核心國際公約", "條約與各國司法實務都已確立，從事普通犯罪之人不得主張為政治犯而不受引渡", "日內瓦公約及其附加議定書保障平民與戰俘，在武裝衝突中應受人道之待遇"], "answer": 2, "explanation": "從事普通犯罪與具政治性質犯罪之區辨於國際引渡實務及學說上仍存有相當爭議，並非已「確立」從事普通犯罪者一律不得主張政治犯身分而拒絕引渡，此仍屬個案認定問題，此為本題錯誤選項。"}, {"id": "SG016", "src": "112年律師一試", "kind": "律師一試", "topic": "條約法", "stem": "依條約締結法，關於條約之締結，下列敘述何者錯誤？", "options": ["具專門性、技術性之條約及協定，其簽訂應由各專司部會主辦，無須經外交部同意", "主辦機關於條約草案內容獲致協議前，得就談判之方針、原則及可能爭議事項，適時向立法院說明並向立法院相關委員會報告", "雙邊條約經立法院決議修正者，應退回主辦機關與締約對方重新談判", "條約或協定之約本，應同時以中文及締約對方之官方文字作成，各種文本同等作準為原則"], "answer": 0, "explanation": "依條約締結法規定，即使具專門性、技術性之條約及協定，其簽訂仍應會商外交部同意後始得辦理，並非「無須」經外交部同意，此為本題錯誤選項。"}, {"id": "SG017", "src": "112年律師一試", "kind": "律師一試", "topic": "海洋法", "stem": "關於沿海國依聯合國海洋法公約對大陸礁層得主張之權利，下列敘述何者正確？", "options": ["即使事實延伸超過200浬，沿海國仍僅得主張不超過200浬之大陸礁層權利", "所有締約國主張之大陸礁層，均須經大陸礁層界限委員會審查核定後始生拘束力", "沿海國向國際海床管理局繳付開發大陸礁層之費用，得選擇以金錢或實物方式繳納", "內陸國因事實上沒有大陸礁層，所以無權享有或分配大陸礁層開發所獲取之惠益"], "answer": 2, "explanation": "聯合國海洋法公約規定，沿海國就200浬外大陸礁層開發所獲利益應向國際海床管理局繳付費用或實物，並得選擇繳納方式；若地質延伸事實超過200浬，沿海國得依公約程序主張延伸至最遠350浬或2500公尺等深線外100浬之大陸礁層，內陸國亦得依公約規定分享此類惠益（不因無大陸礁層而完全喪失分配資格）。"}, {"id": "SG018", "src": "112年律師一試", "kind": "律師一試", "topic": "使用武力與國際人道法", "stem": "甲國占領乙國部分領土。甲國僅加入公民與政治權利國際公約（ICCPR），乙國則僅加入經濟社會文化權利國際公約（ICESCR）。關於乙國被占領區內人民享有之兩公約權利保障，下列敘述何者正確？", "options": ["被占領區人民僅受ICCPR保障", "被占領區人民僅受ICESCR保障", "被占領區人民同受ICCPR及ICESCR保障", "被占領區人民不受ICCPR或ICESCR保障"], "answer": 2, "explanation": "占領國（甲國，ICCPR締約國）於其實際管轄（占領）之領土內，其公約義務隨其管轄權延伸適用；而被占領領土之原主權國（乙國，ICESCR締約國）之公約義務亦不因遭占領而當然免除，故被占領區人民同時受兩公約之保障。"}, {"id": "SG019", "src": "112年律師一試", "kind": "律師一試", "topic": "國際法院與爭端解決", "stem": "國際法院對國家間爭端之訴訟管轄權，須以當事國合意為基礎，下列敘述何者錯誤？", "options": ["國際法院對爭端利益相關第三方國家無管轄權，不影響其訴訟管轄權之行使", "爭端當事國得於爭端發生後，藉由特別協議接受國際法院管轄", "就爭端法律問題，國際法院規約締約國得隨時聲明承認國際法院強制管轄", "國際法院規約締約國就其接受國際法院強制管轄之聲明，不得附帶任何條件"], "answer": 3, "explanation": "國際法院規約第36條第3項明文規定，締約國得於其聲明接受強制管轄時，附加互惠條件或一定期限等保留條件，並非「不得附帶任何條件」，此為本題錯誤選項。"}, {"id": "SG020", "src": "112年律師一試", "kind": "律師一試", "topic": "海洋法", "stem": "關於國際海洋法法庭，下列敘述何者正確？", "options": ["法庭管轄權不包括國家以外的實體", "法庭管轄權不包括聯合國海洋法公約以外其他協定所生之爭端", "法庭得為防止嚴重損害海洋環境，規定具有拘束力之臨時措施", "法庭得依職權裁定締約國應迅速釋放被扣留之船舶與船員，無待爭端方之提出"], "answer": 2, "explanation": "國際海洋法法庭為防止對海洋環境造成嚴重損害，得依聲請規定具有拘束力之臨時措施；該法庭管轄權尚可及於國家以外之特定實體（如國際海床管理局）及公約以外其他協定明文賦予管轄權之爭端，迅速釋放程序亦須經爭端一方提出聲請，非法庭得依職權主動裁定。"}, {"id": "SG021", "src": "113年律師一試", "kind": "律師一試", "topic": "國際法淵源與基本概念", "stem": "關於習慣國際法，下列敘述何者錯誤？", "options": ["習慣國際法必須經多國普遍且重複實踐，不能僅存於兩國之間", "一國自始持續反對他國之慣行，可以阻止習慣國際法之形成", "一國對他國行為的聲明、抗議、發布的新聞稿，都可能被當成是否對習慣國際法具有法之確信的證據", "習慣國際法也可能被成文化為條約之內容"], "answer": 0, "explanation": "習慣國際法之形成不以「多國」普遍實踐為絕對必要，亦可能存在於「兩國之間」之特殊習慣（bilateral custom），並非「不能僅存於兩國之間」，此為本題錯誤選項。"}, {"id": "SG022", "src": "113年律師一試", "kind": "律師一試", "topic": "使用武力與國際人道法", "stem": "日內瓦公約規定對非國際戰爭戰俘亦應提供最低程度待遇，在國際法上被認為具有習慣國際法之性質。若甲國為日內瓦公約之締約國，乙國不是締約國，丙國曾是締約國但之後退出。下列敘述何者錯誤？", "options": ["乙國對於非國際戰爭戰俘，有義務提供最低程度待遇", "丙國主張退出日內瓦公約後即欠缺法之確信，毋須對非國際戰爭戰俘提供最低程度待遇", "丙國退出日內瓦公約後，該公約對丙國無條約之拘束力", "日內瓦公約對乙國無條約之拘束力"], "answer": 1, "explanation": "日內瓦公約提供最低程度人道待遇之規定，已具備習慣國際法之性質，此種義務不因一國退出公約本身而當然免除，丙國縱使退出公約（免除條約義務），仍應受具習慣國際法性質之最低待遇義務拘束，並非「毋須」提供，此為本題錯誤選項。"}, {"id": "SG023", "src": "113年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "關於國際法上非國家政治實體，下列敘述何者錯誤？", "options": ["二戰後之託管地在完成獨立或與他國結合之前，得被歸類為非國家政治實體", "有效控制特定領土而被承認之交戰團體，得被歸類為非國家政治實體", "非國家政治實體之流亡政府，指對其領土喪失有效統治而迫遷他國的政府", "非國家政治實體之民族解放團體，在未完成獨立並獲承認前，不得參與聯合國或其專門機構舉行之會議"], "answer": 3, "explanation": "民族解放團體於未完成獨立建國並獲國際承認前，於一定條件下仍可能取得聯合國大會觀察員地位，得參與聯合國或其專門機構舉行之相關會議，並非「不得參與」，此為本題錯誤選項。"}, {"id": "SG024", "src": "113年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "關於國際法中之國家承認，下列敘述何者錯誤？", "options": ["對於交戰團體之承認，可能違反不干涉（預）原則", "國家承認亦得藉由默示方式為之", "對一國家之承認，不得附加任何條件", "既存國家無國際法上之義務承認新國家"], "answer": 2, "explanation": "國家於承認新國家時，實務上仍可能附加一定之政治性條件（如要求承諾遵守特定國際義務），並非國際法上絕對禁止「附加任何條件」，此為本題錯誤選項。"}, {"id": "SG025", "src": "113年律師一試", "kind": "律師一試", "topic": "國際組織與聯合國", "stem": "關於國際組織，下列敘述何者錯誤？", "options": ["國際組織之權能，必須受其所由創設之法律文件規定之限制", "為了實現其設立之目的與宗旨，即使章程未明文規定，國際組織也可能擁有某些隱有的權能", "因維也納條約法公約之除外規定，國際組織無法成為締結條約之主體", "國際組織得自設行政法庭處理其與雇員間之勞資爭議，並依條約豁免駐在地法院之管轄"], "answer": 2, "explanation": "維也納條約法公約雖主要規範國家間條約，惟並未因此排除國際組織作為締約主體之資格，國際組織締結條約另有1986年維也納條約法公約（國家與國際組織間或國際組織相互間）予以規範，並非「無法成為締結條約之主體」，此為本題錯誤選項。"}, {"id": "SG026", "src": "113年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "依二次大戰後之國際法原則，關於國家取得領土主權之方式，下列敘述何者錯誤？", "options": ["國家得以合意交換方式取得領土主權", "對於公海上因自然力形成之島嶼，國家得先占取得其領土主權", "國家得藉由人工方式改造領海外之專屬經濟海域中低潮高地為島嶼，從而取得其領土主權", "國家不得以合法行使武力之方式取得他國領土主權"], "answer": 2, "explanation": "依國際法（含聯合國海洋法公約），低潮高地經人工填海造陸等方式改造為人工島嶼，並不因此使該國取得該處之領土主權或改變其海域地位，此為本題錯誤選項。"}, {"id": "SG027", "src": "113年律師一試", "kind": "律師一試", "topic": "海洋法", "stem": "關於海域執法，下列敘述何者錯誤？", "options": ["除非條約另有約定，否則一國海巡船舶不得於公海對他國船舶之毒品運送行為進行登檢", "B國籍船舶與C國籍船舶在A國鄰接區內準備共同走私毒品至D國，A國對該二船不得行使管轄權", "發動緊追之政府船舶，如不在被緊追之外國船舶目視範圍內，即不得發動緊追", "用於航行之國際海峽沿海國，有權制定與執行該海峽分道航行之規則"], "answer": 1, "explanation": "沿海國於其鄰接區內，得為防止及處罰違反其海關、財政、移民或衛生法令（含毒品走私）之行為行使必要管制權，A國對於在其鄰接區內準備共同走私毒品之外國船舶，得依鄰接區管轄權行使必要管制措施，並非「不得行使管轄權」，此為本題錯誤選項。"}, {"id": "SG028", "src": "113年律師一試", "kind": "律師一試", "topic": "外交與領事關係", "stem": "關於國家管轄之豁免，下列敘述何者錯誤？", "options": ["一國元首於他國出訪時為子女購物所生之消費糾紛，得主張豁免該國法院之管轄", "一國之國營銀行就出具之信用狀於他國所生之爭執，得主張豁免該國法院之管轄", "一國依科學合作條約於他國領海探勘之公務船舶所致之損害，得主張豁免該國法院之管轄", "一國卸任元首對其在任期間之職務行為，得主張豁免他國法院之管轄"], "answer": 1, "explanation": "國營銀行從事商業性質行為（如出具信用狀等商業交易）所生之爭議，依「限制豁免原則」通常不得主張國家豁免，此與純粹公務性質行為（如元首私人行為、公務船舶執行公務行為）享有豁免之情形有別，此為本題錯誤選項。"}, {"id": "SG029", "src": "113年律師一試", "kind": "律師一試", "topic": "國家豁免與國家責任", "stem": "個人向國際人權條約監督機構提起訴訟或申訴前，應「窮盡當地救濟」。設定該尋求國際人權機構救濟條件之理由，下列敘述何者錯誤？", "options": ["尊重國際人權條約所載不干涉（預）原則條款", "允許被告國有機會修正錯誤或賠償損失", "內國程序訴訟效率較高且有利判決執行", "推定國家法體系正常運作以尊重管轄權"], "answer": 2, "explanation": "「窮盡當地救濟」原則之理由著重於尊重國家主權管轄、給予被告國自我修正機會，並非因「內國程序訴訟效率較高」（此非該原則設定之理由，且未必符合實際情形），此為本題錯誤選項。"}, {"id": "SG030", "src": "113年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "依羅馬規約之規定，下列何者不屬於國際刑事法院行使管轄權之條件？", "options": ["聯合國認證之人道組織向檢察官提交情勢", "締約國向檢察官提交本國情勢", "聯合國安全理事會依憲章第七章決議向檢察官提交情勢", "國際刑事法院檢察官依職權主動發動偵查"], "answer": 0, "explanation": "依羅馬規約，得提交情勢予檢察官者為締約國、聯合國安全理事會（依憲章第七章決議），或由檢察官依職權主動發動偵查；「聯合國認證之人道組織」並非規約所定得提交情勢之主體，此為本題答案。"}, {"id": "SG031", "src": "114年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "關於國際法上禁反言原則，下列敘述何者正確？", "options": ["通常是指若因自身之行為致他方信賴並依循，即不得再為相反之主張致他方受損害", "在領土判決中常成為判斷領域主權歸屬的最重要因素", "國家元首於聯合國大會發表關於主權範圍之一次性聲明，他國得據以主張禁反言原則", "禁反言原則已成為習慣國際法原則"], "answer": 0, "explanation": "禁反言原則核心意旨係指一國因自身行為致他方產生合理信賴並據以行事後，不得再為與先前立場相反之主張，致他方因信賴而受損害；惟該原則僅為國際法院裁判時考量之因素之一，並非判斷領土歸屬之「最重要」因素，單一次性聲明亦未必即足以構成禁反言之要件，其是否已昇華為獨立之習慣國際法原則，學說上仍有爭議。"}, {"id": "SG032", "src": "114年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "關於國際法上之非自治領土，下列敘述何者錯誤？", "options": ["非自治領土人民有權主張人民自決權", "聯合國託管理事會已停止運作", "聯合國憲章並未要求會員須承認非自治領土獨立", "目前世界上已無非自治領土"], "answer": 3, "explanation": "目前世界上仍存在若干「非自治領土」（如聯合國所列之若干海外屬地），並非「已無非自治領土」，此為本題錯誤選項。"}, {"id": "SG033", "src": "114年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "關於國際法上徵收外國人或公司財產之國際責任，下列敘述何者錯誤？", "options": ["地主國徵收外國公司財產給予之補償是否「適當」，得由徵收國片面規定或裁量", "地主國對於徵收之補償，在形式上必須符合「適時、合宜與有效」原則", "地主國得與被徵收公司所屬國明文約定排除「窮盡當地救濟」原則之適用", "「窮盡當地救濟」原則並非習慣國際法原則，除非兩國明文規定為行使外交保護要件，否則不應適用"], "answer": 0, "explanation": "徵收補償是否「適當」，依國際法（如Hull原則：迅速、合宜、有效補償）之要求，並非任由徵收國「片面」規定或裁量決定，仍須符合國際法上之客觀合宜標準，此為本題錯誤選項。"}, {"id": "SG034", "src": "114年律師一試", "kind": "律師一試", "topic": "國際人權與刑事法", "stem": "甲國為經濟社會文化權利國際公約（ICESCR）之締約國。於甲國就業之移工A，認其健康權遭甲國恣意侵害而欠缺有效救濟，遂以個人名義向經濟社會文化權利委員會提出申訴而未獲受理。下列何者為不受理之可能理由？", "options": ["經濟社會文化權利委員會無權受理個人申訴案", "經濟社會文化權利委員會僅受理工會或團體申訴", "甲國未加入經濟社會文化權利國際公約議定書", "移工A並非甲國公民，不符合申訴人適格"], "answer": 2, "explanation": "經濟社會文化權利委員會受理個人申訴案之權限，係依該公約之「任擇議定書」授權而生，若甲國僅為公約締約國而未另加入該議定書，委員會即無權受理針對甲國之個人申訴案。"}, {"id": "SG035", "src": "114年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "關於國際太空法原則，下列敘述何者錯誤？", "options": ["依據月球條約，月球屬於人類共同遺產", "月球條約關於月球之條款，亦適用於太陽系內地球以外之其他星體", "依據外太空條約，一國不論是為本國或他國從事發射活動，發射國均須對所造成其他國家之損害負責", "拯救條約之締約國對墜落其領土境內具危險性之太空客體，應與發射國共同行使搜救之指揮監督權"], "answer": 3, "explanation": "依拯救太空人及送回太空客體協定（拯救條約），締約國對墜落其領土境內具危險性之太空客體，應通知發射國並依發射國指示提供協助，其搜救行動之指揮監督權原則上仍屬「發射國」，並非與發射國「共同」行使指揮監督權，此為本題錯誤選項。"}, {"id": "SG036", "src": "114年律師一試", "kind": "律師一試", "topic": "海洋法", "stem": "關於聯合國海洋法公約之解釋與適用爭端，下列敘述何者正確？", "options": ["涉及訴訟時，爭端締約國僅得選擇由國際海洋法法庭解決相關爭端", "涉及調解時，爭端締約國僅得從調解員名單中指定人選進行調解", "締約國得以書面聲明就海域劃界事項不接受強制爭端解決程序", "沿海國有義務將專屬經濟區內生物資源主權權利事項交付強制爭端解決程序"], "answer": 2, "explanation": "聯合國海洋法公約第298條允許締約國就海域劃界等特定敏感事項，以書面聲明排除適用強制爭端解決程序；訴訟解決機制尚包括國際法院、仲裁法庭等其他選項（非僅限國際海洋法法庭），調解員亦未必僅限於名單指定人選，專屬經濟區生物資源主權權利事項亦非義務性交付強制爭端解決。"}, {"id": "SG037", "src": "114年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "關於國際地役，下列敘述何者正確？", "options": ["兩國依條約約定在其中一國領土境內設置核子廢棄物儲存設施，屬於一種國際地役", "若甲國領土被乙國繼承時，原本丙國依條約取得通行甲國領土之地役權，當然終止", "在國際地役權存續期間，供役範圍之領土主權發生暫時移轉之效果", "駐在國外館之不可侵犯權屬於一種國際地役"], "answer": 0, "explanation": "國際地役係指依條約約定，一國領土對他國負有特定容忍或作為義務（如同意他國於其境內設置特定設施），本題核子廢棄物儲存設施之約定即屬此種國際地役之典型；地役權原則上隨領土主權移轉（繼承）而延續，領土主權亦不因設定地役而發生暫時移轉，使館不可侵犯權則屬外交特權豁免範疇而非國際地役。"}, {"id": "SG038", "src": "114年律師一試", "kind": "律師一試", "topic": "條約法", "stem": "關於條約在我國國內法上的地位，下列敘述何者正確？", "options": ["憲法明文規定條約具有國內法的效力", "符合憲法規定所締結之條約，其位階高於法律", "名稱為條約或公約而附有批准條款者，應送立法院審議", "我國與國際組織間締結之書面協定，雖直接涉及人民權利義務，仍無須送立法院審議"], "answer": 2, "explanation": "依條約締結法規定，名稱為條約或公約且定有批准等條款者，應送立法院審議；我國憲法本文並未明文規定條約當然具有國內法效力或其位階高於法律，我國與國際組織締結直接涉及人民權利義務之書面協定，仍應依法送立法院審議。"}, {"id": "SG039", "src": "114年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "關於領土割讓後，被割讓領土上人民之國籍歸屬，下列敘述何者正確？", "options": ["被割讓領土之人民於喪失讓與國國籍後，當然取得受讓國國籍", "被割讓領土之人民繼續保有讓與國國籍，不當然取得受讓國國籍", "被割讓領土之人民繼續保有讓與國國籍，並當然取得受讓國國籍而擁有雙重國籍", "被割讓領土之人民，通常被賦予取得受讓國國籍或保有讓與國國籍之擇一權利"], "answer": 3, "explanation": "依國際法慣例及相關條約實務，領土割讓後，當地人民通常被賦予於一定期間內選擇取得受讓國國籍或保留原讓與國國籍之「擇一權利」（optant），而非當然自動變更或雙重取得國籍。"}, {"id": "SG040", "src": "114年律師一試", "kind": "律師一試", "topic": "國際組織與聯合國", "stem": "關於國際組織，下列敘述何者正確？", "options": ["國際組織成立後須向聯合國秘書處為登記，始取得國際法主體之地位", "國際組織之多數決議，對所有會員國均生直接之拘束力", "國際組織所享有之權能，不以該組織章程明文規定者為限", "基於主權平等原則，所有國際組織之決議投票均為票票等值，無權重差異"], "answer": 2, "explanation": "國際組織除章程明文賦予之權能外，依「隱含權能理論」，為達成其設立宗旨目的所必要者，亦得認定其擁有相應之隱含權能；國際組織之法律人格取得不以向聯合國秘書處登記為要件，其決議未必對所有會員國均生直接拘束力（視組織性質與決議類型而定），部分國際組織（如國際貨幣基金）之投票權重亦依出資比例等因素而有差異，並非一律票票等值。"}, {"id": "SG041", "src": "115年律師一試", "kind": "律師一試", "topic": "條約法", "stem": "關於條約之保留，下列敘述何者錯誤？", "options": ["締約國一旦做出條約保留，即不得撤回", "即使條約未規定不得保留，保留亦不得違背條約之目的與宗旨", "條約保留之目的，在排除或變更部分條約對該國適用時之法律效果", "依條約為保留之締約國，就保留部分與反對保留之締約國不存在條約關係"], "answer": 0, "explanation": "依維也納條約法公約規定，締約國得隨時撤回其所為之條約保留（除條約另有規定外），並非「即不得撤回」，此為本題錯誤選項。"}, {"id": "SG042", "src": "115年律師一試", "kind": "律師一試", "topic": "條約法", "stem": "依據維也納條約法公約規定，下列何者得為有效之國際條約？", "options": ["多國間締結創設政府間國際組織之協議", "甲、乙兩國的地方政府未經國家授權簽訂之姊妹都市協定", "甲、乙兩國所簽訂由甲國提供武器協助乙國以武力兼併丙國領土之協議", "甲、乙兩國之國營企業間簽訂於甲國採礦之合作開發協議"], "answer": 0, "explanation": "多國間締結創設政府間國際組織之協議，係國家間依國際法所締結之有效條約；地方政府未經國家授權之協定、以武力兼併他國領土為目的之協議（違反禁止使用武力之強行法規範而無效）及國營企業間之商業合作協議（非國家間之國際法主體締約行為），均非維也納條約法公約所稱之有效國際條約。"}, {"id": "SG043", "src": "115年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "關於國家之分類及其效果，下列敘述何者錯誤？", "options": ["大英國協與法蘭西聯盟為非國際組織之國家結合體", "獨立國協屬於單一國家型態之國家", "被保護國得依條約賦予保護國為其行使外交權限", "被保護國之國民通常不取得保護國之國籍"], "answer": 1, "explanation": "獨立國協（CIS）係由多個獨立主權國家組成之鬆散國家結合體（類似邦聯性質之國際組織），並非「單一國家型態之國家」，此為本題錯誤選項。"}, {"id": "SG044", "src": "115年律師一試", "kind": "律師一試", "topic": "國家、承認與繼承", "stem": "下列何者應適用完全繼承原則？", "options": ["所欲繼承之條約，對締約國資格設有須經其他締約國同意之特定條件", "新獨立之國家因憲政體制要求，無法繼續履行所脫離母國之條約義務", "叛亂團體在控制部分領土期間與他國訂立條約，嗣後擊敗該叛亂團體並回復統治之政府，拒絶履行該條約", "透過合法選舉程序取得執政之新政府，拒絕清償舊政府執政期間為興建水壩向他國舉借之外債"], "answer": 3, "explanation": "政府更迭（縱經合法選舉產生新政府）原則上不影響國家本身之國際法人格及其對外債務之繼受，新政府仍應概括繼受（完全繼承）舊政府執政期間所生之正當外債義務，不得逕行拒絕清償；其餘選項則涉及條約締約資格特定條件、新獨立國家之條約選擇繼承及叛亂團體條約效力等不完全繼承或特殊情形。"}, {"id": "SG045", "src": "115年律師一試", "kind": "律師一試", "topic": "國際組織與聯合國", "stem": "關於國際組織之法律人格，下列敘述何者正確？", "options": ["國際組織之法律人格，以成立該組織之條約明示規定者為限", "國際組織就其受雇人員執行職務時因他國不法行為所受之損害，得對該國請求賠償", "具有國際法律人格之國際組織，在其會員國當然取得國內法上之法律人格", "國際組織內部之法律爭端，均受該組織總部所在地國之司法管轄"], "answer": 1, "explanation": "依國際法院1949年關於聯合國雇員受害求償案之諮詢意見，國際組織就其受雇人員執行職務因他國不法行為所受損害，得以國際法人格對該責任國提出求償；國際組織之國際法律人格未必以條約明示規定為限（亦得依隱含權能理論認定），其在會員國之國內法律人格通常尚須另依總部協定或國內立法承認，內部法律爭端亦未必當然受總部所在地國司法管轄（常另設內部行政法庭處理）。"}, {"id": "SG046", "src": "115年律師一試", "kind": "律師一試", "topic": "海洋法", "stem": "關於沿海國之內水，下列敘述何者錯誤？", "options": ["河口兩側適當點劃設之直線封口線，其長度不得超過24海里", "外國船舶於他國內水享有無害通過權", "經沿海國同意進入其內水之外國軍艦，於內水仍享有主權豁免", "群島基線內部固然屬於群島國家之內水，但在符合1982年聯合國海洋法公約之條件下仍允許外國船舶通行"], "answer": 1, "explanation": "內水為沿海國領土主權完全及於之水域，外國船舶原則上並「不」享有如領海般之無害通過權，除經沿海國同意或特定條約安排外，外國船舶進入內水須經沿海國許可，此為本題錯誤選項。"}, {"id": "SG047", "src": "115年律師一試", "kind": "律師一試", "topic": "領土與管轄權", "stem": "關於領土主權之得喪變更及其效果，下列敘述何者正確？", "options": ["一國因行使自衛權而占領侵略國之部分領土，得逕行主張取得該領土主權", "一國得僅依「既存占有原則（doctrine of uti possidetis）」主張固有疆域之領土主權", "一國得僅因地理上之毗鄰或地質上的延伸關係而取得該領土之主權", "因條約移轉領土主權，受讓國有義務賦予移轉領土上人民以受讓國之國籍"], "answer": 3, "explanation": "依國際法慣例，因條約移轉領土主權時，受讓國通常負有義務賦予當地人民取得受讓國國籍之機會（或選擇權）；單純行使自衛權占領他國領土、僅憑地理毗鄰或地質延伸關係，均不當然使占領國或主張國取得該領土之主權，「既存占有原則」則主要適用於新獨立國家繼承殖民時期既有行政疆界之情形，非可逕行單獨主張取得固有疆域領土主權之依據。"}, {"id": "SG048", "src": "115年律師一試", "kind": "律師一試", "topic": "海洋法", "stem": "關於防空識別區，下列敘述何者正確？", "options": ["航經防空識別區之外國航空器，有義務事前對劃定國提交飛航計畫書", "防空識別區須以飛航情報區為其劃定範圍", "防空識別區由劃定國片面劃定，目的為基於防空需要迅速定位並管制他國航空器", "防空識別區一經劃定，其效力等同於一國之領空"], "answer": 2, "explanation": "防空識別區係由劃定國基於國防安全需要而「片面」劃定之空域範圍，目的在及早識別、定位並視情況管制進入之外國航空器；防空識別區並非國際法上正式法律概念，其劃定範圍未必與飛航情報區一致，外國航空器亦無國際法上絕對義務須事前提交飛航計畫書，防空識別區之法律效力更不等同於一國領空（領空範圍係另依國際法明確界定）。"}, {"id": "SG049", "src": "115年律師一試", "kind": "律師一試", "topic": "國際法院與爭端解決", "stem": "關於第三國參加國際法院訴訟程序，下列敘述何者錯誤？", "options": ["第三國認為其具有法律性質之利益將因判決受影響，得向法院聲請參加訴訟", "在訴訟當事國反對之下，法院仍得允許第三國參加訴訟", "當多邊條約解釋發生爭議時，書記官長有義務通知訴訟當事國外之締約國", "法院之判決對參加訴訟之第三國不生拘束力"], "answer": 3, "explanation": "依國際法院規約規定，第三國經允許參加訴訟並就多邊條約解釋表示意見後，該判決就其所涉及之條約解釋部分，對參加之第三國「亦生拘束力」，並非「不生拘束力」，此為本題錯誤選項。"}, {"id": "SG050", "src": "115年律師一試", "kind": "律師一試", "topic": "國際人權與刑事法", "stem": "甲國國民A因被甲國判處死刑，遂逃亡至依公民與政治權利國際公約廢止死刑之締約國乙國，乙國決定將A遣返甲國。依聯合國人權事務委員會相關見解，下列敘述何者正確？", "options": ["乙國廢除死刑之公約義務，僅涵蓋其本國人與境內受審判之刑事被告", "若乙國已盡全力與甲國協調後甲國仍拒絕承諾不執行A死刑，則乙國已克盡保護A生命權之義務", "乙國無條件遣返A等於間接執行其死刑，本身即構成違反公約保護A生命權之義務", "乙國雖已經簽署加入該公約第二號廢死議定書，但僅遣返A而未自己執行死刑，不構成對生命權之侵害"], "answer": 2, "explanation": "聯合國人權事務委員會見解認為，廢死締約國若明知遣返將導致當事人於他國遭執行死刑，卻仍無條件將其遣返，此舉本身即等同間接執行死刑，構成對公約所保障生命權之違反，締約國之廢死義務不因當事人非本國籍或未於境內受審而免除，亦不因僅係「遣返」而非親自執行死刑即可免責。"}];
+// ===== 題目查證旗標 =====
+var EXAM_FLAGS = {
+ "SG007": "題庫答案（C）與特定經費諮詢意見（1962）的見解不符：法院認為「經費」指全部支出，不限經常性支出。待第1B批查證當年公布答案。",
+ "gl113a_19": "《巴黎協定》條文只寫「工業化前水準」，未指定年份；題庫答案1750年待核對當年公布答案。"
+};
+
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+/* ---------- 索引 ---------- */
+var TREATY_BY_ID = {}, ART_BY_ID = {}, ARTS_OF = {}, CASE_BY_ID = {}, CONCEPT_BY_ID = {}, CMP_BY_ID = {}, EXAM_BY_ID = {}, EXAM_REFS = {};
+function artId(a){ return a.treaty + '-' + a.no; }
+function numOf(no){ var m = String(no).match(/\d+/); return m ? parseInt(m[0], 10) : 0; }
+TREATIES.forEach(function(t){ TREATY_BY_ID[t.id] = t; ARTS_OF[t.id] = []; });
+ARTICLES.forEach(function(a){ ART_BY_ID[artId(a)] = a; ARTS_OF[a.treaty].push(a); });
+Object.keys(ARTS_OF).forEach(function(k){ ARTS_OF[k].sort(function(x, y){ return numOf(x.no) - numOf(y.no) || String(x.no).localeCompare(String(y.no)); }); });
+CASES.forEach(function(c){ CASE_BY_ID[c.id] = c; });
+CONCEPTS.forEach(function(c){ CONCEPT_BY_ID[c.id] = c; });
+COMPARISONS.forEach(function(c){ CMP_BY_ID[c.id] = c; });
+EXAMS.forEach(function(q){ EXAM_BY_ID[q.id] = q; });
+function addRef(qid, ref){ (EXAM_REFS[qid] = EXAM_REFS[qid] || []).push(ref); }
+ARTICLES.forEach(function(a){ (a.exam || []).forEach(function(e){ addRef(e.qid, {type:'art', id:artId(a)}); }); });
+CASES.forEach(function(c){ (c.exam || []).forEach(function(q){ addRef(q, {type:'case', id:c.id}); }); });
+CONCEPTS.forEach(function(c){ (c.exam || []).forEach(function(q){ addRef(q, {type:'concept', id:c.id}); }); });
+// 判例卡反向：條文頁未列出、但判例卡有列的條文
+var CASES_OF_ART = {};
+CASES.forEach(function(c){ (c.articles || []).forEach(function(id){ (CASES_OF_ART[id] = CASES_OF_ART[id] || []).push(c.id); }); });
+
+function artLabel(id){
+  var p = id.split('-'); var tid = p[0], no = p.slice(1).join('-');
+  var t = TREATY_BY_ID[tid];
+  return (t ? t.short : tid) + '第' + no + '條';
+}
+function refTitle(ref){
+  if (ref.type === 'art') return artLabel(ref.id);
+  if (ref.type === 'case') return CASE_BY_ID[ref.id] ? CASE_BY_ID[ref.id].nameZh.replace(/（.*$/, '') : ref.id;
+  if (ref.type === 'concept') return CONCEPT_BY_ID[ref.id] ? CONCEPT_BY_ID[ref.id].title : ref.id;
+  if (ref.type === 'cmp') return CMP_BY_ID[ref.id] ? CMP_BY_ID[ref.id].title : ref.id;
+  return ref.id;
+}
+function exists(type, id){
+  return type === 'art' ? !!ART_BY_ID[id] : type === 'case' ? !!CASE_BY_ID[id] : type === 'concept' ? !!CONCEPT_BY_ID[id] : type === 'cmp' ? !!CMP_BY_ID[id] : type === 'treaty' ? !!TREATY_BY_ID[id] : false;
+}
+
+/* ---------- 文字轉換 ---------- */
+function parseInline(text){
+  var out = esc(text).replace(/\{\{(.*?)\}\}/g, function(m, term){
+    return '<span class="term" data-act="term" data-term="' + term + '">' + term + '</span>';
+  });
+  out = out.replace(/\[\[([a-z]+)\|([a-z0-9-]+)\|(.*?)\]\]/g, function(m, type, id, label){
+    if (!exists(type, id)) return '<span class="jumplink pending" title="待收錄">' + label + '</span>';
+    return '<span class="jumplink" data-act="go" data-href="' + type + '/' + id + '">' + label + '</span>';
+  });
+  return out;
+}
+function chip(type, id, label){
+  if (!exists(type, id)) return '<span class="chip pending">' + esc(label) + '（待收錄）</span>';
+  return '<button class="chip" data-act="go" data-href="' + type + '/' + id + '">' + esc(label) + '</button>';
+}
+function plainText(s){ return String(s || '').replace(/\{\{(.*?)\}\}/g, '$1').replace(/\[\[[a-z]+\|[a-z0-9-]+\|(.*?)\]\]/g, '$1'); }
+
+/* ---------- 進度（localStorage） ---------- */
+var PROGRESS_KEY = 'ilapp-progress-v1';
+var progress = { star: {}, read: {} };
+try { var _p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); progress.star = _p.star || {}; progress.read = _p.read || {}; } catch (e) {}
+function saveProgress(){ try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch (e) {} }
+function marksHtml(key){
+  return '<button class="mark-btn star' + (progress.star[key] ? ' on' : '') + '" data-act="star" data-key="' + key + '">' + (progress.star[key] ? '★ 已標記' : '☆ 標記') + '</button>' +
+         '<button class="mark-btn' + (progress.read[key] ? ' on' : '') + '" data-act="read" data-key="' + key + '">' + (progress.read[key] ? '✓ 已讀' : '標為已讀') + '</button>';
+}
+
+/* ---------- 狀態與路由 ---------- */
+var state = { route: 'home', id: null, tab: 'text', textMode: 'both', quiz: false, revealed: false,
+  drawer: false, openAcc: {}, search: false, searchQ: '', pop: null, jumpMsg: '',
+  examFilter: 'all', errataFilter: 'fix', practice: null, practiceType: 'cloze', exportText: '' };
+var navDepth = 0;
+function currentHash(){ return '#' + state.route + (state.id ? '/' + state.id : ''); }
+function parseHash(h){
+  h = decodeURIComponent((h || '').replace(/^#/, ''));
+  var i = h.indexOf('/');
+  var r = i < 0 ? h : h.slice(0, i), id = i < 0 ? null : h.slice(i + 1);
+  var ok = { home:1, art:1, 'case':1, concept:1, cmp:1, treaty:1, glossary:1, traps:1, errata:1, exams:1, practice:1, 'export':1, cases:1, concepts:1, cmps:1 };
+  if (!ok[r]) return { route: 'home', id: null };
+  if ((r === 'art' || r === 'case' || r === 'concept' || r === 'cmp' || r === 'treaty') && !exists(r, id)) return { route: 'home', id: null };
+  return { route: r, id: id };
+}
+function go(href, push){
+  var p = parseHash('#' + href);
+  var changed = p.route !== state.route || p.id !== state.id;
+  if (p.route !== state.route || p.id !== state.id) { state.tab = 'text'; state.revealed = false; }
+  state.route = p.route; state.id = p.id; state.drawer = false; state.search = false; state.pop = null; state.jumpMsg = '';
+  if (changed && push !== false) { navDepth++; try { history.pushState(null, '', currentHash()); } catch (e) {} }
+  render(); try { window.scrollTo(0, 0); } catch (e) {}
+}
+function applyRoute(){
+  var p = parseHash(location.hash);
+  state.route = p.route; state.id = p.id; state.drawer = false; state.search = false; state.pop = null; state.revealed = false;
+  render();
+}
+
+/* ---------- 跳轉輸入 ---------- */
+var PLANNED = { 'unclos':'海洋法公約', '海洋法':'海洋法公約', '海洋法公約':'海洋法公約', 'vclt':'條約法公約', '條約法':'條約法公約', '條約法公約':'條約法公約',
+  'vcdr':'外交關係公約', '外交關係公約':'外交關係公約', 'vccr':'領事關係公約', '領事關係公約':'領事關係公約', 'arsiwa':'國家責任條款草案', '國家責任':'國家責任條款草案',
+  '條約締結法':'條約締結法', 'gatt':'GATT', 'dsu':'爭端解決瞭解書', 'wto':'WTO協定' };
+function parseJump(q){
+  q = String(q || '').trim().replace(/[《》「」]/g, '');
+  var m = q.match(/^(.*?)\s*第?\s*(\d+)\s*條?$/);
+  if (!m) return { msg: '請輸入「條約＋條號」，例如：憲章 51、規約38、icj 36。' };
+  var name = m[1].trim().toLowerCase(), no = String(parseInt(m[2], 10));
+  var tid = null;
+  TREATIES.forEach(function(t){ if (t.aliases.some(function(a){ return a.toLowerCase() === name; })) tid = t.id; });
+  if (!tid) {
+    if (PLANNED[name]) return { msg: '《' + PLANNED[name] + '》尚未收錄，將於後續批次加入。' };
+    return { msg: '找不到「' + m[1] + '」。目前可用：規約（icj）、憲章（unc）。' };
+  }
+  var id = tid + '-' + no;
+  if (ART_BY_ID[id]) return { href: 'art/' + id };
+  return { msg: TREATY_BY_ID[tid].short + '第' + no + '條尚未收錄。', href: 'treaty/' + tid };
+}
+
+/* ---------- 共用片段 ---------- */
+function topbar(){
+  var h = '<div class="topbar"><button class="icon-btn" data-act="menu" id="menu-btn" aria-label="開啟目錄">☰</button>' +
+    '<button class="brand" data-act="go" data-href="home"><b>國際公法條文卷</b><span>外交特考 國際公法</span></button>' +
+    '<button class="icon-btn" data-act="search" id="search-btn" aria-label="搜尋">⌕</button></div>';
+  h += '<div class="jumprow"><input id="jump-input" placeholder="跳至條文：憲章 51、規約 38" enterkeyhint="go"><button data-act="jump">前往</button></div>';
+  if (state.jumpMsg) h += '<div class="jump-msg">' + esc(state.jumpMsg) + '</div>';
+  if (navDepth > 0) h += '<button class="back-btn" data-act="back" id="back-btn">← 返回上一頁</button>';
+  return h;
+}
+function examSrc(q){ return q ? q.src : ''; }
+function examBlock(qid, note, hide){
+  var q = EXAM_BY_ID[qid];
+  if (!q) return '<div class="q box"><div class="qhead">' + esc(qid) + '（題庫中找不到此題）</div>' + (note ? '<div class="qnote">' + parseInline(note) + '</div>' : '') + '</div>';
+  var h = '<div class="q box"><div class="qhead"><b>' + esc(q.src) + '</b><span>' + esc(q.id) + '</span><span>' + esc(q.topic) + '</span></div>';
+  h += '<div class="stem">' + esc(q.stem) + '</div><ol>';
+  q.options.forEach(function(o, i){ h += '<li class="' + (!hide && i === q.answer ? 'ok' : '') + '"><span class="lbl">' + 'ABCD'[i] + '</span>' + esc(o) + '</li>'; });
+  h += '</ol>';
+  if (!hide) {
+    if (note) h += '<div class="qnote">' + parseInline(note) + '</div>';
+    if (EXAM_FLAGS[q.id]) h += '<div class="flag">⚠ ' + esc(EXAM_FLAGS[q.id]) + '</div>';
+  }
+  return h + '</div>';
+}
+
+/* ---------- 條文頁 ---------- */
+function renderArticle(a){
+  var id = artId(a), t = TREATY_BY_ID[a.treaty], list = ARTS_OF[a.treaty], idx = list.indexOf(a), key = 'art:' + id;
+  var h = '<div class="art-head"><div class="art-no">' + esc(a.no) + '</div><div class="art-treaty">《' + esc(t.titleZh) + '》第' + esc(a.no) + '條</div><div class="art-heading">' + esc(a.heading) + '</div></div>';
+  h += '<div class="art-meta"><span class="tier">' + esc(a.tier) + '級</span>' + marksHtml(key) +
+       '<span class="nav-pn"><button data-act="prev" ' + (idx <= 0 ? 'disabled' : '') + '>‹ 上一條</button><button data-act="next" ' + (idx >= list.length - 1 ? 'disabled' : '') + '>下一條 ›</button></span></div>';
+  var tabs = [['text', '條文'], ['explain', '解說'], ['practice', '實務'], ['exam', '考試']];
+  h += '<div class="tabs">' + tabs.map(function(x){ return '<button class="' + (state.tab === x[0] ? 'on' : '') + '" data-act="tab" data-tab="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  h += '<div class="quizbar">';
+  if (state.tab === 'text') h += '<div class="seg">' + [['both', '中英對照'], ['zh', '中文'], ['en', '英文']].map(function(x){ return '<button class="' + (state.textMode === x[0] ? 'on' : '') + '" data-act="mode" data-mode="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  else h += '<span></span>';
+  h += '<button class="quiz-toggle' + (state.quiz ? ' on' : '') + '" data-act="quiz" id="quiz-btn">' + (state.quiz ? '測驗模式：開' : '測驗模式：關') + '</button></div>';
+
+  if (state.tab === 'text') h += articleText(a, t);
+  else if (state.tab === 'explain') h += hidable(articleExplain(a), '翻面看解說');
+  else if (state.tab === 'practice') h += articlePractice(a);
+  else h += articleExam(a);
+  return h;
+}
+function hidable(inner, label){
+  if (state.quiz && !state.revealed) return '<button class="reveal-btn" data-act="reveal">' + label + '</button>';
+  return inner;
+}
+function clozeZh(zh, keys){
+  var s = esc(zh);
+  (keys || []).slice().sort(function(x, y){ return y.length - x.length; }).forEach(function(k){
+    var ek = esc(k);
+    s = s.split(ek).join('\u0001' + ek + '\u0002');
+  });
+  return s.replace(/\u0001(.*?)\u0002/g, function(m, k){ return '<button class="cloze" data-act="cloze">' + k + '</button>'; });
+}
+function articleText(a, t){
+  var h = '';
+  a.paras.forEach(function(p){
+    var mode = state.textMode;
+    h += '<div class="para' + (mode === 'en' ? ' en-only' : '') + '"><div class="pn">' + esc(p.n) + '</div><div>';
+    if (mode !== 'en') h += '<div class="zh">' + (state.quiz ? clozeZh(p.zh, a.keys) : esc(p.zh)) + '</div>';
+    if (mode !== 'zh') h += '<div class="en">' + esc(p.en) + '</div>';
+    h += '</div></div>';
+  });
+  var src = t.zhSource;
+  h += '<div class="src-note">中文：' + esc(src.label) + '。' + esc(src.note) + '<br>英文：' + esc(t.srcUrl) + '<br>最後查證：' + esc(a.verified) + '</div>';
+  if (state.quiz) h += '<div class="muted" style="margin-top:6px">測驗模式下，關鍵字以底線遮住，點一下顯示。</div>';
+  h += '<div class="sec">更新紀錄</div>';
+  (a.changelog || []).forEach(function(c){ h += '<div class="log"><b class="t-' + esc(c.type) + '">' + esc(c.date) + '　' + esc(c.type) + '</b>　' + parseInline(c.text) + '</div>'; });
+  return h;
+}
+function articleExplain(a){
+  var h = '<div class="sec">白話解釋</div><div class="prose">' + parseInline(a.plain) + '</div>';
+  h += '<div class="sec">構成要件 → 法律效果</div>';
+  (a.elements || []).forEach(function(e){
+    h += '<div class="el box"><ul class="req">' + e.req.map(function(r){ return '<li>' + parseInline(r) + '</li>'; }).join('') + '</ul><div class="eff">' + parseInline(e.effect) + '</div></div>';
+  });
+  h += '<div class="sec">常見誤解與陷阱</div>';
+  (a.traps || []).forEach(function(x){ h += '<div class="trap">' + parseInline(x) + '</div>'; });
+  var c = a.custom || {};
+  h += '<div class="sec">習慣法地位</div><div class="prose"><span class="custom-status">' + esc(c.status || '未確認') + '</span>' + parseInline(c.note || '') + '</div>';
+  if (c.cases && c.cases.length) h += '<div class="chips" style="margin-top:8px">' + c.cases.map(function(id){ return chip('case', id, refTitle({type:'case', id:id})); }).join('') + '</div>';
+  return h;
+}
+function articlePractice(a){
+  var id = artId(a), h = '<div class="sec">判決與實踐</div>';
+  var listed = {};
+  (a.cases || []).forEach(function(c){
+    listed[c.id] = 1;
+    h += '<div class="case-ref box">' + (exists('case', c.id) ? '<span class="jumplink" data-act="go" data-href="case/' + c.id + '">' + esc(refTitle({type:'case', id:c.id})) + '</span>' : esc(c.id) + '（待收錄）') + '<div class="prose" style="font-size:14.5px">' + parseInline(c.point) + '</div></div>';
+  });
+  (CASES_OF_ART[id] || []).forEach(function(cid){ if (!listed[cid]) h += '<div class="case-ref">' + chip('case', cid, refTitle({type:'case', id:cid})) + '</div>'; });
+  if (!(a.cases || []).length && !(CASES_OF_ART[id] || []).length) h += '<div class="muted">本條目前沒有收錄判例。</div>';
+  h += '<div class="sec">我國實踐</div><div class="prose">' + (a.roc ? parseInline(a.roc) : '<span class="muted">無特別我國實踐。</span>') + '</div>';
+  h += '<div class="sec">時事連結</div>';
+  if ((a.news || []).length) a.news.forEach(function(n){ h += '<div class="news">' + parseInline(n.text) + ' <small>（最後查證 ' + esc(n.checked) + '）</small></div>'; });
+  else h += '<div class="muted">尚無時事連結。</div>';
+  h += '<div class="sec">相關條文</div><div class="chips">' + (a.related || []).map(function(r){ return chip('art', r, artLabel(r)); }).join('') + '</div>';
+  return h;
+}
+function articleExam(a){
+  var h = '<div class="sec">申論用法</div><div class="prose">' + (a.essay ? parseInline(a.essay) : '<span class="muted">尚未撰寫。</span>') + '</div>';
+  h += '<div class="sec">考古題（' + (a.exam || []).length + '）</div>';
+  if (!(a.exam || []).length) h += '<div class="muted">官方選擇題無直接命中。</div>';
+  var hide = state.quiz && !state.revealed;
+  (a.exam || []).forEach(function(e){ h += examBlock(e.qid, e.note, hide); });
+  if (hide && (a.exam || []).length) h += '<button class="reveal-btn" data-act="reveal">顯示答案與說明</button>';
+  return h;
+}
+
+/* ---------- 其他卡片 ---------- */
+function renderCase(c){
+  var h = '<span class="kind">' + esc(c.kind) + '</span> <span class="muted">' + esc(c.court) + '　' + esc(c.date) + '</span>';
+  h += '<div class="card-title">' + esc(c.nameZh) + '</div><div class="card-sub">' + esc(c.nameEn) + '<br>' + esc(c.parties) + '</div>';
+  h += '<div class="art-meta">' + marksHtml('case:' + c.id) + '</div>';
+  h += '<div class="sec">事實</div><div class="prose">' + parseInline(c.facts) + '</div>';
+  h += '<div class="sec">爭點</div><ul class="list">' + c.issues.map(function(x){ return '<li>' + parseInline(x) + '</li>'; }).join('') + '</ul>';
+  h += hidable('<div class="sec">判決</div><ul class="list">' + c.holding.map(function(x){ return '<li>' + parseInline(x) + '</li>'; }).join('') + '</ul><div class="sec">意義</div><div class="prose">' + parseInline(c.significance) + '</div>', '翻面看判決');
+  h += '<div class="sec">引用條文</div><div class="chips">' + c.articles.map(function(r){ return chip('art', r, artLabel(r)); }).join('') + '</div>';
+  if (c.exam.length) { h += '<div class="sec">考古題</div>'; c.exam.forEach(function(q){ h += examBlock(q, '', state.quiz && !state.revealed); }); }
+  h += '<div class="src-note">來源：' + esc(c.srcUrl) + '　最後查證：' + esc(c.verified) + '</div>';
+  return h;
+}
+function renderConcept(c){
+  var h = '<span class="kind">概念卡</span><div class="card-title">' + esc(c.title) + '</div>';
+  h += '<div class="art-meta">' + marksHtml('concept:' + c.id) + '</div>';
+  h += '<div class="sec">定義</div><div class="prose">' + parseInline(c.definition) + '</div>';
+  h += hidable('<div class="sec">重點</div>' + c.points.map(function(p){ return /陷阱/.test(p) ? '<div class="trap">' + parseInline(p) + '</div>' : '<div class="box prose" style="font-size:14.5px">' + parseInline(p) + '</div>'; }).join(''), '翻面看重點');
+  h += '<div class="sec">相關判例</div><div class="chips">' + c.cases.map(function(id){ return chip('case', id, refTitle({type:'case', id:id})); }).join('') + '</div>';
+  h += '<div class="sec">相關條文</div><div class="chips">' + c.articles.map(function(r){ return chip('art', r, artLabel(r)); }).join('') + '</div>';
+  if (c.exam.length) { h += '<div class="sec">考古題</div>'; c.exam.forEach(function(q){ h += examBlock(q, '', state.quiz && !state.revealed); }); }
+  return h;
+}
+function renderCmp(c){
+  var h = '<span class="kind">比較表</span><div class="card-title">' + esc(c.title) + '</div><div class="scroll-x"><table class="cmp"><thead><tr>' + c.columns.map(function(x){ return '<th>' + esc(x) + '</th>'; }).join('') + '</tr></thead><tbody>';
+  c.rows.forEach(function(r){ h += '<tr>' + r.map(function(x){ return '<td>' + parseInline(x) + '</td>'; }).join('') + '</tr>'; });
+  return h + '</tbody></table></div><div class="muted">表格可左右捲動。</div>';
+}
+function renderTreaty(t){
+  var h = '<span class="kind">條約概要卡</span><div class="card-title">《' + esc(t.titleZh) + '》</div><div class="card-sub">' + esc(t.titleEn) + '</div>';
+  [['通過', t.adopted], ['生效', t.inForce], ['締約狀況', t.parties], ['結構', t.structure], ['我國關係', t.rocStatus], ['中文本來源', t.zhSource.label + '。' + t.zhSource.note]].forEach(function(r){
+    h += '<div class="sec">' + r[0] + '</div><div class="prose" style="font-size:15px">' + parseInline(r[1]) + '</div>';
+  });
+  h += '<div class="sec">條文目錄</div>';
+  t.parts.forEach(function(p){
+    var arts = ARTS_OF[t.id].filter(function(a){ var n = numOf(a.no); return n >= p.from && n <= p.to; });
+    h += '<div class="acc-sub">' + esc(p.title) + '（第' + p.from + (p.to !== p.from ? '–' + p.to : '') + '條，已收錄 ' + arts.length + '）</div>';
+    arts.forEach(function(a){ h += '<button class="d-row" data-act="go" data-href="art/' + artId(a) + '"><span class="no">第' + esc(a.no) + '條</span><span>' + esc(a.heading) + '</span></button>'; });
+  });
+  h += '<div class="src-note">英文來源：' + esc(t.srcUrl) + '　最後查證：' + esc(t.verified) + '</div>';
+  return h;
+}
+function renderGlossary(){
+  var h = '<div class="card-title">用語對照表</div><div class="card-sub">英文｜台灣用語｜大陸用語</div>';
+  Object.keys(GLOSSARY).sort(function(a, b){ return a.localeCompare(b, 'zh-Hant'); }).forEach(function(k){
+    var g = GLOSSARY[k];
+    h += '<div class="box"><b class="art-heading" style="font-size:16px">' + esc(k) + '</b><div class="r muted">' + esc(g.en) + '｜台：' + esc(g.tw) + '｜陸：' + esc(g.cn) + '</div><div class="prose" style="font-size:14.5px">' + parseInline(g.def) + '</div></div>';
+  });
+  return h;
+}
+function trapItems(){
+  var items = [];
+  ARTICLES.forEach(function(a){ (a.traps || []).forEach(function(x){ items.push({ group: TREATY_BY_ID[a.treaty].titleZh, href: 'art/' + artId(a), title: artLabel(artId(a)) + '　' + a.heading, text: x, trap: /陷阱/.test(x) }); }); });
+  CONCEPTS.forEach(function(c){ c.points.forEach(function(x){ if (/陷阱/.test(x)) items.push({ group: '概念卡', href: 'concept/' + c.id, title: c.title, text: x, trap: true }); }); });
+  return items;
+}
+function renderTraps(){
+  var items = trapItems(), groups = [];
+  items.forEach(function(it){ if (groups.indexOf(it.group) < 0) groups.push(it.group); });
+  var h = '<div class="card-title">考點陷阱彙整</div><div class="card-sub">共 ' + items.length + ' 條，自動彙整自各條文與概念卡。</div>';
+  groups.forEach(function(g){
+    var gi = items.filter(function(x){ return x.group === g; });
+    h += '<div class="sec">' + esc(g) + '（' + gi.length + '）</div>';
+    gi.forEach(function(it){ h += '<div class="trap trap-item"><span class="jumplink" data-act="go" data-href="' + it.href + '">' + esc(it.title) + '</span><br>' + parseInline(it.text) + '</div>'; });
+  });
+  return h;
+}
+function errataItems(){
+  var out = [];
+  ARTICLES.forEach(function(a){ (a.changelog || []).forEach(function(c){ out.push({ href: 'art/' + artId(a), title: artLabel(artId(a)), c: c }); }); });
+  out.sort(function(x, y){ return y.c.date.localeCompare(x.c.date); });
+  return out;
+}
+function renderErrata(){
+  var all = errataItems(), f = state.errataFilter;
+  var list = all.filter(function(x){ return f === 'all' ? true : x.c.type !== '新增'; });
+  var h = '<div class="card-title">勘誤清單</div><div class="card-sub">自動彙整各條「更新紀錄」。同步修改手寫筆記時，看「更正」與「待查」即可。</div>';
+  h += '<div class="filters"><button class="' + (f === 'fix' ? 'on' : '') + '" data-act="errata" data-f="fix">更正／待查／備註</button><button class="' + (f === 'all' ? 'on' : '') + '" data-act="errata" data-f="all">全部紀錄</button></div>';
+  list.forEach(function(x){ h += '<div class="box log"><b class="t-' + esc(x.c.type) + '">' + esc(x.c.date) + '　' + esc(x.c.type) + '</b>　<span class="jumplink" data-act="go" data-href="' + x.href + '">' + esc(x.title) + '</span><div>' + parseInline(x.c.text) + '</div></div>'; });
+  if (!list.length) h += '<div class="muted">目前沒有紀錄。</div>';
+  return h;
+}
+function renderExams(){
+  var f = state.examFilter;
+  var list = EXAMS.filter(function(q){ var m = !!EXAM_REFS[q.id]; return f === 'all' || (f === 'mapped' && m) || (f === 'unmapped' && !m) || (f === 'dip' && q.kind === '外交特考') || (f === 'bar' && q.kind === '律師一試'); });
+  var mapped = EXAMS.filter(function(q){ return EXAM_REFS[q.id]; }).length;
+  var h = '<div class="card-title">考古題對照</div><div class="card-sub">官方選擇題 ' + EXAMS.length + ' 題，已對應到條文或卡片 ' + mapped + ' 題。題庫解析未經逐題查證，以條文頁說明為準。</div>';
+  h += '<div class="filters">' + [['all', '全部'], ['mapped', '已對應'], ['unmapped', '尚未對應'], ['dip', '外交特考'], ['bar', '律師一試']].map(function(x){ return '<button class="' + (f === x[0] ? 'on' : '') + '" data-act="exfilter" data-f="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  h += '<div class="muted" style="margin-bottom:8px">顯示 ' + list.length + ' 題</div>';
+  list.forEach(function(q){
+    var refs = EXAM_REFS[q.id] || [];
+    h += '<details class="box q"><summary><span class="qhead"><b>' + esc(q.src) + '</b> ' + esc(q.id) + '</span><div class="stem">' + esc(q.stem) + '</div></summary><ol>';
+    q.options.forEach(function(o, i){ h += '<li class="' + (i === q.answer ? 'ok' : '') + '"><span class="lbl">' + 'ABCD'[i] + '</span>' + esc(o) + '</li>'; });
+    h += '</ol><div class="qnote muted">題庫解析：' + esc(q.explanation) + '</div>';
+    if (EXAM_FLAGS[q.id]) h += '<div class="flag">⚠ ' + esc(EXAM_FLAGS[q.id]) + '</div>';
+    h += '<div class="chips" style="margin-top:6px">' + (refs.length ? refs.map(function(r){ return chip(r.type, r.id, refTitle(r)); }).join('') : '<span class="muted">尚未對應</span>') + '</div></details>';
+  });
+  return h;
+}
+function renderList(kind){
+  var h = '';
+  if (kind === 'cases') { h += '<div class="card-title">判例卡</div>'; CASES.slice().sort(function(a, b){ return a.date.localeCompare(b.date); }).forEach(function(c){ h += '<button class="row-link" data-act="go" data-href="case/' + c.id + '"><div class="t">' + esc(c.nameZh) + '</div><div class="s">' + esc(c.court) + '　' + esc(c.year) + '　' + esc(c.kind) + '</div></button>'; }); }
+  if (kind === 'concepts') { h += '<div class="card-title">概念卡</div>'; CONCEPTS.forEach(function(c){ h += '<button class="row-link" data-act="go" data-href="concept/' + c.id + '"><div class="t">' + esc(c.title) + '</div></button>'; }); }
+  if (kind === 'cmps') { h += '<div class="card-title">比較表</div>'; COMPARISONS.forEach(function(c){ h += '<button class="row-link" data-act="go" data-href="cmp/' + c.id + '"><div class="t">' + esc(c.title) + '</div></button>'; }); }
+  return h;
+}
+function renderHome(){
+  var readN = ARTICLES.filter(function(a){ return progress.read['art:' + artId(a)]; }).length;
+  var starN = Object.keys(progress.star).filter(function(k){ return progress.star[k]; }).length;
+  var h = '<div class="home-hero"><h1>國際公法條文卷</h1><p>逐條讀條約：條文、白話、要件、陷阱、判例、考古題。</p></div>';
+  h += '<div class="stat"><div><b>' + ARTICLES.length + '</b>條文</div><div><b>' + CASES.length + '</b>判例</div><div><b>' + readN + '</b>已讀</div><div><b>' + starN + '</b>標記</div></div>';
+  TREATIES.forEach(function(t){ h += '<button class="row-link" data-act="go" data-href="treaty/' + t.id + '"><div class="t">《' + esc(t.titleZh) + '》</div><div class="s">已收錄 ' + ARTS_OF[t.id].length + ' 條</div></button>'; });
+  [['cases', '判例卡', CASES.length + ' 張'], ['concepts', '概念卡', CONCEPTS.length + ' 張'], ['cmps', '比較表', COMPARISONS.length + ' 張'], ['glossary', '用語對照表', Object.keys(GLOSSARY).length + ' 條'], ['traps', '考點陷阱彙整', trapItems().length + ' 條'], ['exams', '考古題對照', EXAMS.length + ' 題'], ['practice', '條文測驗', '填空、哪一條、判決配對']].forEach(function(x){
+    h += '<button class="row-link" data-act="go" data-href="' + x[0] + '"><div class="t">' + x[1] + '</div><div class="s">' + x[2] + '</div></button>';
+  });
+  var starred = ARTICLES.filter(function(a){ return progress.star['art:' + artId(a)]; });
+  if (starred.length) { h += '<div class="sec">已標記條文</div><div class="chips">' + starred.map(function(a){ return chip('art', artId(a), artLabel(artId(a))); }).join('') + '</div>'; }
+  return h;
+}
+
+/* ---------- 條文測驗 ---------- */
+function shuffle(arr, rnd){ rnd = rnd || Math.random; var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function pick(arr, n, exclude, rnd){ return shuffle(arr.filter(function(x){ return exclude.indexOf(x) < 0; }), rnd).slice(0, n); }
+function makeQuestion(type, rnd){
+  rnd = rnd || Math.random;
+  if (type === 'cloze') {
+    var pool = []; ARTICLES.forEach(function(a){ a.paras.forEach(function(p){ (a.keys || []).forEach(function(k){ if (p.zh.indexOf(k) >= 0) pool.push({ a: a, p: p, k: k }); }); }); });
+    var it = pool[Math.floor(rnd() * pool.length)];
+    var allKeys = []; ARTICLES.forEach(function(a){ (a.keys || []).forEach(function(k){ if (allKeys.indexOf(k) < 0) allKeys.push(k); }); });
+    var opts = shuffle([it.k].concat(pick(allKeys, 3, [it.k], rnd)), rnd);
+    return { type: type, stem: '空格應填入？\n' + it.p.zh.split(it.k).join('＿＿＿＿'), options: opts, answer: opts.indexOf(it.k), href: 'art/' + artId(it.a), explain: artLabel(artId(it.a)) + '　' + it.a.heading };
+  }
+  if (type === 'which') {
+    var a = ARTICLES[Math.floor(rnd() * ARTICLES.length)];
+    var p = a.paras.filter(function(x){ return x.zh.length > 12; })[0] || a.paras[0];
+    var ids = ARTICLES.map(artId), right = artId(a);
+    var o = shuffle([right].concat(pick(ids, 3, [right], rnd)), rnd);
+    return { type: type, stem: '下列條文出自哪一條？\n「' + p.zh + '」', options: o.map(artLabel), answer: o.indexOf(right), href: 'art/' + right, explain: artLabel(right) + '　' + a.heading };
+  }
+  var pairs = []; CASES.forEach(function(c){ (c.articles || []).forEach(function(id){ if (ART_BY_ID[id]) pairs.push({ c: c, id: id }); }); });
+  var pr = pairs[Math.floor(rnd() * pairs.length)];
+  var wrongPool = ARTICLES.map(artId).filter(function(id){ return pr.c.articles.indexOf(id) < 0; });
+  var o2 = shuffle([pr.id].concat(pick(wrongPool, 3, [], rnd)), rnd);
+  return { type: 'match', stem: '「' + pr.c.nameZh.replace(/（.*$/, '') + '」與下列哪一條文最直接相關？', options: o2.map(artLabel), answer: o2.indexOf(pr.id), href: 'case/' + pr.c.id, explain: pr.c.significance };
+}
+function renderPractice(){
+  var h = '<div class="card-title">條文測驗</div>';
+  h += '<div class="filters">' + [['cloze', '關鍵字填空'], ['which', '這是哪一條'], ['match', '判決與條文配對']].map(function(x){ return '<button class="' + (state.practiceType === x[0] ? 'on' : '') + '" data-act="ptype" data-t="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  if (!state.practice || state.practice.q.type !== state.practiceType) state.practice = { q: makeQuestion(state.practiceType), chosen: null };
+  var q = state.practice.q, ch = state.practice.chosen;
+  h += '<div class="box"><div class="prose" style="white-space:pre-line;font-family:var(--serif)">' + esc(q.stem) + '</div></div>';
+  q.options.forEach(function(o, i){
+    var cls = ch === null ? '' : (i === q.answer ? ' right' : (i === ch ? ' wrong' : ''));
+    h += '<button class="opt-btn' + cls + '" data-act="panswer" data-i="' + i + '">' + esc(o) + '</button>';
+  });
+  if (ch !== null) h += '<div class="box prose" style="font-size:14.5px">' + (ch === q.answer ? '答對了。' : '答錯了。') + parseInline(q.explain) + '　<span class="jumplink" data-act="go" data-href="' + q.href + '">看原文</span></div>';
+  h += '<button class="primary" data-act="pnext">下一題</button>';
+  return h;
+}
+
+/* ---------- 匯出選擇題 JSON（考古題App格式） ---------- */
+function seededRnd(seed){ var s = seed % 2147483647; if (s <= 0) s += 2147483646; return function(){ s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
+function buildExport(){
+  var out = [];
+  ARTICLES.forEach(function(a, i){
+    var rnd = seededRnd(i * 97 + 13), id = artId(a);
+    var p = a.paras.filter(function(x){ return x.zh.length > 12; })[0] || a.paras[0];
+    var ids = ARTICLES.map(artId);
+    var others = shuffle(ids.filter(function(x){ return x !== id; }), rnd).slice(0, 3);
+    var opts = shuffle([id].concat(others), rnd);
+    var T = TREATY_BY_ID[a.treaty];
+    out.push({ id: 'ilapp-' + id + '-which', exam: '國際公法', part: '', topic: a.topic || T.topic,
+      stem: '下列條文出自哪一條？「' + p.zh + '」', options: opts.map(function(x){ return '《' + TREATY_BY_ID[x.split('-')[0]].titleZh + '》第' + x.split('-').slice(1).join('-') + '條'; }),
+      answer: opts.indexOf(id), explanation: '《' + T.titleZh + '》第' + a.no + '條（' + a.heading + '）。' + plainText(a.plain).split('。')[0] + '。',
+      source: 'AI生成（國際公法條文App依條文自動產生）', legal: { flagged: false } });
+  });
+  return out;
+}
+function renderExport(){
+  var h = '<div class="card-title">匯出選擇題</div><div class="card-sub">依已收錄條文產生「這是哪一條」選擇題，格式可直接貼到考古題App的題庫匯入框。同一條文每次產生的題目與id固定，重複匯入不會重複。</div>';
+  h += '<button class="primary" data-act="export">產生 JSON（' + ARTICLES.length + ' 題）</button>';
+  if (state.exportText) h += '<div style="margin-top:12px"><textarea class="export" id="export-text" readonly>' + esc(state.exportText) + '</textarea><button class="primary" data-act="copy" style="margin-top:8px">複製</button></div>';
+  return h;
+}
+
+/* ---------- 側邊目錄 ---------- */
+function renderDrawer(){
+  var h = '<div class="drawer-mask" data-act="close-drawer"></div><nav class="drawer" aria-label="目錄"><h2>目錄</h2>';
+  TREATIES.forEach(function(t){
+    var k = 't-' + t.id, open = state.openAcc[k];
+    h += '<button class="acc-head acc-group-title" data-act="acc" data-acc="' + k + '">《' + esc(t.titleZh) + '》<span class="cnt">' + ARTS_OF[t.id].length + ' 條 ' + (open ? '▾' : '▸') + '</span></button>';
+    h += '<div class="acc-body' + (open ? ' open' : '') + '"><button class="d-row" data-act="go" data-href="treaty/' + t.id + '"><span>條約概要卡</span></button>';
+    t.parts.forEach(function(p){
+      var arts = ARTS_OF[t.id].filter(function(a){ var n = numOf(a.no); return n >= p.from && n <= p.to; });
+      if (!arts.length) return;
+      h += '<div class="acc-sub">' + esc(p.title) + '</div>';
+      arts.forEach(function(a){
+        var key = 'art:' + artId(a), cur = state.route === 'art' && state.id === artId(a);
+        h += '<button class="d-row ttl' + (cur ? ' cur' : '') + '" data-act="go" data-href="art/' + artId(a) + '"><span class="no">' + esc(a.no) + '</span><span>' + esc(a.heading) + '</span><span class="mk">' + (progress.star[key] ? '★' : '') + (progress.read[key] ? '✓' : '') + '</span></button>';
+      });
+    });
+    h += '</div>';
+  });
+  [['cases', '判例卡'], ['concepts', '概念卡'], ['cmps', '比較表'], ['glossary', '用語對照表'], ['traps', '考點陷阱彙整'], ['errata', '勘誤清單'], ['exams', '考古題對照'], ['practice', '條文測驗'], ['export', '匯出選擇題 JSON']].forEach(function(x){
+    h += '<button class="d-link" data-act="go" data-href="' + x[0] + '"' + (x[0] === 'traps' ? ' data-goto-traps="1"' : '') + '>' + x[1] + '</button>';
+  });
+  return h + '</nav>';
+}
+
+/* ---------- 搜尋 ---------- */
+function searchAll(q){
+  q = q.trim().toLowerCase(); if (!q) return [];
+  var res = [];
+  function hit(s){ return String(s || '').toLowerCase().indexOf(q) >= 0; }
+  function snip(s){ s = plainText(s); var i = s.toLowerCase().indexOf(q); if (i < 0) return s.slice(0, 60); return (i > 20 ? '…' : '') + s.slice(Math.max(0, i - 20), i + q.length + 40) + '…'; }
+  ARTICLES.forEach(function(a){
+    var fields = [a.heading, a.plain].concat(a.paras.map(function(p){ return p.zh; }), a.paras.map(function(p){ return p.en; }), a.traps || [], [a.essay, a.roc]);
+    var f = fields.filter(hit)[0];
+    if (f !== undefined) res.push({ ty: '條文', t: artLabel(artId(a)) + '　' + a.heading, s: snip(f), href: 'art/' + artId(a) });
+  });
+  CASES.forEach(function(c){ var f = [c.nameZh, c.nameEn, c.facts, c.significance].concat(c.holding).filter(hit)[0]; if (f !== undefined) res.push({ ty: '判例', t: c.nameZh, s: snip(f), href: 'case/' + c.id }); });
+  CONCEPTS.forEach(function(c){ var f = [c.title, c.definition].concat(c.points).filter(hit)[0]; if (f !== undefined) res.push({ ty: '概念', t: c.title, s: snip(f), href: 'concept/' + c.id }); });
+  Object.keys(GLOSSARY).forEach(function(k){ var g = GLOSSARY[k]; var f = [k, g.en, g.tw, g.cn, g.def].filter(hit)[0]; if (f !== undefined) res.push({ ty: '用語', t: k, s: snip(f), term: k }); });
+  return res;
+}
+function renderSearch(){
+  var res = searchAll(state.searchQ);
+  var h = '<div class="overlay" id="search-panel"><div class="bar"><input id="search-input" placeholder="搜尋條文、判例、用語…" value="' + esc(state.searchQ) + '"><button class="icon-btn" data-act="close-search" aria-label="關閉">✕</button></div><div class="results">';
+  if (state.searchQ && !res.length) h += '<div class="muted">找不到「' + esc(state.searchQ) + '」。可改用較短的關鍵字，或英文詞。</div>';
+  res.forEach(function(r){ h += '<button class="sr search-result-item" data-act="' + (r.term ? 'term' : 'go') + '" ' + (r.term ? 'data-term="' + esc(r.term) + '"' : 'data-href="' + r.href + '"') + '><div class="ty sr-type">' + r.ty + '</div><div class="tt">' + esc(r.t) + '</div><div class="sn">' + esc(r.s) + '</div></button>'; });
+  return h + '</div></div>';
+}
+function renderPop(){
+  var g = GLOSSARY[state.pop];
+  if (!g) return '<div class="pop"><h3>' + esc(state.pop) + '</h3><div class="muted">用語表尚未收錄此詞。</div><button class="mark-btn" data-act="close-pop" style="margin-top:8px">關閉</button></div>';
+  return '<div class="pop" role="dialog"><h3>' + esc(state.pop) + '</h3><div class="r">英：' + esc(g.en) + '</div><div class="r">台：' + esc(g.tw) + '</div><div class="r">陸：' + esc(g.cn) + '</div><div class="prose" style="font-size:14.5px;margin-top:6px">' + parseInline(g.def) + '</div><button class="mark-btn" data-act="close-pop" style="margin-top:8px">關閉</button></div>';
+}
+
+/* ---------- 主渲染 ---------- */
+function render(){
+  var h = topbar(), r = state.route;
+  if (r === 'art') h += renderArticle(ART_BY_ID[state.id]);
+  else if (r === 'case') h += renderCase(CASE_BY_ID[state.id]);
+  else if (r === 'concept') h += renderConcept(CONCEPT_BY_ID[state.id]);
+  else if (r === 'cmp') h += renderCmp(CMP_BY_ID[state.id]);
+  else if (r === 'treaty') h += renderTreaty(TREATY_BY_ID[state.id]);
+  else if (r === 'glossary') h += renderGlossary();
+  else if (r === 'traps') h += renderTraps();
+  else if (r === 'errata') h += renderErrata();
+  else if (r === 'exams') h += renderExams();
+  else if (r === 'practice') h += renderPractice();
+  else if (r === 'export') h += renderExport();
+  else if (r === 'cases' || r === 'concepts' || r === 'cmps') h += renderList(r);
+  else h += renderHome();
+  document.getElementById('app').innerHTML = h;
+  var layer = '';
+  if (state.drawer) layer += renderDrawer();
+  if (state.search) layer += renderSearch();
+  if (state.pop) layer += renderPop();
+  document.getElementById('layer').innerHTML = layer;
+  if (state.search) { var si = document.getElementById('search-input'); if (si) { si.focus(); si.setSelectionRange(si.value.length, si.value.length); } }
+}
+
+/* ---------- 事件 ---------- */
+function moveArticle(step){
+  if (state.route !== 'art') return;
+  var a = ART_BY_ID[state.id], list = ARTS_OF[a.treaty], i = list.indexOf(a) + step;
+  if (i < 0 || i >= list.length) return;
+  state.revealed = false; state.route = 'art'; state.id = artId(list[i]);
+  try { history.replaceState(null, '', currentHash()); } catch (e) {}
+  render(); try { window.scrollTo(0, 0); } catch (e) {}
+}
+function bindEvents(){
+  document.addEventListener('click', function(ev){
+    var el = ev.target.closest('[data-act]'); if (!el) return;
+    var act = el.getAttribute('data-act');
+    if (act === 'go') { go(el.getAttribute('data-href')); }
+    else if (act === 'menu') { state.drawer = true; if (state.route === 'art') state.openAcc['t-' + ART_BY_ID[state.id].treaty] = true; render(); }
+    else if (act === 'close-drawer') { state.drawer = false; render(); }
+    else if (act === 'acc') { var k = el.getAttribute('data-acc'); state.openAcc[k] = !state.openAcc[k]; render(); }
+    else if (act === 'search') { state.search = true; render(); }
+    else if (act === 'close-search') { state.search = false; render(); }
+    else if (act === 'term') { state.pop = el.getAttribute('data-term'); state.search = false; render(); }
+    else if (act === 'close-pop') { state.pop = null; render(); }
+    else if (act === 'back') { try { history.back(); } catch (e) {} navDepth = Math.max(0, navDepth - 1); }
+    else if (act === 'tab') { state.tab = el.getAttribute('data-tab'); state.revealed = false; render(); }
+    else if (act === 'mode') { state.textMode = el.getAttribute('data-mode'); render(); }
+    else if (act === 'quiz') { state.quiz = !state.quiz; state.revealed = false; render(); }
+    else if (act === 'reveal') { state.revealed = true; render(); }
+    else if (act === 'cloze') { el.classList.toggle('shown'); }
+    else if (act === 'star' || act === 'read') { var key = el.getAttribute('data-key'); var store = progress[act]; store[key] = !store[key]; saveProgress(); render(); }
+    else if (act === 'prev') { moveArticle(-1); }
+    else if (act === 'next') { moveArticle(1); }
+    else if (act === 'jump') { doJump(); }
+    else if (act === 'exfilter') { state.examFilter = el.getAttribute('data-f'); render(); }
+    else if (act === 'errata') { state.errataFilter = el.getAttribute('data-f'); render(); }
+    else if (act === 'ptype') { state.practiceType = el.getAttribute('data-t'); state.practice = null; render(); }
+    else if (act === 'panswer') { if (state.practice && state.practice.chosen === null) { state.practice.chosen = parseInt(el.getAttribute('data-i'), 10); render(); } }
+    else if (act === 'pnext') { state.practice = null; render(); }
+    else if (act === 'export') { state.exportText = JSON.stringify(buildExport(), null, 2); render(); }
+    else if (act === 'copy') { var ta = document.getElementById('export-text'); if (ta) { ta.select(); try { navigator.clipboard.writeText(ta.value); } catch (e) { try { document.execCommand('copy'); } catch (e2) {} } el.textContent = '已複製'; } }
+  });
+  document.addEventListener('keydown', function(ev){
+    if (ev.target && ev.target.id === 'jump-input' && ev.key === 'Enter') doJump();
+    if (ev.key === 'Escape' && (state.drawer || state.search || state.pop)) { state.drawer = false; state.search = false; state.pop = null; render(); }
+  });
+  document.addEventListener('input', function(ev){
+    if (ev.target && ev.target.id === 'search-input') {
+      state.searchQ = ev.target.value;
+      var res = document.querySelector('#search-panel .results');
+      var tmp = document.createElement('div'); tmp.innerHTML = renderSearch();
+      var nr = tmp.querySelector('.results'); if (res && nr) res.innerHTML = nr.innerHTML;
+    }
+  });
+  var sx = 0, sy = 0;
+  document.addEventListener('touchstart', function(ev){ if (ev.touches && ev.touches[0]) { sx = ev.touches[0].clientX; sy = ev.touches[0].clientY; } }, { passive: true });
+  document.addEventListener('touchend', function(ev){
+    if (state.route !== 'art' || state.drawer || state.search || !ev.changedTouches || !ev.changedTouches[0]) return;
+    var dx = ev.changedTouches[0].clientX - sx, dy = ev.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 70 && Math.abs(dy) < 45) moveArticle(dx < 0 ? 1 : -1);
+  }, { passive: true });
+  window.addEventListener('popstate', function(){ navDepth = Math.max(0, navDepth - 1); applyRoute(); });
+}
+function doJump(){
+  var inp = document.getElementById('jump-input'); var r = parseJump(inp ? inp.value : '');
+  if (r.href) { go(r.href); if (r.msg) { state.jumpMsg = r.msg; render(); } }
+  else { state.jumpMsg = r.msg; render(); }
+}
+bindEvents();
+applyRoute();
+</script>
+</body>
+</html>
